@@ -31,8 +31,11 @@ button:focus-visible{outline:3px solid var(--wash);outline-offset:2px}
 .me{width:18px;height:18px;border-radius:50%;background:var(--red);border:3px solid var(--paper2);box-shadow:0 0 0 6px rgba(168,42,46,.18)}
 .bm{display:flex;flex-direction:column;align-items:center;gap:1px;transform:translate(-50%,-50%);width:max-content}
 .bm .dot{width:44px;height:44px;border-radius:50%;background:var(--paper2);border:2px solid var(--ink);display:grid;place-items:center;box-shadow:0 2px 6px rgba(37,51,44,.25)}
-.bm.uncommon .dot{border-color:var(--wash);border-width:3px}
-.bm.rare .dot{border-color:var(--purple);border-width:3px;box-shadow:0 0 0 4px rgba(107,63,160,.18)}
+/* rarity rings: common = green, uncommon = blue, rare = purple with a glow */
+.bm.common .dot{border:3px solid #4F8A3C;background:#EAF2E2}
+.bm.uncommon .dot{border:3px solid #2F6FB0;background:#E3EDF7;box-shadow:0 0 0 3px rgba(47,111,176,.22),0 2px 6px rgba(37,51,44,.25)}
+.bm.rare .dot{border:3.5px solid #6B3FA0;background:#EFE7F7;box-shadow:0 0 0 4px rgba(200,150,46,.55),0 0 14px 4px rgba(107,63,160,.45)}
+.bm.common .lbl{color:#3D6E2E} .bm.uncommon .lbl{color:#245A91} .bm.rare .lbl{color:#5A3388}
 .bm svg{width:30px;height:30px}
 .bm .lbl{font-family:var(--hand);font-size:17px;font-weight:700;line-height:1;background:rgba(238,241,230,.85);padding:0 4px;border-radius:2px;white-space:nowrap}
 .bm.far{opacity:.75}
@@ -87,7 +90,7 @@ button:focus-visible{outline:3px solid var(--wash);outline-offset:2px}
 .entry .meta{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:6px;font-size:11px}
 .entry .meta span{border:1.5px dashed var(--ink);padding:1px 6px;letter-spacing:.04em;text-transform:uppercase}
 .stamp{position:absolute;right:10px;top:-12px;transform:rotate(6deg);background:var(--paper2);border:2px solid var(--red);color:var(--red);font-weight:600;font-size:11px;letter-spacing:.1em;padding:2px 8px;text-transform:uppercase}
-.stamp.common{border-color:var(--moss);color:var(--moss)} .stamp.uncommon{border-color:var(--wash);color:var(--wash)} .stamp.rare{border-color:var(--purple);color:var(--purple)}
+.stamp.common{border-color:#4F8A3C;color:#4F8A3C} .stamp.uncommon{border-color:#2F6FB0;color:#2F6FB0} .stamp.rare{border-color:var(--purple);color:var(--purple)}
 .journal{max-height:100%}
 .jlist{display:flex;flex-direction:column}
 .jrow{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:10px;align-items:center;padding:8px 0;border-bottom:1px dashed var(--rule)}

@@ -66,11 +66,11 @@ function birdIcon(s) {
   });
 }
 function addSpawn(bird) {
-  // Keep birds at least ~40 m apart so their markers don't overlap.
+  // Keep birds at least ~55 m apart so their markers don't overlap.
   let at;
   for (let i = 0; i < 12; i++) {
     at = offset(me, 35 + Math.random() * 140, Math.random() * 360);
-    if (spawns.every(o => distM(o.at, at) > 40)) break;
+    if (spawns.every(o => distM(o.at, at) > 55)) break;
   }
   const s = { bird, at, born: Date.now() };
   s.marker = L.marker(at, { icon: birdIcon(s), keyboard: true, title: bird.name }).addTo(map).on("click", () => tapBird(s));
