@@ -1,0 +1,720 @@
+{
+ "note": "Species info for info pages. Sizes are typical ranges; weights are fun comparisons. Edit freely.",
+ "info": {
+  "black-capped-chickadee": {
+   "ebird": "bkcchi",
+   "length": "5–6 in",
+   "wingspan": "6–8 in",
+   "weight": "about 2 quarters",
+   "diet": "Insects, seeds, berries",
+   "nest": "Hole it digs in soft, rotting wood",
+   "voice": "\"chick-a-dee-dee-dee\" and a sweet \"fee-bee\"",
+   "facts": [
+    "The more \"dee\"s in its call, the bigger the danger nearby.",
+    "Part of its brain grows each fall to help it remember where it hid food."
+   ]
+  },
+  "blue-jay": {
+   "ebird": "blujay",
+   "length": "10–12 in",
+   "wingspan": "13–17 in",
+   "weight": "about 3 slices of bread",
+   "diet": "Acorns, nuts, seeds, insects",
+   "nest": "Twig cup in a tree",
+   "voice": "Loud \"jay! jay!\" and gurgles",
+   "facts": [
+    "Carries up to 5 acorns at once in its throat and beak.",
+    "Helped oak forests spread north after the Ice Age by burying acorns."
+   ]
+  },
+  "american-crow": {
+   "ebird": "amecro",
+   "length": "16–21 in",
+   "wingspan": "33–39 in",
+   "weight": "about a can of soda",
+   "diet": "Almost anything: insects, grain, eggs, scraps",
+   "nest": "Big stick nest high in a tree",
+   "voice": "\"caw caw\"",
+   "facts": [
+    "Young crows often stay with their parents for years and help raise siblings.",
+    "Gathers by the thousands in winter roosts."
+   ]
+  },
+  "northern-cardinal": {
+   "ebird": "norcar",
+   "length": "8–9 in",
+   "wingspan": "10–12 in",
+   "weight": "about 9 quarters",
+   "diet": "Seeds, fruit, insects",
+   "nest": "Cup of twigs in a dense shrub",
+   "voice": "Clear \"cheer-cheer-cheer\" and \"birdie-birdie\"",
+   "facts": [
+    "Females sing too, often from the nest.",
+    "Males fight their own reflection in windows in spring."
+   ]
+  },
+  "tufted-titmouse": {
+   "ebird": "tuftit",
+   "length": "6 in",
+   "wingspan": "8–10 in",
+   "weight": "about 4 quarters",
+   "diet": "Insects, seeds, nuts",
+   "nest": "Tree hole or nest box",
+   "voice": "Whistled \"peter-peter-peter\"",
+   "facts": [
+    "Hoards seeds one at a time, usually within 130 feet of a feeder.",
+    "A pointed gray crest it raises when excited."
+   ]
+  },
+  "white-breasted-nuthatch": {
+   "ebird": "whbnut",
+   "length": "5–6 in",
+   "wingspan": "8–11 in",
+   "weight": "about 4 quarters",
+   "diet": "Insects, nuts, seeds",
+   "nest": "Old tree hole",
+   "voice": "Nasal \"yank-yank\"",
+   "facts": [
+    "Wedges nuts into bark and hacks them open, which is how it got its name.",
+    "Pairs stay together all year."
+   ]
+  },
+  "red-breasted-nuthatch": {
+   "ebird": "rebnut",
+   "length": "4–5 in",
+   "wingspan": "7–8 in",
+   "weight": "about 2 quarters",
+   "diet": "Insects, conifer seeds",
+   "nest": "Hole it digs in a dead tree",
+   "voice": "Tinny \"ank-ank\" like a toy horn",
+   "facts": [
+    "Some winters it flies far south when pinecone crops fail.",
+    "Steals pitch from other birds' trees to coat its own door."
+   ]
+  },
+  "downy-woodpecker": {
+   "ebird": "dowwoo",
+   "length": "6–7 in",
+   "wingspan": "10–12 in",
+   "weight": "about 5 quarters",
+   "diet": "Insects, larvae, seeds, suet",
+   "nest": "Hole it drills in a dead branch",
+   "voice": "Short \"pik\" and a falling whinny",
+   "facts": [
+    "Males feed more on small branches, females on bigger ones.",
+    "Drums on trees in spring to say \"this is my spot\"."
+   ]
+  },
+  "hairy-woodpecker": {
+   "ebird": "haiwoo",
+   "length": "7–10 in",
+   "wingspan": "13–16 in",
+   "weight": "about 13 quarters",
+   "diet": "Beetle larvae, ants, seeds",
+   "nest": "Hole it drills in a live or dead tree",
+   "voice": "Sharp \"peek!\"",
+   "facts": [
+    "Its sharp \"peek!\" is louder and higher than a Downy's.",
+    "Its tongue wraps around inside its skull."
+   ]
+  },
+  "pileated-woodpecker": {
+   "ebird": "pilwoo",
+   "length": "16–19 in",
+   "wingspan": "26–30 in",
+   "weight": "about a can of soda",
+   "diet": "Carpenter ants, beetle larvae, berries",
+   "nest": "Big hole in a dead tree",
+   "voice": "Wild, ringing \"wuk-wuk-wuk\"",
+   "facts": [
+    "Its old holes become homes for ducks, owls and bats.",
+    "Rips off big strips of bark looking for ants."
+   ]
+  },
+  "american-goldfinch": {
+   "ebird": "amegfi",
+   "length": "4–5 in",
+   "wingspan": "7–9 in",
+   "weight": "about 2 quarters",
+   "diet": "Seeds (thistle, sunflower, dandelion)",
+   "nest": "Tight cup woven so well it can hold water",
+   "voice": "Bouncy \"po-ta-to-chip\" in flight",
+   "facts": [
+    "One of the few birds that eats almost only seeds.",
+    "Nests late in summer, when thistle down is ready for lining."
+   ]
+  },
+  "mourning-dove": {
+   "ebird": "moudov",
+   "length": "9–13 in",
+   "wingspan": "18 in",
+   "weight": "about 23 quarters",
+   "diet": "Seeds",
+   "nest": "Flimsy platform of twigs",
+   "voice": "Soft, sad \"coo-OO-oo-oo-oo\"",
+   "facts": [
+    "One was found with over 17,000 tiny seeds stored in its throat.",
+    "Parents feed their chicks \"crop milk\" they make themselves."
+   ]
+  },
+  "european-starling": {
+   "ebird": "eursta",
+   "length": "8 in",
+   "wingspan": "12–16 in",
+   "weight": "about 15 quarters",
+   "diet": "Insects, berries, scraps",
+   "nest": "Tree hole or building gap",
+   "voice": "Whistles, clicks and copied sounds",
+   "facts": [
+    "Copies car alarms, phones and other birds.",
+    "Huge flocks swirl together in shapes called murmurations."
+   ]
+  },
+  "rock-pigeon": {
+   "ebird": "rocpig",
+   "length": "12–14 in",
+   "wingspan": "20–26 in",
+   "weight": "about a can of soda",
+   "diet": "Seeds, grain, scraps",
+   "nest": "Ledges on buildings and bridges",
+   "voice": "Soft \"coo-cooo\"",
+   "facts": [
+    "People have kept pigeons for over 5,000 years.",
+    "Carried messages in both World Wars."
+   ]
+  },
+  "dark-eyed-junco": {
+   "ebird": "daejun",
+   "length": "5–6 in",
+   "wingspan": "7–10 in",
+   "weight": "about 3 quarters",
+   "diet": "Seeds, insects",
+   "nest": "Cup on the ground, under a log or bank",
+   "voice": "Trilling \"tititititi\" and a sharp \"tik\"",
+   "facts": [
+    "Flashes white tail feathers when it flies off.",
+    "One of the most common birds in North America."
+   ]
+  },
+  "american-robin": {
+   "ebird": "amerob",
+   "length": "8–11 in",
+   "wingspan": "12–16 in",
+   "weight": "about 14 quarters",
+   "diet": "Earthworms, insects, berries",
+   "nest": "Mud cup lined with grass",
+   "voice": "Cheery \"cheerily, cheer-up, cheerio\"",
+   "facts": [
+    "Eats more fruit in fall and winter, worms in spring and summer.",
+    "Can raise three families in one summer."
+   ]
+  },
+  "song-sparrow": {
+   "ebird": "sonspa",
+   "length": "5–7 in",
+   "wingspan": "7–9 in",
+   "weight": "about 4 quarters",
+   "diet": "Insects, seeds",
+   "nest": "Cup on or near the ground",
+   "voice": "Chatty song that starts \"maids-maids-maids\"",
+   "facts": [
+    "Young males learn their songs from neighbors.",
+    "Pumps its tail up and down as it flies."
+   ]
+  },
+  "cedar-waxwing": {
+   "ebird": "cedwax",
+   "length": "6–7 in",
+   "wingspan": "9–12 in",
+   "weight": "about 6 quarters",
+   "diet": "Berries, fruit, insects",
+   "nest": "Loose cup in a tree fork",
+   "voice": "Thin, high \"sreee\"",
+   "facts": [
+    "Waxy red tips on its wings give it its name.",
+    "Flock-mates pass berries beak to beak down a branch."
+   ]
+  },
+  "bald-eagle": {
+   "ebird": "baleag",
+   "length": "28–38 in",
+   "wingspan": "6–7 ft",
+   "weight": "about a gallon of milk",
+   "diet": "Fish, ducks, roadkill",
+   "nest": "Huge stick nest that can weigh a ton",
+   "voice": "High, weak whistles and chirps",
+   "facts": [
+    "Nests can be 10 feet wide and are reused for decades.",
+    "Takes 5 years to get its white head."
+   ]
+  },
+  "red-tailed-hawk": {
+   "ebird": "rethaw",
+   "length": "18–26 in",
+   "wingspan": "4 ft",
+   "weight": "about 2 cans of soda",
+   "diet": "Mice, voles, rabbits, squirrels",
+   "nest": "Stick nest high in a tree",
+   "voice": "Raspy \"kee-eeeee-arr\" scream",
+   "facts": [
+    "Often perches on highway light poles watching for mice.",
+    "Its rusty-red tail gives it away."
+   ]
+  },
+  "osprey": {
+   "ebird": "osprey",
+   "length": "21–23 in",
+   "wingspan": "5–6 ft",
+   "weight": "about 3 cans of soda",
+   "diet": "Fish, almost only",
+   "nest": "Big stick nest on poles, towers and treetops",
+   "voice": "Whistled \"cheep-cheep-cheep\"",
+   "facts": [
+    "Can close its nostrils when it dives.",
+    "Turns a fish head-first while flying to cut wind drag."
+   ]
+  },
+  "great-horned-owl": {
+   "ebird": "grhowl",
+   "length": "18–25 in",
+   "wingspan": "3–5 ft",
+   "weight": "about 3 cans of soda",
+   "diet": "Rabbits, skunks, rodents, birds",
+   "nest": "Old hawk or crow nest",
+   "voice": "Deep \"hoo-h'HOO-hoo-hoo\"",
+   "facts": [
+    "One of the few animals that eats skunks.",
+    "Its grip is strong enough to crush prey."
+   ]
+  },
+  "barred-owl": {
+   "ebird": "brdowl",
+   "length": "17–20 in",
+   "wingspan": "3–4 ft",
+   "weight": "about 2 cans of soda",
+   "diet": "Mice, squirrels, frogs, crayfish",
+   "nest": "Tree hole",
+   "voice": "\"Who cooks for you? Who cooks for you-all?\"",
+   "facts": [
+    "Has dark brown eyes, unlike most owls.",
+    "Pairs \"duet\" with wild hoots and cackles."
+   ]
+  },
+  "snowy-owl": {
+   "ebird": "snoowl1",
+   "length": "20–28 in",
+   "wingspan": "4–5 ft",
+   "weight": "about 4 cans of soda",
+   "diet": "Lemmings, voles, rabbits, seabirds",
+   "nest": "Scrape on the Arctic tundra",
+   "voice": "Mostly silent in winter",
+   "facts": [
+    "Males get whiter as they age.",
+    "One owl can eat over 1,600 lemmings a year."
+   ]
+  },
+  "red-winged-blackbird": {
+   "ebird": "rewbla",
+   "length": "7–9 in",
+   "wingspan": "12–16 in",
+   "weight": "about 12 quarters",
+   "diet": "Insects, seeds",
+   "nest": "Cup tied to cattails or reeds",
+   "voice": "Gurgling \"conk-la-reee!\"",
+   "facts": [
+    "One of the first birds back each spring.",
+    "A male may have several mates in his patch of cattails."
+   ]
+  },
+  "common-yellowthroat": {
+   "ebird": "comyel",
+   "length": "4–5 in",
+   "wingspan": "6–8 in",
+   "weight": "about 2 quarters",
+   "diet": "Insects, spiders",
+   "nest": "Bulky cup low in grass or shrubs",
+   "voice": "\"witchety-witchety-witchety\"",
+   "facts": [
+    "Hides in thick, wet tangles; listen for it first.",
+    "Females don't have the black mask."
+   ]
+  },
+  "yellow-warbler": {
+   "ebird": "yelwar",
+   "length": "4–5 in",
+   "wingspan": "6–8 in",
+   "weight": "about 2 quarters",
+   "diet": "Caterpillars, insects",
+   "nest": "Neat cup in a shrub fork",
+   "voice": "Sweet \"sweet-sweet-sweet, I'm so sweet\"",
+   "facts": [
+    "Males have red streaks on their yellow chest.",
+    "Spends winter in Central and South America."
+   ]
+  },
+  "black-throated-green-warbler": {
+   "ebird": "btnwar",
+   "length": "4–5 in",
+   "wingspan": "7–8 in",
+   "weight": "about 2 quarters",
+   "diet": "Caterpillars, insects",
+   "nest": "Cup high in a conifer",
+   "voice": "Buzzy \"zee-zee-zoo-zee\"",
+   "facts": [
+    "Sings hundreds of times an hour in early summer.",
+    "Flies to Mexico and Central America for winter."
+   ]
+  },
+  "red-eyed-vireo": {
+   "ebird": "reevir1",
+   "length": "5–6 in",
+   "wingspan": "9–10 in",
+   "weight": "about 3 quarters",
+   "diet": "Caterpillars, insects, berries",
+   "nest": "Hanging cup in a branch fork",
+   "voice": "\"Here I am. Where are you?\" over and over",
+   "facts": [
+    "Its red eyes are brown when it's young.",
+    "One of the most common forest birds in the East."
+   ]
+  },
+  "gray-catbird": {
+   "ebird": "grycat",
+   "length": "8–9 in",
+   "wingspan": "9–12 in",
+   "weight": "about 7 quarters",
+   "diet": "Insects, berries",
+   "nest": "Bulky cup in thick shrubs",
+   "voice": "Mewing \"mew\" and long jumbled songs",
+   "facts": [
+    "Its songs can last 10 minutes without repeating.",
+    "Hides a rusty patch under its tail."
+   ]
+  },
+  "ruby-throated-hummingbird": {
+   "ebird": "rthhum",
+   "length": "3 in",
+   "wingspan": "3–4 in",
+   "weight": "less than a nickel",
+   "diet": "Flower nectar, tiny insects",
+   "nest": "Thimble-sized cup glued with spider silk",
+   "voice": "High squeaks and wing hum",
+   "facts": [
+    "Beats its wings about 50 times a second.",
+    "Can fly backwards."
+   ]
+  },
+  "tree-swallow": {
+   "ebird": "treswa",
+   "length": "5–6 in",
+   "wingspan": "12–14 in",
+   "weight": "about 4 quarters",
+   "diet": "Flying insects, berries",
+   "nest": "Tree hole or nest box lined with feathers",
+   "voice": "Liquid chirps and gurgles",
+   "facts": [
+    "Eats bayberries in cold snaps, unlike most swallows.",
+    "Gathers in flocks of thousands before migrating."
+   ]
+  },
+  "great-blue-heron": {
+   "ebird": "grbher3",
+   "length": "3–4.5 ft",
+   "wingspan": "5.5–6.5 ft",
+   "weight": "about 2 cans of soda",
+   "diet": "Fish, frogs, crabs, mice",
+   "nest": "Stick nest in colonies high in trees",
+   "voice": "Deep, harsh \"frahnk\"",
+   "facts": [
+    "Weighs only 5 to 6 pounds thanks to hollow bones.",
+    "Special neck bones let it strike like a spring."
+   ]
+  },
+  "double-crested-cormorant": {
+   "ebird": "doccor",
+   "length": "28–35 in",
+   "wingspan": "4 ft",
+   "weight": "about 4 cans of soda",
+   "diet": "Fish",
+   "nest": "Stick nest in colonies on islands",
+   "voice": "Grunts, mostly at the nest",
+   "facts": [
+    "Can dive about 25 feet to chase fish.",
+    "The \"double crest\" is two tufts that only show in spring."
+   ]
+  },
+  "eastern-phoebe": {
+   "ebird": "easpho",
+   "length": "5–7 in",
+   "wingspan": "10–11 in",
+   "weight": "about 3 quarters",
+   "diet": "Flying insects, berries",
+   "nest": "Mud and moss cup under porches and bridges",
+   "voice": "Raspy \"fee-bee!\"",
+   "facts": [
+    "Wags its tail constantly.",
+    "First bird ever banded in North America, by Audubon in 1804."
+   ]
+  },
+  "bobolink": {
+   "ebird": "boboli",
+   "length": "6–8 in",
+   "wingspan": "10–11 in",
+   "weight": "about 7 quarters",
+   "diet": "Insects, seeds, rice",
+   "nest": "Cup on the ground in hayfields",
+   "voice": "Bubbly, tinkly song like R2-D2",
+   "facts": [
+    "Males look like they're wearing a tuxedo on backwards.",
+    "Navigates partly by Earth's magnetic field."
+   ]
+  },
+  "american-woodcock": {
+   "ebird": "amewoo",
+   "length": "10–12 in",
+   "wingspan": "16–20 in",
+   "weight": "about 7 quarters",
+   "diet": "Earthworms",
+   "nest": "Scrape on the forest floor",
+   "voice": "Nasal \"peent\" at dusk",
+   "facts": [
+    "Its eyes sit so far back it can see behind itself.",
+    "Bobs its body to make worms move underground."
+   ]
+  },
+  "killdeer": {
+   "ebird": "killde",
+   "length": "8–11 in",
+   "wingspan": "18–19 in",
+   "weight": "about 4 quarters",
+   "diet": "Insects, worms, snails",
+   "nest": "Scrape on gravel, even rooftops",
+   "voice": "Shrill \"kill-deer! kill-deer!\"",
+   "facts": [
+    "Chicks run around within hours of hatching.",
+    "Nests on parking lots and gravel roofs."
+   ]
+  },
+  "baltimore-oriole": {
+   "ebird": "balori",
+   "length": "7–8 in",
+   "wingspan": "9–12 in",
+   "weight": "about 7 quarters",
+   "diet": "Caterpillars, fruit, nectar",
+   "nest": "Hanging woven sock",
+   "voice": "Rich, whistled notes",
+   "facts": [
+    "Loves orange halves and grape jelly at feeders.",
+    "Named for Lord Baltimore, whose colors were orange and black."
+   ]
+  },
+  "scarlet-tanager": {
+   "ebird": "scatan",
+   "length": "6–7 in",
+   "wingspan": "10–12 in",
+   "weight": "about 5 quarters",
+   "diet": "Insects, berries",
+   "nest": "Shallow cup high in an oak",
+   "voice": "Hoarse, robin-like song; \"chick-burr\" call",
+   "facts": [
+    "Males turn yellow-green after summer.",
+    "Winters in South America."
+   ]
+  },
+  "herring-gull": {
+   "ebird": "hergul",
+   "length": "22–26 in",
+   "wingspan": "4–5 ft",
+   "weight": "about 3 cans of soda",
+   "diet": "Fish, crabs, clams, garbage",
+   "nest": "Scrape on islands and rooftops",
+   "voice": "Loud \"kyow-kyow-kyow\" laughing calls",
+   "facts": [
+    "Chicks peck the red spot on a parent's bill to ask for food.",
+    "Takes 4 years to get adult gray-and-white plumage."
+   ]
+  },
+  "great-black-backed-gull": {
+   "ebird": "gbbgul",
+   "length": "28–31 in",
+   "wingspan": "5–5.5 ft",
+   "weight": "about 5 cans of soda",
+   "diet": "Fish, crabs, other seabirds, eggs",
+   "nest": "Scrape on rocky islands",
+   "voice": "Deep \"kowk-kowk\"",
+   "facts": [
+    "Bosses other gulls around at the beach.",
+    "Can swallow a whole duckling."
+   ]
+  },
+  "common-eider": {
+   "ebird": "comeid",
+   "length": "20–28 in",
+   "wingspan": "3–3.5 ft",
+   "weight": "about 6 cans of soda",
+   "diet": "Mussels, crabs, sea urchins",
+   "nest": "Down-lined bowl on islands",
+   "voice": "Soft, cooing \"ah-OO-ooo\"",
+   "facts": [
+    "Swallows mussels whole and crushes the shells in its gizzard.",
+    "Mothers share babysitting in groups called crèches."
+   ]
+  },
+  "mallard": {
+   "ebird": "mallar3",
+   "length": "20–26 in",
+   "wingspan": "32–37 in",
+   "weight": "about 3 cans of soda",
+   "diet": "Plants, seeds, snails, insects",
+   "nest": "Grass bowl on the ground near water",
+   "voice": "Female: loud \"quack\"; male: soft \"rhab\"",
+   "facts": [
+    "Only female Mallards make the classic quack.",
+    "Ducklings can swim right after hatching."
+   ]
+  },
+  "american-black-duck": {
+   "ebird": "ambduc",
+   "length": "19–23 in",
+   "wingspan": "35–37 in",
+   "weight": "about 3 cans of soda",
+   "diet": "Snails, mussels, plants",
+   "nest": "Ground nest hidden in grass",
+   "voice": "Mallard-like \"quack\"",
+   "facts": [
+    "Flashes purple-blue wing patches in flight.",
+    "Very wary; flushes at the first sign of people."
+   ]
+  },
+  "common-loon": {
+   "ebird": "comloo",
+   "length": "26–36 in",
+   "wingspan": "3.5–5 ft",
+   "weight": "about 7 cans of soda",
+   "diet": "Fish, crayfish",
+   "nest": "Mound at the water's edge",
+   "voice": "Wails, yodels and tremolos",
+   "facts": [
+    "Its solid bones help it dive up to 200 feet.",
+    "Can barely walk on land, so nests right at the water."
+   ]
+  },
+  "snow-bunting": {
+   "ebird": "snobun",
+   "length": "6–7 in",
+   "wingspan": "12–14 in",
+   "weight": "about 4 quarters",
+   "diet": "Seeds, insects",
+   "nest": "Crack in Arctic rocks",
+   "voice": "Twittering \"chirr\" in flight",
+   "facts": [
+    "Males wear down their brown feather tips to turn white in spring.",
+    "Nests farther north than almost any songbird."
+   ]
+  },
+  "bufflehead": {
+   "ebird": "buffle",
+   "length": "13–16 in",
+   "wingspan": "21 in",
+   "weight": "about 2 cans of soda",
+   "diet": "Snails, insects, small shellfish",
+   "nest": "Old woodpecker hole",
+   "voice": "Mostly quiet; low growls",
+   "facts": [
+    "Name means \"buffalo-head\" for its puffy head.",
+    "One of the smallest diving ducks."
+   ]
+  },
+  "long-tailed-duck": {
+   "ebird": "lotduc",
+   "length": "15–23 in",
+   "wingspan": "28 in",
+   "weight": "about 2 cans of soda",
+   "diet": "Clams, crabs, small fish",
+   "nest": "Ground nest in the Arctic",
+   "voice": "Yodeling \"ow-owdle-ow\"",
+   "facts": [
+    "Has different summer and winter outfits, changing feathers often.",
+    "Flies with fast, swinging wingbeats low over the sea."
+   ]
+  },
+  "common-goldeneye": {
+   "ebird": "comgol",
+   "length": "16–20 in",
+   "wingspan": "30 in",
+   "weight": "about 3 cans of soda",
+   "diet": "Crabs, insects, mussels",
+   "nest": "Tree hole near water",
+   "voice": "Peent-like calls; wings whistle",
+   "facts": [
+    "Ducklings jump from tree holes 40 feet up on day one.",
+    "Males throw their heads back in courtship."
+   ]
+  },
+  "purple-sandpiper": {
+   "ebird": "pursan",
+   "length": "8–9 in",
+   "wingspan": "17 in",
+   "weight": "about 6 quarters",
+   "diet": "Snails, mussels, barnacles",
+   "nest": "Scrape on Arctic tundra",
+   "voice": "Low \"weet\"",
+   "facts": [
+    "Has a faint purple sheen you can only see up close.",
+    "Winters farther north than any other shorebird on the East Coast."
+   ]
+  },
+  "pine-siskin": {
+   "ebird": "pinsis",
+   "length": "4–5 in",
+   "wingspan": "7–9 in",
+   "weight": "about 2 quarters",
+   "diet": "Conifer seeds, thistle",
+   "nest": "Cup high in a conifer",
+   "voice": "Rising, buzzy \"zreeeee\"",
+   "facts": [
+    "Can store extra seeds in its throat to survive cold nights.",
+    "Yellow flashes hide in its wings and tail."
+   ]
+  },
+  "evening-grosbeak": {
+   "ebird": "evegro",
+   "length": "6–7 in",
+   "wingspan": "12–14 in",
+   "weight": "about 9 quarters",
+   "diet": "Big seeds, buds, berries",
+   "nest": "Loose cup high in a conifer",
+   "voice": "Loud \"peeer\" calls",
+   "facts": [
+    "Its huge bill cracks cherry pits.",
+    "Was once a winter feeder regular in Maine; now much rarer."
+   ]
+  },
+  "semipalmated-sandpiper": {
+   "ebird": "semsan",
+   "length": "5–6 in",
+   "wingspan": "14 in",
+   "weight": "about 2 quarters",
+   "diet": "Tiny mud critters",
+   "nest": "Scrape on Arctic tundra",
+   "voice": "Short \"cherk\"",
+   "facts": [
+    "\"Semipalmated\" means its toes are half-webbed.",
+    "Doubles its weight in about two weeks before flying south."
+   ]
+  },
+  "black-bellied-plover": {
+   "ebird": "bkbplo",
+   "length": "10–12 in",
+   "wingspan": "28–31 in",
+   "weight": "about 9 quarters",
+   "diet": "Worms, clams, insects",
+   "nest": "Scrape on Arctic tundra",
+   "voice": "Sad, whistled \"pee-oo-ee\"",
+   "facts": [
+    "Its black belly only shows in spring and summer.",
+    "Hunts by run, stop, peck."
+   ]
+  }
+ }
+}
