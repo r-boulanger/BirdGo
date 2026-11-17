@@ -164,22 +164,58 @@ function startDemo() {
   moveTo(BRUNSWICK, true).then(() => toast("Demo mode: tap the map to walk around Brunswick.", 4500));
 }
 $("#demo").onclick = startDemo;
-$("#go").onclick = () => {
-  if (!("geolocation" in navigator)) { $("#startErr").textContent = "This browser can't share location. Try demo mode."; $("#startErr").hidden = false; return; }
-  $("#go").textContent = "Finding you…";
-  let first = true;
-  watchId = navigator.geolocation.watchPosition(
-    p => { if (first) { $("#start").hidden = true; } moveTo([p.coords.latitude, p.coords.longitude], first); first = false; },
-    err => {
-      $("#go").textContent = "Start birding";
-      $("#startErr").hidden = false;
-      $("#startErr").textContent = err.code === 1
-        ? "Location is blocked. Allow location for this site in your browser settings, or try demo mode."
-        : "Couldn't find your location. Step outside or try demo mode.";
-    },
-    { enableHighAccuracy: true, maximumAge: 5000, timeout: 20000 }
-  );
+function showStartError(msg) {
+  $("#go").textContent = "Try again"; $("#go").disabled = false;
+  $("#startErr").innerHTML = msg; $("#startErr").hidden = false;
+}
+const IN_APP = /FBAN|FBAV|Instagram|Line\/|GSA\/|Snapchat|Twitter|LinkedInApp|; wv\)|Claude/i.test(navigator.userAgent)
+  || (/iPhone|iPad/.test(navigator.userAgent) && !/Safari\//.test(navigator.userAgent));
+const IOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
+const HOW_TO_ALLOW = IOS
+  ? "On iPhone: open <b>Settings → Privacy &amp; Security → Location Services</b>, make sure it's on, then tap <b>Safari Websites</b> and choose <b>While Using the App</b>. Then reload this page."
+  : "In your browser, tap the icon left of the address bar, then <b>Permissions → Location → Allow</b>. Also check your phone's location is turned on. Then reload this page.";
+
+function startTracking() {
+  let first = true, watchdog;
+  const onPos = p => {
+    clearTimeout(watchdog);
+    if (first) { $("#start").hidden = true; first = false; moveTo([p.coords.latitude, p.coords.longitude], true); }
+    else moveTo([p.coords.latitude, p.coords.longitude]);
+  };
+  const onErr = err => {
+    clearTimeout(watchdog);
+    if (!first) return;  // already playing; ignore a hiccup
+    if (err.code === 1) showStartError("Location is blocked for this site, so your browser didn't ask. " + HOW_TO_ALLOW + " Or try demo mode.");
+    else if (err.code === 3) showStartError("Couldn't get a GPS fix in time. Step outside or near a window and tap Try again, or try demo mode.");
+    else showStartError("Your phone couldn't find your location. Check that location is turned on, then tap Try again. " + HOW_TO_ALLOW);
+  };
+  // If neither answer nor prompt shows up, explain instead of waiting forever.
+  watchdog = setTimeout(() => {
+    if (!first) return;
+    showStartError(IN_APP
+      ? "It looks like BirdGo is open inside another app, which can't ask for location. Open <b>r-boulanger.github.io/BirdGo</b> in Safari or Chrome instead."
+      : "No location yet. If you didn't see a prompt, location may be turned off for your browser. " + HOW_TO_ALLOW);
+  }, 12000);
+  navigator.geolocation.getCurrentPosition(onPos, onErr, { enableHighAccuracy: true, maximumAge: 30000, timeout: 15000 });
+  if (watchId != null) navigator.geolocation.clearWatch(watchId);
+  watchId = navigator.geolocation.watchPosition(onPos, () => {}, { enableHighAccuracy: true, maximumAge: 5000 });
+}
+
+$("#go").onclick = async () => {
+  $("#startErr").hidden = true;
+  if (!window.isSecureContext) { showStartError("Location only works on the secure address. Open <b>https://r-boulanger.github.io/BirdGo/</b>."); return; }
+  if (!("geolocation" in navigator)) { showStartError("This browser can't share location. Try demo mode."); return; }
+  $("#go").textContent = "Finding you…"; $("#go").disabled = true;
+  try {
+    const perm = await navigator.permissions?.query({ name: "geolocation" });
+    if (perm && perm.state === "denied") { showStartError("Location is blocked for this site, so your browser won't ask again. " + HOW_TO_ALLOW + " Or try demo mode."); return; }
+  } catch { /* some browsers can't report this; just ask */ }
+  startTracking();
 };
+if (IN_APP) {
+  $("#startErr").innerHTML = "Tip: for location to work, open BirdGo in Safari or Chrome rather than inside another app.";
+  $("#startErr").hidden = false;
+}
 
 (async function boot() {
   const res = await fetch("data/birds-brunswick-me.json");
