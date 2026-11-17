@@ -187,7 +187,7 @@ function flushed(msg){
 }
 
 /* ---------- Seed Toss ---------- */
-const TOSS={common:{base:.72,hop:[1.1,2.0],flee:.05},uncommon:{base:.5,hop:[.75,1.5],flee:.15},rare:{base:.3,hop:[.5,1.05],flee:.3}};
+const TOSS={common:{base:.72,hop:[1.1,2.0],flee:.05,pouches:10},uncommon:{base:.5,hop:[.75,1.5],flee:.15,pouches:6},rare:{base:.3,hop:[.5,1.05],flee:.3,pouches:3}};
 function startToss(){
   const D=TOSS[bird.rarity];
   $("#stage").innerHTML=`<p class="how">Swipe the seed pouch <b>up toward the bird</b>. Throw when the ink ring is small for better odds.</p>
@@ -229,7 +229,7 @@ function startToss(){
    <button class="ghost" type="button" id="mainBtn">Restart</button>`;
   $("#mainBtn").onclick=start;
   const scene=$("#toss"),pouch=$("#pouch"),tb=$("#tb"),ring=$("#ring"),status=$("#status"),q=$("#quality");
-  let left=10,phase="ready",ringT=0,ringR=1,hopT=rand(...D.hop),samples=[],grabbed=false;
+  let left=D.pouches,phase="ready",ringT=0,ringR=1,hopT=rand(...D.hop),samples=[],grabbed=false;
   const showLeft=()=>{$("#left").innerHTML=Array.from({length:left},()=>`<svg viewBox="0 0 64 64"><use href="#pouchArt" width="64" height="64"/></svg>`).join("")||"none";};showLeft();
   const rect=()=>scene.getBoundingClientRect();
   const setP=(x,y,sc=1,rot=0)=>{pouch.style.left=x+"px";pouch.style.top=y+"px";pouch.style.transform=`translate(-50%,-50%) scale(${sc}) rotate(${rot}deg)`};
