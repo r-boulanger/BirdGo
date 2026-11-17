@@ -58,6 +58,12 @@ Look **B, Field Guide Card** (chosen by RBZ from three options). Tap a bird you'
 
 The photo and Wikipedia intro load live from Wikipedia / Wikimedia Commons in the player's browser and show the photographer and license. Species details live in `data/bird-info.json` (hand-written, edit freely).
 
+## Growing up (built 2026-11-17)
+
+Each species in your journal grows **infant → adolescent → adult**. A new species starts as an infant. Growth points: feeding 1 seed pouch from your bag = +2 (Feed button on the bird's info page), catching that species again = +4. Infant needs 10 to become an adolescent, adolescent needs 25 to become an adult. Numbers live in `src/stages.js`.
+
+Placeholder art per stage is drawn from each bird's colors (`src/stages.js`, preview `docs/design/stages-preview.html`): infant = round fluffy chick, adolescent = smaller and duller with scruffy fuzz, adult = full colors. RBZ's hand-drawn art can replace each stage later. Wild birds on the map are always adults. Later: feeding moves into the tree house habitat, and stages feed into bird XP and pouch skins.
+
 ## Notebook ideas (from RBZ, 2026-11-17)
 
 RBZ's notebook page of ideas, in the order we plan to build them. Each one feeds the next.

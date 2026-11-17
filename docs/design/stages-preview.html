@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Growing Up Preview</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Libre+Franklin:wght@400;500;600&display=swap">
+<style>
+body{margin:0;background:#E4E8D9;color:#25332C;font-family:"Libre Franklin",system-ui,sans-serif;padding:24px}
+h1{font-family:Caveat,cursive;font-size:44px;margin:0 0 4px}
+.row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;max-width:560px;margin:14px 0}
+.cell{background:#EEF1E6;border:1.5px solid #25332C;padding:8px;text-align:center}
+.cell svg{width:110px;height:110px}
+.cell b{display:block;font-family:Caveat,cursive;font-size:24px}
+.name{font-family:Caveat,cursive;font-size:26px;font-weight:700;margin-top:18px}
+</style>
+</head>
+<body>
+<h1>Growing up</h1>
+<div id="out"></div>
+<script type="module">
+import { stageSVG, STAGES, STAGE_LABEL } from "../../src/stages.js";
+const res = await fetch("../../data/birds-brunswick-me.json");
+const birds = (await res.json()).birds;
+const ids = new URLSearchParams(location.search).get("ids")?.split(",") || ["black-capped-chickadee", "northern-cardinal", "blue-jay"];
+document.getElementById("out").innerHTML = ids.map(id => {
+  const b = birds.find(x => x.id === id);
+  return `<div class="name">${b.name}</div><div class="row">${STAGES.map(s => `<div class="cell">${stageSVG(b, s)}<b>${STAGE_LABEL[s]}</b></div>`).join("")}</div>`;
+}).join("");
+</script>
+</body>
+</html>
