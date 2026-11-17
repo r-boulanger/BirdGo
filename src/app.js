@@ -8,6 +8,8 @@ import * as Seed from "./seed.js";
 import { renderInfo } from "./infopage.js";
 import { stageSVG, stageOf, requirement, evolve, STAGE_LABEL } from "./stages.js";
 import { setName, nameProblem } from "./naming.js";
+import * as House from "./treehouse.js";
+import { treehouseHTML, CUBBIES } from "./treehouse-art.js";
 
 const BRUNSWICK = [43.9145, -69.9653];        // Brunswick, Maine town center (demo mode start)
 const CATCH_RANGE_M = 70;                      // how close you must be to toss
@@ -20,6 +22,7 @@ const $ = s => document.querySelector(s);
 let birds = [], map, meMarker, me = null, demo = false, cond = null, condAt = null, habitats = ["town"], habAt = null;
 let spawns = [], journal = Journal.load(), activeToss = null, watchId = null;
 let seed = Seed.load(), stashMarkers = new Map(), info = {}, lastLogged = null;
+let house = House.load(), houseMarker = null, thSel = null, thPage = 0;
 
 // ---------- helpers ----------
 const toRad = d => d * Math.PI / 180;
@@ -127,7 +130,7 @@ function tapStash(st) {
     moveTo(st.at).then(() => setTimeout(() => tapStash(st), 600));
     return;
   }
-  if (seed.bag >= Seed.SEED.maxBag) { toast(`Your seed bag is full (${Seed.SEED.maxBag} pouches).`); return; }
+  if (seed.bag >= Seed.SEED.maxBag) { toast(`Your backpack is full (${Seed.SEED.maxBag} pouches). Store extra seed at your tree house.`); return; }
   const got = Seed.collect(seed, st);
   updateSeed(); renderStashes();
   const chip = $("#seedChip"); chip.classList.remove("pop"); void chip.offsetWidth; chip.classList.add("pop");
@@ -140,7 +143,8 @@ async function moveTo(latlng, first = false) {
   if (!meMarker) meMarker = L.marker(me, { icon: L.divIcon({ className: "", html: '<div class="me"></div>', iconSize: [18, 18] }), interactive: false, zIndexOffset: 1000 }).addTo(map);
   else meMarker.setLatLng(me);
   if (first) map.setView(me, 17);
-  renderStashes();
+  renderStashes(); drawHouseMarker();
+  if (!$("#th").hidden) renderTH();
   await refreshConditions();
   tendSpawns();
 }
@@ -158,7 +162,7 @@ function tapBird(s) {
     moveTo(target).then(() => setTimeout(() => { if (spawns.includes(s)) tapBird(s); }, 700));
     return;
   }
-  if (seed.bag <= 0) { toast("Your seed bag is empty. Walk to a seed stash on the map to fill it.", 3600); return; }
+  if (seed.bag <= 0) { toast("Your backpack is out of seed. Walk to a seed stash or your tree house to refill.", 3600); return; }
   $("#encName").textContent = s.bird.name;
   $("#encMeta").textContent = `${s.bird.rarity} · ${s.bird.sci}`;
   $("#encounter").hidden = false;
@@ -169,7 +173,7 @@ function tapBird(s) {
   }, {
     pouches: seed.bag,
     onThrow: () => { Seed.spend(seed); updateSeed(); },
-    outMsg: seed.bag < (TOSS[s.bird.rarity] || TOSS.common).pouches ? "Your seed bag is empty. It flew off." : undefined,
+    outMsg: seed.bag < (TOSS[s.bird.rarity] || TOSS.common).pouches ? "Your backpack is out of seed. It flew off." : undefined,
   });
 }
 $("#encClose").onclick = () => { activeToss?.stop(); activeToss = null; $("#encounter").hidden = true; };
@@ -203,7 +207,7 @@ function openInfo(bird, keepScroll = false) {
   const host = $("#infoHost"), y = host.scrollTop;
   renderInfo(host, bird, info[bird.id], journal[bird.id], () => { $("#info").hidden = true; if (!$("#journal").hidden) openJournal(); }, {
     bag: seed.bag,
-    onFeed: () => feedBird(bird),
+    onFeed: () => { $("#info").hidden = true; openTH(bird.id); },
     onName: name => nameBird(bird, name),
   });
   host.scrollTop = keepScroll ? y : 0;
@@ -222,18 +226,107 @@ function nameBird(bird, name) {
   return "";
 }
 const escHTML = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-function feedBird(bird) {
-  const e = journal[bird.id];
-  const done = e && evolve(bird, e, seed.bag);
-  if (!done) return;
-  Seed.spend(seed, done.cost); updateSeed();
-  Journal.save(journal);
-  openInfo(bird, true);
-  const msg = $("#ipGrowMsg");
-  msg.textContent = `Your ${bird.name.split(" ").pop()} evolved into an ${STAGE_LABEL[done.stage].toLowerCase()}!`;
-  msg.classList.add("grew"); msg.hidden = false;
-  $("#ipGrow .gp-art").classList.add("grew");
+
+// ---------- tree house ----------
+const fmtDist = m => m < 1000 ? `${Math.round(m)} m` : `${(m / 1000).toFixed(1)} km`;
+const houseIconHTML = `<div class="hm"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M22 48 V30 M26 48 V30" stroke="#6B4826" stroke-width="4"/><path d="M4 20 L24 4 L44 20 Z" fill="#6E4A2A" stroke="#25332C" stroke-width="2" stroke-linejoin="round"/><rect x="8" y="18" width="32" height="16" fill="#C08A52" stroke="#25332C" stroke-width="2"/><path d="M18 18 V34 M30 18 V34" stroke="#25332C" stroke-width="1.4"/><circle cx="13" cy="26" r="2.6" fill="#25332C"/><circle cx="24" cy="26" r="2.6" fill="#25332C"/><circle cx="35" cy="26" r="2.6" fill="#25332C"/><rect x="2" y="33" width="44" height="4" fill="#A8743F" stroke="#25332C" stroke-width="1.5"/></svg><span class="lbl">Tree house</span></div>`;
+function drawHouseMarker() {
+  if (!map || !house.at) return;
+  if (!houseMarker) houseMarker = L.marker(house.at, { icon: L.divIcon({ className: "", iconSize: [0, 0], html: houseIconHTML }), keyboard: true, title: "Your tree house", zIndexOffset: -200 }).addTo(map).on("click", () => openTH());
+  else houseMarker.setLatLng(house.at);
 }
+const atHouse = () => !!(house.at && me && distM(me, house.at) <= House.TH.rangeM);
+function myBirds() {
+  return birds.filter(b => journal[b.id]).sort((a, b) => journal[a.id].first.when.localeCompare(journal[b.id].first.when));
+}
+const hearts = id => House.hearts(house, id);
+const heartsHTML = n => `<span class="hearts" aria-label="${n} of ${House.TH.heartsMax} hearts">${"♥".repeat(n)}${"♡".repeat(House.TH.heartsMax - n)}</span>`;
+
+function openTH(selectId) {
+  if (selectId) { thSel = selectId; const i = myBirds().findIndex(b => b.id === selectId); if (i >= 0) thPage = Math.floor(i / CUBBIES); }
+  renderTH(); $("#th").hidden = false;
+}
+function renderTH(msg) {
+  const host = $("#thHost"), y = host.scrollTop;
+  const head = `<div class="enchead"><div class="hand big">Your Tree House</div><button class="x" type="button" id="thClose" aria-label="Close tree house">✕</button></div>`;
+  const mine = myBirds();
+  if (!house.at) {
+    host.innerHTML = `${head}<div class="th-art">${treehouseHTML(Array(CUBBIES).fill(null))}</div>
+      <p>Build your tree house right where you're standing. Your birds will live here, and your extra seed is stashed here. You can only feed and evolve birds at your tree house.</p>
+      <button class="btn" type="button" id="thBuild">Build it here (free)</button>
+      <p class="small">Moving it later costs ${House.TH.moveCost} seed pouches.</p>`;
+    $("#thBuild").onclick = () => {
+      if (!me) return;
+      House.place(house, seed, [...me]); House.settleBackpack(house, seed); House.save(house); Seed.save(seed); updateSeed();
+      drawHouseMarker(); renderTH("Your tree house is built!");
+    };
+    $("#thClose").onclick = () => ($("#th").hidden = true);
+    return;
+  }
+  const at = atHouse(), dist = me ? distM(me, house.at) : 0;
+  const pages = Math.max(1, Math.ceil(mine.length / CUBBIES)); thPage = Math.min(thPage, pages - 1);
+  if (!thSel || !journal[thSel]) thSel = mine[0]?.id || null;
+  const slots = Array.from({ length: CUBBIES }, (_, i) => {
+    const b = mine[thPage * CUBBIES + i];
+    return b ? { bird: b, id: b.id, stage: stageOf(journal[b.id]), nick: journal[b.id].nickname, selected: b.id === thSel } : null;
+  });
+  const where = at ? `<div class="th-where at">You're at your tree house.</div>`
+    : `<div class="th-where">Your tree house is ${fmtDist(dist)} away. Walk back to feed, evolve or swap seed.${demo ? ` <button class="link" type="button" id="thWalk">Walk there</button>` : ""}</div>`;
+  let panel = `<p class="small">Catch birds and they'll move into your tree house.</p>`;
+  const sb = birds.find(b => b.id === thSel);
+  if (sb) {
+    const e = journal[sb.id], hn = hearts(sb.id), r = requirement(sb, e), full = hn >= House.TH.heartsMax;
+    const name = e.nickname ? `<span class="np"><span class="np-n">${escHTML(e.nickname)}</span><span class="np-s">${sb.name}</span></span>` : `<div class="hand" style="font-size:26px;line-height:1">${sb.name}</div>`;
+    let evo = "";
+    if (!r) evo = `<div class="small">Fully grown!</div>`;
+    else {
+      const ok = at && r.ready && full && house.stash >= r.seed;
+      const why = !r.ready ? `Catch ${r.catches - r.have} more to unlock evolving into an ${STAGE_LABEL[r.next].toLowerCase()}.`
+        : !full ? "Fill its hearts to evolve it." : house.stash < r.seed ? `Needs ${r.seed} pouches in your stash (you have ${house.stash}).` : !at ? "Evolve it when you're at your tree house." : `Ready to become an ${STAGE_LABEL[r.next].toLowerCase()}!`;
+      evo = `<button class="mini p" type="button" id="thEvolve" ${ok ? "" : "disabled"}>Evolve · ${r.seed} pouches</button><div class="small">${why}</div>`;
+    }
+    panel = `<div class="th-sel${r?.ready && full ? " ready" : ""}">
+      <div class="th-sel-art">${stageSVG(sb, stageOf(e))}</div>
+      <div class="th-sel-main">${name}
+        <div class="small">${STAGE_LABEL[stageOf(e)]} · ${heartsHTML(hn)} · caught ${e.count}×</div>
+        <div class="th-btns"><button class="mini" type="button" id="thFeed" ${at && !full && house.stash >= 1 ? "" : "disabled"}>Feed · 1 pouch</button><button class="mini" type="button" id="thInfo">Info page</button></div>
+        ${evo}
+      </div></div>`;
+  }
+  host.innerHTML = `${head}
+    <div class="th-art">${treehouseHTML(slots)}</div>
+    ${pages > 1 ? `<div class="th-pager"><button class="mini" type="button" id="thPrev" ${thPage ? "" : "disabled"}>‹ Down</button><span class="small">Floor ${thPage + 1} of ${pages}</span><button class="mini" type="button" id="thNext" ${thPage < pages - 1 ? "" : "disabled"}>Up ›</button></div>` : ""}
+    ${msg ? `<div class="gp-msg hand grew">${msg}</div>` : ""}
+    ${where}
+    <div class="th-seed"><div class="sbox">Tree house stash<b>${house.stash} pouches</b></div><div class="sbox">Backpack<b>${seed.bag} / ${Seed.SEED.maxBag}</b></div></div>
+    <div class="th-btns"><button class="mini" type="button" id="thFill" ${at && house.stash > 0 && seed.bag < Seed.SEED.maxBag ? "" : "disabled"}>Fill backpack</button><button class="mini" type="button" id="thStore" ${at && seed.bag > 0 ? "" : "disabled"}>Store backpack seed</button></div>
+    ${panel}
+    ${at ? "" : `<button class="link" type="button" id="thMove">Move tree house here · ${House.TH.moveCost} pouches</button>`}`;
+  host.scrollTop = y;
+  const on = (id, fn) => { const el = host.querySelector("#" + id); if (el) el.onclick = fn; };
+  on("thClose", () => ($("#th").hidden = true));
+  host.querySelectorAll(".th-cubby[data-id]").forEach(c => c.onclick = () => { thSel = c.dataset.id; renderTH(); });
+  on("thPrev", () => { thPage--; renderTH(); }); on("thNext", () => { thPage++; renderTH(); });
+  on("thWalk", () => { $("#th").hidden = true; map.panTo(house.at); moveTo([...house.at]).then(() => openTH()); });
+  on("thFill", () => { const n = House.fillBackpack(house, seed); House.save(house); Seed.save(seed); updateSeed(); renderTH(`+${n} pouches into your backpack`); });
+  on("thStore", () => { const n = House.storeExtra(house, seed); House.save(house); Seed.save(seed); updateSeed(); renderTH(`Stored ${n} pouches`); });
+  on("thFeed", () => { const n = House.feed(house, thSel); if (n == null) return; House.save(house); renderTH(n >= House.TH.heartsMax ? "Yum! Full hearts." : "Yum!"); });
+  on("thEvolve", () => {
+    const b = birds.find(x => x.id === thSel), e = journal[thSel];
+    if (!atHouse() || hearts(thSel) < House.TH.heartsMax) return;
+    const done = evolve(b, e, house.stash); if (!done) return;
+    House.spendStash(house, done.cost); House.save(house); Journal.save(journal);
+    renderTH(`${e.nickname || "Your " + b.name.split(" ").pop()} evolved into an ${STAGE_LABEL[done.stage].toLowerCase()}!`);
+    host.querySelector(".th-sel-art")?.classList.add("grew");
+  });
+  on("thInfo", () => { const b = birds.find(x => x.id === thSel); if (b) { $("#th").hidden = true; openInfo(b); } });
+  on("thMove", () => {
+    const res = House.place(house, seed, [...me]);
+    if (!res.ok) { toast(res.why, 3600); return; }
+    House.save(house); Seed.save(seed); updateSeed(); drawHouseMarker(); renderTH("Your tree house moved here!");
+  });
+}
+$("#openTH").onclick = () => openTH();
 
 // ---------- journal ----------
 function updateCount() { $("#jcount").textContent = Object.keys(journal).length; }

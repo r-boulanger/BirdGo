@@ -94,10 +94,9 @@ function growPanel(bird, entry, growth) {
     const pct = Math.min(100, r.have / r.catches * 100);
     const bar = `<div class="gp-bar" role="progressbar" aria-valuemin="0" aria-valuemax="${r.catches}" aria-valuenow="${Math.min(r.have, r.catches)}"><span style="width:${pct}%"></span></div>
       <div class="small">${Math.min(r.have, r.catches)} / ${r.catches} catches to be ready for ${STAGE_LABEL[r.next]}</div>`;
-    const afford = bag >= r.seed;
-    const btn = `<button class="gp-feed" type="button" id="ipFeed" ${r.ready && afford ? "" : "disabled"}>Evolve <span>${r.seed} seed pouches</span></button>`;
+    const btn = `<button class="gp-feed" type="button" id="ipFeed" ${r.ready ? "" : "disabled"}>Evolve at tree house <span>${r.seed} pouches</span></button>`;
     const note = !r.ready ? `Catch ${r.catches - r.have} more ${short}${r.catches - r.have > 1 ? "s" : ""} to unlock evolving.`
-      : afford ? `Ready! You have ${bag} pouches.` : `Ready! You need ${r.seed - bag} more seed pouches. Find seed stashes on the map.`;
+      : `Ready! Feed it to full hearts at your tree house, then evolve it there for ${r.seed} pouches from your stash.`;
     body = `${bar}${btn}<div class="small">${note}</div>`;
   }
   return `<div class="gp${r?.ready ? " ready" : ""}" id="ipGrow">

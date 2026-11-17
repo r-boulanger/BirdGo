@@ -187,3 +187,41 @@ button:focus-visible{outline:3px solid var(--wash);outline-offset:2px}
 .gp-msg{grid-column:1/-1;text-align:center;font-size:22px;color:var(--moss)}
 .gp-msg.grew{color:var(--purple);font-size:28px}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+/* tree house */
+.bottom .nav{padding:8px 11px}
+.bottom{gap:7px}
+.thcard{gap:10px}
+.th-art{position:relative;flex:none;width:100%;max-width:360px;aspect-ratio:360/330;margin:0 auto;border:1.5px solid var(--ink);border-radius:3px;overflow:hidden;background:#DDE6D6}
+.th-art>svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.th-cubby{position:absolute;background:transparent;border:0;padding:0;border-radius:3px;display:grid;place-items:end center;cursor:pointer}
+.th-cubby:disabled{cursor:default}
+.th-cubby .th-b{width:76%;display:block}
+.th-cubby .th-b svg{width:100%;height:auto;display:block;margin-bottom:6%;filter:drop-shadow(0 1px 1px rgba(37,51,44,.35))}
+.th-cubby.sel{outline:3px solid var(--purple);outline-offset:-2px;box-shadow:0 0 0 3px rgba(107,63,160,.25)}
+.th-cubby:focus-visible{outline:3px solid var(--ink);outline-offset:-2px}
+.th-tag{position:absolute;transform:translate(-50%,-50%);max-width:23%;padding:0 6px;border-radius:20px;background:#DCCDA6;border:1px solid var(--ink);
+  box-shadow:inset 0 0 0 1.5px #DCCDA6,inset 0 0 0 2.5px #6B3FA0;font-family:var(--hand);font-weight:700;font-size:14px;line-height:1.15;color:#6B3FA0;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;pointer-events:none}
+.th-pager{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.th-where{font-size:13.5px;background:var(--paper2);border:1.5px dashed var(--ink);padding:6px 10px;border-radius:3px}
+.th-where.at{border-style:solid;border-color:var(--moss);color:#3D5A2C;font-weight:600}
+.th-where .link{font-size:13.5px;padding:0;margin-left:4px}
+.th-seed{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.sbox{border:1.5px solid var(--ink);background:var(--paper2);padding:6px 10px;font-size:12px;color:var(--muted);display:flex;flex-direction:column}
+.sbox b{font-size:17px;color:var(--ink)}
+.th-btns{display:flex;flex-wrap:wrap;gap:8px}
+.mini{min-height:44px;background:var(--paper2);color:var(--ink);border:1.5px solid var(--ink);border-radius:4px;padding:4px 12px;font-weight:600;font-size:13.5px}
+.mini.p{background:var(--purple);border-color:var(--purple);color:#fff;align-self:flex-start}
+.mini:disabled{opacity:.42}
+.th-btns .mini{flex:1 1 auto}
+.th-sel{display:grid;grid-template-columns:84px minmax(0,1fr);gap:12px;align-items:start;border:1.5px solid var(--ink);background:var(--paper2);padding:10px}
+.th-sel.ready{border-color:var(--purple);box-shadow:0 0 0 3px rgba(107,63,160,.18)}
+.th-sel-art svg{width:84px;height:84px;display:block}
+.th-sel-art.grew svg{animation:grow .9s ease-out}
+.th-sel-main{display:flex;flex-direction:column;gap:6px;min-width:0;align-items:flex-start}
+.th-sel-main .th-btns{width:100%}
+.hearts{color:#B23A3A;letter-spacing:1px;font-size:14px}
+/* tree house map marker */
+.hm{display:flex;flex-direction:column;align-items:center;transform:translate(-50%,-80%);width:max-content;cursor:pointer}
+.hm svg{width:46px;height:46px;filter:drop-shadow(0 2px 2px rgba(37,51,44,.35))}
+.hm .lbl{font-family:var(--hand);font-size:16px;font-weight:700;line-height:1;color:#6B4826;background:rgba(238,241,230,.9);padding:0 4px;border-radius:2px;white-space:nowrap}

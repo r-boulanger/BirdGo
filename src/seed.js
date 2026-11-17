@@ -4,7 +4,7 @@
 const KEY = "birdgo.seed.v1";
 export const SEED = {
   startBag: 20,          // pouches a new player starts with
-  maxBag: 50,            // the bag holds at most this many
+  maxBag: 20,            // your backpack holds at most this many (the rest lives at your tree house)
   cellM: 220,            // grid size: roughly one stash per 220 m square
   refillMs: 15 * 60 * 1000, // an emptied stash refills after 15 minutes
   rangeM: 40,            // how close you must be to collect

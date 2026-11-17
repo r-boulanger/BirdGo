@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tree House Looks</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Libre+Franklin:wght@400;500;600;800&display=swap">
+<style>
+:root{--paper:#E4E8D9;--paper2:#EEF1E6;--ink:#25332C;--muted:#5E6B60;--rule:#B9C1A9;--purple:#6B3FA0;--moss:#6E8B55;--wood:#A8743F;--wood2:#7E5428}
+body{margin:0;background:#25332C;font-family:"Libre Franklin",system-ui,sans-serif;color:var(--ink);padding:24px}
+.row{display:flex;gap:28px;align-items:flex-start}
+.col{width:360px;flex:none}
+.cap{font-family:Caveat,cursive;font-size:34px;font-weight:700;color:#E4E8D9;margin:0 0 8px}
+.phone{background:var(--paper);background-image:repeating-linear-gradient(180deg,transparent 0 31px,rgba(124,156,176,.16) 31px 32px);border:1.5px solid var(--ink);border-radius:6px;overflow:hidden;height:760px;display:flex;flex-direction:column}
+.hd{display:flex;justify-content:space-between;align-items:center;padding:12px 14px 4px}
+.hd h2{margin:0;font-family:Caveat,cursive;font-size:36px;line-height:1}
+.x{width:38px;height:38px;border:1.5px solid var(--ink);background:var(--paper2);border-radius:4px}
+.art{position:relative;height:250px;margin:0 14px;border:1.5px solid var(--ink);overflow:hidden}
+.art svg.bg{position:absolute;inset:0;width:100%;height:100%}
+.bird{position:absolute;width:44px;height:44px}
+.bird svg{width:100%;height:100%}
+.seedrow{display:flex;gap:8px;margin:10px 14px 0}
+.sbox{flex:1;border:1.5px solid var(--ink);background:var(--paper2);padding:6px 8px;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.sbox b{display:block;font-family:Caveat,cursive;font-size:26px;color:var(--ink);letter-spacing:0;text-transform:none;line-height:1}
+.btn{font-family:Caveat,cursive;font-weight:700;font-size:20px;background:var(--ink);color:var(--paper);border:0;border-radius:4px;padding:4px 12px;min-height:40px}
+.btn.p{background:var(--purple)}
+.list{margin:10px 14px 0;display:flex;flex-direction:column}
+.it{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:8px;align-items:center;padding:6px 0;border-bottom:1px dashed var(--rule)}
+.it svg{width:44px;height:44px}
+.it .n{font-family:Caveat,cursive;font-size:22px;font-weight:700;line-height:1}
+.it .s{font-size:11px;color:var(--muted)}
+.hearts{color:#B23A3A;font-size:12px;letter-spacing:1px}
+.mini{font-family:Caveat,cursive;font-weight:700;font-size:17px;border:1.5px solid var(--ink);background:var(--paper2);border-radius:4px;padding:2px 8px;min-height:34px}
+.mini.p{background:var(--purple);color:#fff;border-color:var(--purple)}
+/* B cubbies */
+.cub{position:absolute;left:50%;top:44px;transform:translateX(-50%);display:grid;grid-template-columns:repeat(3,72px);gap:6px}
+.cubby{height:70px;background:#F3E6C4;border:1.5px solid var(--ink);position:relative;display:flex;align-items:flex-end;justify-content:center;box-shadow:inset 0 6px 0 rgba(126,84,40,.25)}
+.cubby svg{width:50px;height:50px}
+.cubby .tag{position:absolute;top:-1px;left:50%;transform:translate(-50%,-50%);font-family:Caveat,cursive;font-weight:700;font-size:13px;background:#DCCDA6;border:1px solid var(--ink);border-radius:9px;padding:0 6px;white-space:nowrap;color:var(--purple)}
+.cubby.empty{opacity:.45}
+.cubby.empty:after{content:"empty";font-family:Caveat,cursive;font-size:15px;position:absolute;top:26px}
+/* C birdhouses */
+.bh{position:absolute;width:62px}
+.bh svg{width:62px;height:76px}
+.bh .peek{position:absolute;left:13px;top:28px;width:36px;height:36px}
+.bh .peek svg{width:36px;height:36px}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:10px 14px 0}
+.card{border:1.5px solid var(--ink);background:var(--paper2);padding:6px;display:flex;gap:6px;align-items:center}
+.card svg{width:40px;height:40px;flex:none}
+.card .n{font-family:Caveat,cursive;font-size:19px;font-weight:700;line-height:1}
+.card .s{font-size:10.5px;color:var(--muted)}
+.note{color:#E4E8D9;font-size:13px;margin-top:8px;line-height:1.4;width:360px}
+</style>
+</head>
+<body>
+<div class="row" id="row"></div>
+<script type="module">
+import { stageSVG } from "../../src/stages.js";
+const birds = (await (await fetch("../../data/birds-brunswick-me.json")).json()).birds;
+const by = id => birds.find(b => b.id === id);
+const mine = [
+  { b: by("black-capped-chickadee"), st: "infant", nick: "Sir Peeps", fed: 3, ready: true },
+  { b: by("northern-cardinal"), st: "adolescent", fed: 2 },
+  { b: by("blue-jay"), st: "adult", fed: 1 },
+  { b: by("american-goldfinch"), st: "infant", fed: 3 },
+  { b: by("common-loon"), st: "adolescent", fed: 0 },
+];
+const art = (m, s = "") => stageSVG(m.b, m.st, s);
+const nm = m => m.nick || m.b.name.split(" ").pop();
+const hearts = n => "♥".repeat(n) + "♡".repeat(3 - n);
+const seedRow = `<div class="seedrow"><div class="sbox">Tree house stash<b>84 pouches</b></div><div class="sbox">Backpack<b>12 / 20</b></div></div>
+  <div style="display:flex;gap:8px;margin:8px 14px 0"><button class="btn">Fill backpack</button><button class="btn" style="background:var(--paper2);color:var(--ink);border:1.5px solid var(--ink)">Store extra</button></div>`;
+const listRows = mine.map(m => `<div class="it">${art(m)}<div><div class="n">${nm(m)}</div><div class="s">${m.st} · <span class="hearts">${hearts(m.fed)}</span></div></div><div style="display:flex;gap:4px"><button class="mini">Feed</button>${m.ready ? '<button class="mini p">Evolve</button>' : ""}</div></div>`).join("");
+
+// ---- A: Inked tree house in a pine, birds perched on branches ----
+const A = `<svg class="bg" viewBox="0 0 330 250" preserveAspectRatio="xMidYMid slice">
+  <rect width="330" height="250" fill="#DCE5DF"/><path d="M0 205 Q90 190 170 200 T330 196 V250 H0 Z" fill="#B8C9A1"/>
+  <path d="M150 250 L156 40 L176 40 L182 250 Z" fill="#8C6239" stroke="#25332C" stroke-width="2"/>
+  <path d="M166 70 L60 52 M60 52 L40 46 M166 150 L280 132 M280 132 L300 128 M168 112 L250 96" stroke="#25332C" stroke-width="5" stroke-linecap="round"/>
+  <g fill="#6E8B55" stroke="#25332C" stroke-width="1.5"><path d="M40 44 q10 -16 24 -4 q10 -10 18 4 z"/><path d="M276 128 q12 -14 24 0 q8 -8 16 4 z"/><path d="M240 94 q10 -12 20 0 z"/></g>
+  <rect x="96" y="150" width="140" height="8" fill="#A8743F" stroke="#25332C" stroke-width="2"/>
+  <path d="M104 158 L116 196 M228 158 L216 196" stroke="#25332C" stroke-width="3"/>
+  <rect x="116" y="98" width="100" height="52" fill="#C9935A" stroke="#25332C" stroke-width="2"/>
+  <path d="M116 108 H216 M116 120 H216 M116 132 H216 M116 144 H216" stroke="#25332C" stroke-width=".8" opacity=".5"/>
+  <path d="M106 100 L166 64 L226 100 Z" fill="#7E5428" stroke="#25332C" stroke-width="2" stroke-linejoin="round"/>
+  <rect x="134" y="112" width="22" height="20" fill="#F2E3A6" stroke="#25332C" stroke-width="2"/><path d="M145 112 V132 M134 122 H156" stroke="#25332C" stroke-width="1.5"/>
+  <rect x="176" y="114" width="22" height="36" fill="#5A3A1C" stroke="#25332C" stroke-width="2"/>
+  <path d="M96 158 L90 236 M110 158 L104 236" stroke="#6B5638" stroke-width="2"/><path d="M92 172 H108 M91 188 H107 M90 204 H106 M90 220 H105" stroke="#6B5638" stroke-width="2"/>
+  <g transform="translate(196 150)"><rect x="-8" y="-14" width="22" height="14" rx="2" fill="#DCCDA6" stroke="#25332C" stroke-width="1.5"/><path d="M8 -12 c-1 -1.5 -2 -2 -3.5 -2 c-2 0 -3 1 -3 2.3 c0 1.6 1.6 2 3.2 2.4 c1.6 .4 3.2 .9 3.2 2.4 c0 1.3 -1.2 2.4 -3.4 2.4" fill="none" stroke="#6B3FA0" stroke-width="1.6"/></g>
+</svg>
+<div class="bird" style="left:38px;top:16px">${art(mine[0])}</div>
+<div class="bird" style="left:248px;top:76px">${art(mine[1])}</div>
+<div class="bird" style="left:270px;top:100px;transform:scaleX(-1)">${art(mine[2])}</div>
+<div class="bird" style="left:70px;top:22px">${art(mine[3])}</div>
+<div class="bird" style="left:212px;top:176px">${art(mine[4])}</div>`;
+
+// ---- B: Cutaway, every bird in its own cubby ----
+const cubbies = [...mine, null].map(m => m ? `<div class="cubby">${m.nick ? `<span class="tag">${m.nick}</span>` : ""}${art(m)}</div>` : `<div class="cubby empty"></div>`).join("");
+const B = `<svg class="bg" viewBox="0 0 330 250" preserveAspectRatio="none"><rect width="330" height="250" fill="#CFDCE2"/><path d="M0 230 H330 V250 H0Z" fill="#B8C9A1"/>
+  <path d="M150 250 V200 M180 250 V200" stroke="#8C6239" stroke-width="22"/>
+  <path d="M38 40 L165 4 L292 40 Z" fill="#7E5428" stroke="#25332C" stroke-width="2.5" stroke-linejoin="round"/>
+  <rect x="46" y="38" width="238" height="166" fill="#C9935A" stroke="#25332C" stroke-width="2.5"/></svg>
+  <div class="cub">${cubbies}</div>`;
+
+// ---- C: One big oak with a birdhouse for each bird ----
+const house = (x, y, m, rot = 0) => `<div class="bh" style="left:${x}px;top:${y}px;transform:rotate(${rot}deg)">
+  <svg viewBox="0 0 62 76"><path d="M31 0 V8" stroke="#6B5638" stroke-width="2"/><path d="M4 30 L31 8 L58 30 Z" fill="#7E5428" stroke="#25332C" stroke-width="2" stroke-linejoin="round"/><rect x="9" y="28" width="44" height="44" fill="${["#C9935A", "#9FB7C7", "#D9C27A", "#B7A3CF", "#A9C79A"][mine.indexOf(m) % 5]}" stroke="#25332C" stroke-width="2"/><circle cx="31" cy="46" r="13" fill="#3A2A18"/><rect x="28" y="62" width="6" height="8" fill="#7E5428"/></svg>
+  <div class="peek">${art(m)}</div></div>`;
+const C = `<svg class="bg" viewBox="0 0 330 250" preserveAspectRatio="xMidYMid slice"><rect width="330" height="250" fill="#E3EAE6"/><path d="M0 214 Q160 200 330 214 V250 H0Z" fill="#B8C9A1"/>
+  <path d="M146 250 C150 200 140 160 120 120 M184 250 C180 200 196 160 220 120" fill="#8C6239" stroke="#25332C" stroke-width="2"/>
+  <path d="M146 250 C150 200 140 160 120 120 L220 120 C196 160 180 200 184 250 Z" fill="#8C6239" stroke="#25332C" stroke-width="2"/>
+  <ellipse cx="165" cy="80" rx="160" ry="74" fill="#7FA167" stroke="#25332C" stroke-width="2"/>
+  <ellipse cx="100" cy="66" rx="60" ry="30" fill="#8DB074" opacity=".8"/><ellipse cx="236" cy="70" rx="62" ry="32" fill="#8DB074" opacity=".8"/></svg>
+  ${house(26, 40, mine[0], -4)}${house(96, 92, mine[1], 3)}${house(176, 38, mine[2], -2)}${house(246, 96, mine[3], 4)}${house(136, 150, mine[4], -3)}`;
+
+const cardRows = mine.map(m => `<div class="card">${art(m)}<div><div class="n">${nm(m)}</div><div class="s">${m.st} <span class="hearts">${hearts(m.fed)}</span></div></div></div>`).join("");
+
+const phone = (title, artHtml, below) => `<div class="phone"><div class="hd"><h2>${title}</h2><button class="x">✕</button></div><div class="art">${artHtml}</div>${seedRow}${below}</div>`;
+document.getElementById("row").innerHTML = `
+  <div class="col"><div class="cap">A · Pine tree cabin</div>${phone("Your Tree House", A, `<div class="list">${listRows}</div>`)}<div class="note">A cozy cabin up a pine with a rope ladder. Your birds perch on the branches around it.</div></div>
+  <div class="col"><div class="cap">B · Cubby cutaway</div>${phone("Your Tree House", B, `<div class="list">${listRows}</div>`)}<div class="note">The front wall is cut away to show a grid of cubbies. Each bird gets its own room, with its name plate over the door.</div></div>
+  <div class="col"><div class="cap">C · Birdhouse oak</div>${phone("Your Tree House", C, `<div class="cards">${cardRows}</div><div style="display:flex;gap:8px;margin:8px 14px 0"><button class="btn">Feed everyone</button><button class="btn p">Evolve…</button></div>`)}<div class="note">One big oak with a painted birdhouse for each bird, peeking out of the hole.</div></div>`;
+</script>
+</body>
+</html>
