@@ -1,0 +1,258 @@
+<title>BirdGo Catch Lab</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Libre+Franklin:wght@400;500;600&display=swap">
+<style>
+/* Layout: a field-journal spread — bird picker on top, three catch styles as tabs, one play area that becomes a journal entry on success.
+   Deliberately single-theme: this is BirdGo's chosen "Field Journal" look (paper + ink). */
+:root{
+  --paper:#E4E8D9; --paper2:#EEF1E6; --ink:#25332C; --muted:#5E6B60; --rule:#B9C1A9;
+  --wash:#7C9CB0; --red:#A82A2E; --moss:#6E8B55; --gold:#C8962E;
+  --hand:"Caveat","Segoe Print","Bradley Hand",cursive; --body:"Libre Franklin",system-ui,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);line-height:1.5;
+  background-image:repeating-linear-gradient(180deg,transparent 0 31px,rgba(124,156,176,.18) 31px 32px);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 48px}
+.wrap{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:22px}
+header{display:flex;flex-direction:column;gap:6px}
+.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--red);font-weight:600}
+h1{font-family:var(--hand);font-size:clamp(40px,8vw,56px);line-height:.95;margin:0;font-weight:700}
+header p{margin:0;max-width:62ch;color:var(--muted)}
+h2{font-size:12px;letter-spacing:.12em;text-transform:uppercase;margin:0 0 8px;color:var(--muted);font-weight:600}
+
+.picker{display:flex;flex-wrap:wrap;gap:10px}
+.bcard{flex:1 1 200px;display:flex;gap:10px;align-items:center;padding:10px 12px;border:1.5px solid var(--ink);border-radius:4px;background:var(--paper2);cursor:pointer;font:inherit;color:inherit;text-align:left}
+.bcard[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.bcard svg{width:42px;height:42px;flex:none}
+.bcard .n{font-family:var(--hand);font-size:22px;line-height:1}
+.bcard .r{font-size:11px;letter-spacing:.06em;text-transform:uppercase}
+
+.tabs{display:flex;flex-wrap:wrap;gap:0;border-bottom:1.5px solid var(--ink)}
+.tab{font:inherit;background:transparent;border:1.5px solid transparent;border-bottom:0;padding:8px 14px 6px;cursor:pointer;color:var(--muted);border-radius:4px 4px 0 0;display:flex;flex-direction:column;align-items:flex-start;gap:0;margin-bottom:-1.5px}
+.tab b{font-family:var(--hand);font-size:24px;line-height:1;color:var(--ink);font-weight:700}
+.tab span{font-size:11.5px}
+.tab[aria-selected="true"]{background:var(--paper2);border-color:var(--ink);color:var(--ink)}
+button:focus-visible,.bcard:focus-visible{outline:3px solid var(--wash);outline-offset:2px}
+
+.stage{background:var(--paper2);border:1.5px solid var(--ink);border-top:0;border-radius:0 0 4px 4px;padding:18px 16px 20px;display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;min-height:470px}
+.how{font-size:14px;max-width:46ch;margin:0}
+.scene{position:relative;width:min(300px,100%);aspect-ratio:1/1}
+.scene>svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.meters{display:flex;flex-direction:column;gap:8px;width:min(320px,100%)}
+.meter{display:grid;grid-template-columns:72px 1fr;align-items:center;gap:8px;font-size:12px;text-align:left}
+.bar{height:12px;border:1.5px solid var(--ink);border-radius:2px;position:relative;overflow:hidden;background:var(--paper)}
+.bar i{position:absolute;inset:0 auto 0 0;width:0;background:var(--moss)}
+.bar.nerve i{background:var(--red)}
+.big{font-family:var(--hand);font-size:28px;font-weight:700;background:var(--ink);color:var(--paper);border:0;border-radius:4px;padding:6px 28px;cursor:pointer;touch-action:none;user-select:none;-webkit-user-select:none}
+.big:active,.big.down{background:var(--moss)}
+.ghost{font:inherit;font-size:13px;background:transparent;border:1.5px solid var(--ink);border-radius:4px;padding:5px 12px;cursor:pointer;color:var(--ink)}
+.status{font-family:var(--hand);font-size:26px;min-height:1.2em;line-height:1.1}
+.status.bad{color:var(--red)}
+
+/* timing gauge */
+.gauge{width:min(320px,100%);height:34px;border:1.5px solid var(--ink);border-radius:3px;position:relative;background:var(--paper)}
+.gauge .zone{position:absolute;top:0;bottom:0;background:rgba(110,139,85,.35);border-left:1.5px dashed var(--moss);border-right:1.5px dashed var(--moss)}
+.gauge .needle{position:absolute;top:-6px;bottom:-6px;width:3px;background:var(--ink);transform:translateX(-50%)}
+.dots{display:flex;gap:6px;justify-content:center}
+.dots i{width:14px;height:14px;border-radius:50%;border:1.5px solid var(--ink)}
+.dots i.on{background:var(--moss)}
+.dots i.x{background:var(--red)}
+
+/* journal entry */
+.entry{width:min(420px,100%);border:1.5px solid var(--ink);background:var(--paper);padding:16px;display:grid;grid-template-columns:96px 1fr;gap:12px;text-align:left;position:relative}
+.entry svg{width:96px;height:96px}
+.entry .n{font-family:var(--hand);font-size:30px;line-height:1;font-weight:700}
+.entry .s{font-style:italic;font-size:12px;color:var(--muted)}
+.entry p{margin:6px 0 0;font-size:13px}
+.entry .meta{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:6px;font-size:11px}
+.entry .meta span{border:1.5px dashed var(--ink);padding:1px 6px;letter-spacing:.04em;text-transform:uppercase}
+.stamp{position:absolute;right:10px;top:-12px;transform:rotate(6deg);background:var(--paper2);border:2px solid var(--red);color:var(--red);font-weight:600;font-size:11px;letter-spacing:.1em;padding:2px 8px;text-transform:uppercase}
+
+.notes{border-top:1.5px dashed var(--rule);padding-top:16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;font-size:13.5px}
+.notes div{min-width:0}
+.notes b{font-family:var(--hand);font-size:22px;display:block;line-height:1.1}
+.notes p{margin:4px 0 0;color:var(--muted)}
+.ask{font-size:14px;max-width:62ch}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.flyaway{animation:fly .9s ease-in forwards}
+@keyframes fly{to{transform:translate(160px,-200px) rotate(-20deg);opacity:0}}
+.alertmark{font-family:var(--hand);font-weight:700;font-size:44px;fill:var(--red)}
+.cp{fill:var(--paper);stroke:var(--ink);stroke-width:2;stroke-dasharray:3 2}
+.cp.done{fill:var(--moss);stroke-dasharray:none}
+.cp.next{stroke:var(--red);stroke-width:3}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="bird" viewBox="0 0 64 64">
+    <path d="M10 40 L2 50 L16 46 Z" fill="var(--tail,currentColor)"/>
+    <ellipse cx="30" cy="38" rx="20" ry="13" fill="var(--body,currentColor)"/>
+    <circle cx="44" cy="24" r="10" fill="var(--head,currentColor)"/>
+    <path d="M40 15 L46 4 L50 16 Z" fill="var(--head,currentColor)"/>
+    <path d="M53 22 L62 26 L53 29 Z" fill="var(--beak,#F2A33A)"/>
+    <circle cx="47" cy="22" r="2" fill="var(--eye,#111)"/>
+    <path d="M18 34 Q30 26 40 38 Q30 44 18 34 Z" fill="var(--wing,rgba(0,0,0,.18))"/>
+    <path d="M26 50 L24 58 M34 50 L36 58" stroke="#555" stroke-width="2"/>
+  </symbol>
+</svg>
+
+<div class="wrap">
+  <header>
+    <span class="eyebrow">BirdGo · Catching, round 1</span>
+    <h1>Catch Lab</h1>
+    <p>Three ways catching could work. Pick a bird, try each style a few times, and tell me which feels right for BirdGo. Rarer birds are harder in every style. These are real Brunswick birds with placeholder art.</p>
+  </header>
+
+  <section>
+    <h2>1. Pick a bird</h2>
+    <div class="picker" id="picker"></div>
+  </section>
+
+  <section>
+    <h2>2. Try a catching style</h2>
+    <div class="tabs" role="tablist" id="tabs">
+      <button class="tab" role="tab" id="tab-watch" aria-selected="true" data-mode="watch"><b>Quiet Watch</b><span>hold still, freeze when it looks up</span></button>
+      <button class="tab" role="tab" id="tab-sketch" aria-selected="false" data-mode="sketch"><b>Quick Sketch</b><span>trace the bird before it moves</span></button>
+      <button class="tab" role="tab" id="tab-focus" aria-selected="false" data-mode="focus"><b>Focus Lens</b><span>tap when the image is sharp</span></button>
+    </div>
+    <div class="stage" id="stage" role="tabpanel"></div>
+  </section>
+
+  <section class="notes">
+    <div><b>Quiet Watch</b><p>Calm and patient, like real birding. Hold to observe. When the bird glances around, let go or it gets nervous and flies.</p></div>
+    <div><b>Quick Sketch</b><p>Fits the journal look best. Drag your finger through the dots in order before time runs out. Your sketch becomes the journal entry.</p></div>
+    <div><b>Focus Lens</b><p>The most "gamey". Like focusing binoculars: tap when the needle is in the sharp zone. Three good taps and it's logged.</p></div>
+  </section>
+  <p class="ask"><b>Tell me:</b> which style you like, or a mix (for example "Watch to approach, then Sketch to log it"), and whether it's too easy or too hard.</p>
+</div>
+
+<script>
+const BIRDS=[
+ {id:"chickadee",name:"Black-capped Chickadee",sci:"Poecile atricapillus",rarity:"common",c:{body:"#C9C4B8",head:"#1E1E1E",beak:"#222"},fact:"Maine's state bird. Hides thousands of seeds each fall and remembers where they are.",where:"Backyard feeder"},
+ {id:"loon",name:"Common Loon",sci:"Gavia immer",rarity:"uncommon",c:{body:"#1F2428",head:"#1A2A22",wing:"rgba(255,255,255,.35)",beak:"#222",eye:"#B32630"},fact:"Its haunting wail carries for miles across lakes on summer nights.",where:"Merrymeeting Bay"},
+ {id:"snowy",name:"Snowy Owl",sci:"Bubo scandiacus",rarity:"rare",c:{body:"#F5F5F2",head:"#F5F5F2",wing:"rgba(0,0,0,.14)",beak:"#333",eye:"#C8962E"},fact:"Arctic visitor that hunts in daylight and turns up on beaches and airfields.",where:"Popham Beach"}
+];
+const DIFF={common:{alertEvery:[1.6,3.2],focusRate:.42,nerveRate:1.4,sketchTime:9,points:7,speed:.7,zone:.24},
+            uncommon:{alertEvery:[1.1,2.4],focusRate:.32,nerveRate:1.9,sketchTime:7.5,points:9,speed:1.0,zone:.17},
+            rare:{alertEvery:[.8,1.8],focusRate:.24,nerveRate:2.6,sketchTime:6.5,points:11,speed:1.35,zone:.12}};
+let bird=BIRDS[0], mode="watch", stopLoop=null;
+const $=s=>document.querySelector(s);
+const birdStyle=b=>Object.entries(b.c).map(([k,v])=>`--${k}:${v}`).join(";")+(b.c.tail?"":`;--tail:${b.c.body}`);
+const birdSVG=(b,cls="",extra="")=>`<svg class="${cls}" viewBox="0 0 64 64" style="${birdStyle(b)}" ${extra}><use href="#bird"/></svg>`;
+
+function renderPicker(){
+  $("#picker").innerHTML=BIRDS.map(b=>`<button class="bcard" type="button" id="pick-${b.id}" data-id="${b.id}" aria-pressed="${b===bird}">${birdSVG(b)}<span><span class="n">${b.name}</span><br><span class="r">${b.rarity}</span></span></button>`).join("");
+}
+$("#picker").addEventListener("click",e=>{const t=e.target.closest(".bcard");if(!t)return;bird=BIRDS.find(b=>b.id===t.dataset.id);renderPicker();start();});
+$("#tabs").addEventListener("click",e=>{const t=e.target.closest(".tab");if(!t)return;mode=t.dataset.mode;document.querySelectorAll(".tab").forEach(x=>x.setAttribute("aria-selected",x===t));start();});
+
+function loop(fn){let last=performance.now(),on=true;function f(t){if(!on)return;const dt=Math.min(.05,(t-last)/1000);last=t;fn(dt);requestAnimationFrame(f)}requestAnimationFrame(f);return()=>on=false}
+const rand=(a,b)=>a+Math.random()*(b-a);
+
+function journal(how){
+  stopLoop&&stopLoop();
+  const d=new Date();const date=d.toLocaleDateString("en-US",{month:"short",day:"numeric"});const time=d.toLocaleTimeString("en-US",{hour:"numeric",minute:"2-digit"});
+  $("#stage").innerHTML=`<div class="status">Logged!</div>
+   <div class="entry"><span class="stamp">${bird.rarity}</span>${birdSVG(bird)}<div><div class="n">${bird.name}</div><div class="s">${bird.sci}</div><p>${bird.fact}</p></div>
+   <div class="meta"><span>${date} · ${time}</span><span>${bird.where}, Brunswick ME</span><span>by ${how}</span></div></div>
+   <button class="ghost" type="button" id="again">Try again</button>`;
+  $("#again").onclick=start;
+}
+function flushed(msg){
+  stopLoop&&stopLoop();
+  const b=$("#theBird"); if(b)b.classList.add("flyaway");
+  $("#status").textContent=msg; $("#status").classList.add("bad");
+  const btn=$("#mainBtn"); if(btn){btn.textContent="Try again";btn.onclick=start;btn.onpointerdown=null;btn.onpointerup=null;btn.onpointerleave=null;}
+}
+
+/* ---------- Quiet Watch ---------- */
+function startWatch(){
+  const D=DIFF[bird.rarity];
+  $("#stage").innerHTML=`<p class="how">Press and hold <b>Watch</b> to observe. When the bird looks up (<b style="color:var(--red)">!</b>), let go until it settles.</p>
+   <div class="scene"><svg viewBox="0 0 200 200"><path d="M10 170 Q100 150 190 172" stroke="var(--ink)" stroke-width="2" fill="none"/>
+   <g id="theBird" style="transform-origin:100px 120px"><g id="birdBody" transform="translate(40 50) scale(1.9)" style="${birdStyle(bird)}"><use href="#bird"/></g></g>
+   <text id="alert" class="alertmark" x="150" y="50" opacity="0">!</text></svg></div>
+   <div class="meters"><div class="meter">Observed<div class="bar"><i id="focus"></i></div></div><div class="meter">Nerves<div class="bar nerve"><i id="nerve"></i></div></div></div>
+   <div class="status" id="status"></div>
+   <button class="big" type="button" id="mainBtn">Watch</button>`;
+  let holding=false,focus=0,nerve=0,state="calm",t=rand(...D.alertEvery);
+  const btn=$("#mainBtn");
+  btn.onpointerdown=e=>{e.preventDefault();holding=true;btn.classList.add("down")};
+  const up=()=>{holding=false;btn.classList.remove("down")};
+  btn.onpointerup=up;btn.onpointerleave=up;btn.onpointercancel=up;
+  btn.onkeydown=e=>{if(e.key===" "||e.key==="Enter"){e.preventDefault();holding=true;btn.classList.add("down")}};
+  btn.onkeyup=up;
+  const body=$("#birdBody"),alertEl=$("#alert"),status=$("#status");
+  stopLoop=loop(dt=>{
+    t-=dt;
+    if(t<=0){
+      if(state==="calm"){state="warn";t=.45}
+      else if(state==="warn"){state="alert";t=rand(.8,1.3)}
+      else {state="calm";t=rand(...D.alertEvery)}
+    }
+    alertEl.setAttribute("opacity",state==="alert"?1:state==="warn"?.35:0);
+    body.setAttribute("transform",`translate(40 ${state==="alert"?42:50}) scale(1.9)`);
+    if(holding&&state==="alert"){nerve+=D.nerveRate*dt;status.textContent="It sees you…";}
+    else if(holding){focus+=D.focusRate*dt;nerve=Math.max(0,nerve-.15*dt);status.textContent="Watching…";}
+    else {nerve=Math.max(0,nerve-.35*dt);status.textContent=state==="alert"?"Good, stay still.":"";}
+    $("#focus").style.width=Math.min(100,focus*100)+"%";$("#nerve").style.width=Math.min(100,nerve*100)+"%";
+    if(nerve>=1)flushed("It flew off. Too much movement.");
+    else if(focus>=1)journal("Quiet Watch");
+  });
+}
+
+/* ---------- Quick Sketch ---------- */
+function startSketch(){
+  const D=DIFF[bird.rarity];
+  // checkpoints around the bird outline (viewBox 0..200), traced in order
+  const outline=[[30,140],[40,118],[70,100],[105,98],[118,72],[140,58],[160,70],[176,86],[160,100],[150,118],[128,140],[95,150],[60,148]];
+  const step=(outline.length-1)/(D.points-1);
+  const pts=Array.from({length:D.points},(_,i)=>outline[Math.round(i*step)]);
+  $("#stage").innerHTML=`<p class="how">Drag through the dots in order, starting at the <b style="color:var(--red)">red</b> one, before time runs out. Lift your finger and you can pick up where you left off.</p>
+   <div class="scene" id="sketchScene" style="touch-action:none"><svg viewBox="0 0 200 200" id="sk">
+   <g id="theBird" opacity=".35"><g transform="translate(20 40) scale(2.5)" style="${birdStyle(bird)}"><use href="#bird"/></g></g>
+   <polyline id="trail" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" points=""/>
+   ${pts.map((p,i)=>`<circle class="cp" id="cp${i}" cx="${p[0]}" cy="${p[1]}" r="8"/>`).join("")}</svg></div>
+   <div class="meters"><div class="meter">Time<div class="bar nerve"><i id="timeBar"></i></div></div></div>
+   <div class="status" id="status"></div><button class="ghost" type="button" id="mainBtn">Restart</button>`;
+  $("#mainBtn").onclick=start;
+  let next=0,time=D.sketchTime,started=false,down=false;const trail=[];
+  const mark=()=>pts.forEach((_,i)=>{const c=$("#cp"+i);c.classList.toggle("done",i<next);c.classList.toggle("next",i===next)});mark();
+  const svg=$("#sk");
+  const toSvg=e=>{const r=svg.getBoundingClientRect();return[(e.clientX-r.left)/r.width*200,(e.clientY-r.top)/r.height*200]};
+  const move=e=>{if(!down)return;const [x,y]=toSvg(e);trail.push(x.toFixed(1)+","+y.toFixed(1));if(trail.length>400)trail.shift();$("#trail").setAttribute("points",trail.join(" "));
+    const p=pts[next];if(p&&Math.hypot(p[0]-x,p[1]-y)<14){if(next===0)started=true;next++;mark();if(next===pts.length)journal("Quick Sketch");}};
+  svg.onpointerdown=e=>{down=true;svg.setPointerCapture(e.pointerId);move(e)};
+  svg.onpointermove=move;svg.onpointerup=()=>{down=false;trail.push("")};
+  stopLoop=loop(dt=>{if(started)time-=dt;$("#timeBar").style.width=(100-Math.max(0,time)/D.sketchTime*100)+"%";
+    $("#status").textContent=started?`${next} of ${pts.length}`:"Start at the red dot";
+    if(time<=0){svg.onpointerdown=null;svg.onpointermove=null;flushed("Too slow. It hopped away.");}});
+}
+
+/* ---------- Focus Lens ---------- */
+function startFocus(){
+  const D=DIFF[bird.rarity];
+  $("#stage").innerHTML=`<p class="how">Tap <b>Focus</b> when the needle is inside the green zone. Three sharp shots logs the bird. Three misses and it flies.</p>
+   <div class="scene"><svg viewBox="0 0 200 200"><defs><filter id="blur"><feGaussianBlur id="blurAmt" stdDeviation="6"/></filter></defs>
+   <circle cx="100" cy="100" r="92" fill="none" stroke="var(--ink)" stroke-width="2"/><path d="M100 4 V20 M100 180 V196 M4 100 H20 M180 100 H196" stroke="var(--ink)" stroke-width="2"/>
+   <g id="theBird" filter="url(#blur)"><g transform="translate(36 40) scale(2)" style="${birdStyle(bird)}"><use href="#bird"/></g></g></svg></div>
+   <div class="gauge"><div class="zone" id="zone"></div><div class="needle" id="needle"></div></div>
+   <div class="dots" id="dots"></div>
+   <div class="status" id="status"></div>
+   <button class="big" type="button" id="mainBtn">Focus</button>`;
+  let pos=0,dir=1,hits=0,miss=0,zc=rand(.3,.7);const zone=$("#zone"),needle=$("#needle");
+  const place=()=>{zone.style.left=(zc-D.zone/2)*100+"%";zone.style.width=D.zone*100+"%"};place();
+  const dots=()=>{$("#dots").innerHTML=[0,1,2].map(i=>`<i class="${i<hits?"on":""}"></i>`).join("")+`<span style="width:12px"></span>`+[0,1,2].map(i=>`<i class="${i<miss?"x":""}"></i>`).join("")};dots();
+  $("#mainBtn").onclick=()=>{
+    if(Math.abs(pos-zc)<=D.zone/2){hits++;$("#status").classList.remove("bad");$("#status").textContent="Sharp!";zc=rand(.2,.8);place();}
+    else{miss++;$("#status").classList.add("bad");$("#status").textContent="Blurry…";}
+    dots();
+    if(hits>=3)journal("Focus Lens");else if(miss>=3)flushed("It noticed the clicking and flew.");
+  };
+  stopLoop=loop(dt=>{pos+=dir*D.speed*dt;if(pos>1){pos=1;dir=-1}if(pos<0){pos=0;dir=1}needle.style.left=pos*100+"%";
+    $("#blurAmt").setAttribute("stdDeviation",(Math.min(1,Math.abs(pos-zc)*3)*7).toFixed(2));});
+}
+
+function start(){stopLoop&&stopLoop();stopLoop=null;({watch:startWatch,sketch:startSketch,focus:startFocus})[mode]();}
+renderPicker();start();
+</script>
