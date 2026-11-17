@@ -190,7 +190,7 @@ function logCatch(bird) {
   const date = now.toLocaleDateString("en-US", { month: "short", day: "numeric" });
   const time = now.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" });
   $("#entryBody").innerHTML = `<div class="hand big" style="text-align:center">${e.count === 1 ? "New for your journal! A new infant to raise." : justReady ? `Ready to evolve into an ${STAGE_LABEL[req.next].toLowerCase()}! Costs ${req.seed} seed pouches.` : req && !req.ready ? `Logged again · ${req.catches - e.count} more to evolve` : `Logged again (${e.count}×)`}</div>
-    <div class="entry"><span class="stamp ${bird.rarity}">${bird.rarity}</span>${stageSVG(bird, stageOf(e))}<div><div class="n">${e.nickname ? `“${escHTML(e.nickname)}”` : bird.name}</div><div class="s">${e.nickname ? `${bird.name} · ` : ""}${bird.sci}</div><p>${bird.fact}</p></div>
+    <div class="entry"><span class="stamp ${bird.rarity}">${bird.rarity}</span>${stageSVG(bird, stageOf(e))}<div>${e.nickname ? `<div class="np"><span class="np-n">${escHTML(e.nickname)}</span><span class="np-s">${bird.name}</span></div><div class="s">${bird.sci}</div>` : `<div class="n">${bird.name}</div><div class="s">${bird.sci}</div>`}<p>${bird.fact}</p></div>
     <div class="meta"><span>${date} · ${time}</span><span>${WEATHER_LABEL[cond?.weather] || ""}</span><span>${details.place}</span></div></div>`;
   $("#entry").hidden = false;
   tendSpawns();
@@ -240,7 +240,7 @@ function updateCount() { $("#jcount").textContent = Object.keys(journal).length;
 function openJournal() {
   const seen = birds.filter(b => journal[b.id]), unseen = birds.filter(b => !journal[b.id]);
   $("#jsum").textContent = `${seen.length} of ${birds.length} Brunswick birds found`;
-  const row = (b, e) => `<button type="button" class="jrow ${e ? "" : "unseen"}" data-id="${b.id}">${e ? stageSVG(b, stageOf(e)) : birdSVG(b)}<div><div class="n">${e ? (e.nickname ? `“${escHTML(e.nickname)}”` : b.name) : "???"}</div><div class="small">${e ? (e.nickname ? `${b.name} · ` : "") + STAGE_LABEL[stageOf(e)] : b.rarity}</div></div><div class="c">${e ? `${e.count}× · ${new Date(e.first.when).toLocaleDateString("en-US", { month: "short", day: "numeric" })} ›` : ""}</div></button>`;
+  const row = (b, e) => `<button type="button" class="jrow ${e ? "" : "unseen"}" data-id="${b.id}">${e ? stageSVG(b, stageOf(e)) : birdSVG(b)}<div><div class="n">${e ? (e.nickname ? `<span class="np"><span class="np-n">${escHTML(e.nickname)}</span></span>` : b.name) : "???"}</div><div class="small">${e ? (e.nickname ? `${b.name} · ` : "") + STAGE_LABEL[stageOf(e)] : b.rarity}</div></div><div class="c">${e ? `${e.count}× · ${new Date(e.first.when).toLocaleDateString("en-US", { month: "short", day: "numeric" })} ›` : ""}</div></button>`;
   $("#jlist").innerHTML = seen.map(b => row(b, journal[b.id])).join("") + unseen.map(b => row(b)).join("");
   $("#jlist").querySelectorAll(".jrow").forEach(r => r.onclick = () => {
     const b = birds.find(x => x.id === r.dataset.id);
