@@ -6,7 +6,7 @@ import { seedToss, birdSVG, TOSS } from "./seedtoss.js";
 import * as Journal from "./journal.js";
 import * as Seed from "./seed.js";
 import { renderInfo } from "./infopage.js";
-import { stageSVG, stageOf, addGrowth, POINTS, STAGE_LABEL } from "./stages.js";
+import { stageSVG, stageOf, requirement, evolve, STAGE_LABEL } from "./stages.js";
 
 const BRUNSWICK = [43.9145, -69.9653];        // Brunswick, Maine town center (demo mode start)
 const CATCH_RANGE_M = 70;                      // how close you must be to toss
@@ -182,13 +182,13 @@ function logCatch(bird) {
   };
   const e = Journal.log(journal, bird, details);
   lastLogged = bird;
-  const grew = e.count > 1 ? addGrowth(e, POINTS.catch) : null;
   if (e.count === 1) e.stage = "infant";
+  const req = requirement(bird, e), justReady = req && req.ready && e.count === req.catches;
   Journal.save(journal);
   updateCount();
   const date = now.toLocaleDateString("en-US", { month: "short", day: "numeric" });
   const time = now.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" });
-  $("#entryBody").innerHTML = `<div class="hand big" style="text-align:center">${e.count === 1 ? "New for your journal! A new infant to raise." : grew ? `It grew into an ${STAGE_LABEL[grew].toLowerCase()}!` : `Logged again (${e.count}×) · +${POINTS.catch} growth`}</div>
+  $("#entryBody").innerHTML = `<div class="hand big" style="text-align:center">${e.count === 1 ? "New for your journal! A new infant to raise." : justReady ? `Ready to evolve into an ${STAGE_LABEL[req.next].toLowerCase()}! Costs ${req.seed} seed pouches.` : req && !req.ready ? `Logged again · ${req.catches - e.count} more to evolve` : `Logged again (${e.count}×)`}</div>
     <div class="entry"><span class="stamp ${bird.rarity}">${bird.rarity}</span>${stageSVG(bird, stageOf(e))}<div><div class="n">${bird.name}</div><div class="s">${bird.sci}</div><p>${bird.fact}</p></div>
     <div class="meta"><span>${date} · ${time}</span><span>${WEATHER_LABEL[cond?.weather] || ""}</span><span>${details.place}</span></div></div>`;
   $("#entry").hidden = false;
@@ -209,15 +209,15 @@ function openInfo(bird, keepScroll = false) {
 }
 function feedBird(bird) {
   const e = journal[bird.id];
-  if (!e || seed.bag <= 0) return;
-  Seed.spend(seed); updateSeed();
-  const grew = addGrowth(e, POINTS.feed);
+  const done = e && evolve(bird, e, seed.bag);
+  if (!done) return;
+  Seed.spend(seed, done.cost); updateSeed();
   Journal.save(journal);
   openInfo(bird, true);
   const msg = $("#ipGrowMsg");
-  msg.textContent = grew ? `Your ${bird.name.split(" ").pop()} grew into an ${STAGE_LABEL[grew].toLowerCase()}!` : `Yum! +${POINTS.feed} growth`;
-  msg.classList.toggle("grew", !!grew); msg.hidden = false;
-  const art = $("#ipGrow .gp-art"); art.classList.add(grew ? "grew" : "munch");
+  msg.textContent = `Your ${bird.name.split(" ").pop()} evolved into an ${STAGE_LABEL[done.stage].toLowerCase()}!`;
+  msg.classList.add("grew"); msg.hidden = false;
+  $("#ipGrow .gp-art").classList.add("grew");
 }
 
 // ---------- journal ----------
