@@ -72,6 +72,10 @@ Catches are the total times you've caught that species. The **Evolve** button is
 
 Placeholder art per stage is drawn from each bird's colors (`src/stages.js`, preview `docs/design/stages-preview.html`): infant = round fluffy chick, adolescent = smaller and duller with scruffy fuzz, adult = full colors. RBZ's hand-drawn art can replace each stage later. Wild birds on the map are always adults. Later: feeding moves into the tree house habitat, and stages feed into bird XP and pouch skins.
 
+## Naming your birds (built 2026-11-17)
+
+On a logged bird's info page you can give it a nickname (up to 16 letters) for **5 seed pouches**. Renaming costs the same. The nickname shows on the info page, the journal and the catch card, with the species name underneath. Rules in `src/naming.js`.
+
 ## Notebook ideas (from RBZ, 2026-11-17)
 
 RBZ's notebook page of ideas, in the order we plan to build them. Each one feeds the next.

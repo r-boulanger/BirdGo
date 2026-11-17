@@ -6,6 +6,7 @@
 // from eBird; we only link to it.
 import { birdSVG } from "./seedtoss.js";
 import { stageSVG, stageOf, requirement, STAGE_LABEL } from "./stages.js";
+import { NAME_COST, NAME_MAX } from "./naming.js";
 
 const MONTHS = "JFMAMJJASOND".split("");
 const MONTH_NAMES = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -102,12 +103,21 @@ function growPanel(bird, entry, growth) {
   return `<div class="gp${r?.ready ? " ready" : ""}" id="ipGrow">
     <div class="gp-art">${stageSVG(bird, st)}</div>
     <div class="gp-main"><div class="gp-stage hand">Your ${STAGE_LABEL[st].toLowerCase()}</div>${body}</div>
+    <form class="gp-name" id="ipNameForm" autocomplete="off">
+      <label for="ipName" class="small">${entry.nickname ? "Rename" : "Name"} your ${esc(bird.name.split(" ").pop().toLowerCase())}</label>
+      <div class="gp-namerow">
+        <input id="ipName" name="nick" maxlength="${NAME_MAX}" placeholder="e.g. Pip" value="${esc(entry.nickname || "")}">
+        <button type="submit" class="gp-namebtn" ${bag >= NAME_COST ? "" : "disabled"}>${entry.nickname ? "Rename" : "Name it"} <span>${NAME_COST} pouches</span></button>
+      </div>
+      <div class="small err" id="ipNameErr" hidden></div>
+    </form>
     <div class="gp-msg hand" id="ipGrowMsg" hidden></div>
   </div>`;
 }
 
 // ---------- the page ----------
-// growth: { bag, onFeed } lets the page show the evolve panel for a logged bird (onFeed = evolve).
+// growth: { bag, onFeed, onName } lets the page show the evolve + naming panel for a logged bird.
+// onFeed evolves; onName(name) returns an error message, or "" when the name was set.
 export function renderInfo(host, bird, info, entry, onClose, growth) {
   const L = links(bird, info), i = info || {};
   const stamp = `<span class="stamp ${bird.rarity}">${bird.rarity}</span>`;
@@ -125,7 +135,7 @@ export function renderInfo(host, bird, info, entry, onClose, growth) {
     </div>
     <div class="ip-body">
       <div class="ip-head">
-        <div><h2 class="hand">${esc(bird.name)}</h2><div class="small"><i>${esc(bird.sci)}</i> · ${esc(bird.group)}</div></div>
+        <div>${entry?.nickname ? `<h2 class="hand">“${esc(entry.nickname)}”</h2><div class="ip-species">${esc(bird.name)}</div>` : `<h2 class="hand">${esc(bird.name)}</h2>`}<div class="small"><i>${esc(bird.sci)}</i> · ${esc(bird.group)}</div></div>
         ${stamp}
       </div>
       ${entry ? growPanel(bird, entry, growth) : ""}
@@ -168,6 +178,12 @@ export function renderInfo(host, bird, info, entry, onClose, growth) {
   const $ = s => host.querySelector(s);
   $("#ipBack").onclick = onClose;
   const feed = $("#ipFeed"); if (feed && growth?.onFeed) feed.onclick = growth.onFeed;
+  const nf = $("#ipNameForm");
+  if (nf && growth?.onName) nf.onsubmit = ev => {
+    ev.preventDefault();
+    const problem = growth.onName($("#ipName").value);
+    if (problem) { const er = $("#ipNameErr"); er.textContent = problem; er.hidden = false; }
+  };
   host.querySelectorAll(".ip-tabs button").forEach(b => b.onclick = () => {
     host.querySelectorAll(".ip-tabs button").forEach(x => x.setAttribute("aria-selected", x === b));
     host.querySelectorAll(".ip-pane").forEach(p => p.hidden = p.dataset.pane !== b.dataset.tab);
