@@ -45,8 +45,11 @@ const BACKGROUND = `<svg class="branch" viewBox="0 0 300 400" preserveAspectRati
 
 const rand = (a, b) => a + Math.random() * (b - a);
 
-export function seedToss(container, bird, onEnd) {
+// opts.pouches: how many pouches you can use here (defaults to the rarity limit).
+// opts.onThrow: called each time a pouch is thrown, so the seed bag can go down.
+export function seedToss(container, bird, onEnd, opts = {}) {
   const D = TOSS[bird.rarity] || TOSS.common;
+  const OUT = opts.outMsg || "Out of seed pouches. It flew off.";
   container.innerHTML = `
     <div class="toss" id="toss">
       ${BACKGROUND}
@@ -58,7 +61,7 @@ export function seedToss(container, bird, onEnd) {
     <div class="status" id="status">Swipe the pouch up at the bird</div>`;
   const $ = s => container.querySelector(s);
   const scene = $("#toss"), pouch = $("#pouch"), tb = $("#tb"), ring = $("#ring"), status = $("#status"), q = $("#quality");
-  let left = D.pouches, phase = "ready", ringT = 0, ringR = 1, hopT = rand(...D.hop), samples = [], grabbed = false, alive = true, raf = 0;
+  let left = Math.min(D.pouches, opts.pouches ?? D.pouches), phase = "ready", ringT = 0, ringR = 1, hopT = rand(...D.hop), samples = [], grabbed = false, alive = true, raf = 0;
 
   const showLeft = () => { $("#left").innerHTML = Array.from({ length: left }, () => pouchSVG).join("") || "none"; };
   showLeft();
@@ -93,7 +96,7 @@ export function seedToss(container, bird, onEnd) {
   pouch.onpointerup = release; pouch.onpointercancel = release;
 
   function throwIt(sx, sy, vx, vy) {
-    phase = "flying"; left--; showLeft();
+    phase = "flying"; left--; showLeft(); opts.onThrow?.();
     const R = rect(), rAtThrow = ringR;
     const lx = Math.min(R.width * .95, Math.max(R.width * .05, sx + vx * .22)), ly = Math.max(R.height * .04, sy + vy * .22);
     const t0 = performance.now(), T = 650;
@@ -115,7 +118,7 @@ export function seedToss(container, bird, onEnd) {
       const oops = Math.random() < .5 ? "Oy vey!" : "Shucks!";
       status.classList.add("bad"); status.textContent = oops; q.textContent = oops;
       pouch.style.transition = "top .5s ease-in,opacity .5s"; setP(x, R.height + 40, .5); pouch.style.opacity = 0;
-      setTimeout(() => { if (!alive) return; if (left <= 0) { flyAway("Out of seed pouches. It flew off."); return; } home(); }, 650);
+      setTimeout(() => { if (!alive) return; if (left <= 0) { flyAway(OUT); return; } home(); }, 650);
       return;
     }
     q.textContent = rr < .45 ? "Tuffington!" : "Tuff!";
@@ -126,7 +129,7 @@ export function seedToss(container, bird, onEnd) {
       if (!alive) return;
       if (Math.random() > Math.pow(chance, 1 / 3)) {
         q.textContent = ""; tb.style.visibility = "visible";
-        if (Math.random() < D.flee || left <= 0) { flyAway(left <= 0 ? "Out of seed pouches. It flew off." : "It slipped out and flew away!"); return; }
+        if (Math.random() < D.flee || left <= 0) { flyAway(left <= 0 ? OUT : "It slipped out and flew away!"); return; }
         status.classList.add("bad"); status.textContent = "It slipped out!"; home(); return;
       }
       n++;

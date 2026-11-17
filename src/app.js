@@ -2,8 +2,9 @@
 import { pickSpawns, timeOfDay } from "./spawn.js";
 import { fetchConditions } from "./weather.js";
 import { nearbyHabitats } from "./habitat.js";
-import { seedToss, birdSVG } from "./seedtoss.js";
+import { seedToss, birdSVG, TOSS } from "./seedtoss.js";
 import * as Journal from "./journal.js";
+import * as Seed from "./seed.js";
 
 const BRUNSWICK = [43.9145, -69.9653];        // Brunswick, Maine town center (demo mode start)
 const CATCH_RANGE_M = 70;                      // how close you must be to toss
@@ -15,6 +16,7 @@ const HAB_LABEL = { town: "Town", forest: "Woods", field: "Fields", marsh: "Mars
 const $ = s => document.querySelector(s);
 let birds = [], map, meMarker, me = null, demo = false, cond = null, condAt = null, habitats = ["town"], habAt = null;
 let spawns = [], journal = Journal.load(), activeToss = null, watchId = null;
+let seed = Seed.load(), stashMarkers = new Map();
 
 // ---------- helpers ----------
 const toRad = d => d * Math.PI / 180;
@@ -70,7 +72,7 @@ function addSpawn(bird) {
   let at;
   for (let i = 0; i < 12; i++) {
     at = offset(me, 35 + Math.random() * 140, Math.random() * 360);
-    if (spawns.every(o => distM(o.at, at) > 55)) break;
+    if (spawns.every(o => distM(o.at, at) > 55) && Seed.stashesNear(at[0], at[1], 230).every(st => distM(st.at, at) > 40)) break;
   }
   const s = { bird, at, born: Date.now() };
   s.marker = L.marker(at, { icon: birdIcon(s), keyboard: true, title: bird.name }).addTo(map).on("click", () => tapBird(s));
@@ -85,12 +87,57 @@ function tendSpawns(reset = false) {
   for (const s of spawns) s.marker.setIcon(birdIcon(s));
 }
 
+// ---------- birdseed stashes ----------
+function updateSeed() {
+  $("#seedCount").textContent = seed.bag;
+  $("#seedChip").classList.toggle("low", seed.bag <= 3);
+}
+function stashIcon(st) {
+  const ready = Seed.isReady(seed, st), d = me ? Math.round(distM(me, st.at)) : 0;
+  const lbl = ready ? "Seed" : `${Math.ceil(Seed.readyIn(seed, st) / 60000)} min`;
+  return L.divIcon({
+    className: "", iconSize: [0, 0],
+    html: `<div class="sm ${ready ? "" : "empty"} ${d > Seed.SEED.rangeM ? "far" : ""}"><svg viewBox="0 0 64 64"><use href="#stashArt" width="64" height="64"/></svg><span class="lbl">${lbl}</span></div>`,
+  });
+}
+function renderStashes() {
+  if (!me || !map) return;
+  const near = Seed.stashesNear(me[0], me[1], 450), keep = new Set();
+  for (const st of near) {
+    keep.add(st.id);
+    let m = stashMarkers.get(st.id);
+    if (!m) {
+      m = L.marker(st.at, { icon: stashIcon(st), keyboard: true, title: "Seed stash", zIndexOffset: -100 }).addTo(map).on("click", () => tapStash(st));
+      stashMarkers.set(st.id, m);
+    } else m.setIcon(stashIcon(st));
+  }
+  for (const [id, m] of stashMarkers) if (!keep.has(id)) { map.removeLayer(m); stashMarkers.delete(id); }
+}
+function tapStash(st) {
+  if (activeToss) return;
+  if (!Seed.isReady(seed, st)) { toast(`This stash is empty. It refills in ${Math.ceil(Seed.readyIn(seed, st) / 60000)} min.`); return; }
+  const d = Math.round(distM(me, st.at));
+  if (d > Seed.SEED.rangeM) {
+    if (!demo) { toast(`Seed stash is ${d} m away. Walk closer!`); return; }
+    toast(`You walk ${d} m over to the seed stash…`, 1400);
+    map.panTo(st.at);
+    moveTo(st.at).then(() => setTimeout(() => tapStash(st), 600));
+    return;
+  }
+  if (seed.bag >= Seed.SEED.maxBag) { toast(`Your seed bag is full (${Seed.SEED.maxBag} pouches).`); return; }
+  const got = Seed.collect(seed, st);
+  updateSeed(); renderStashes();
+  const chip = $("#seedChip"); chip.classList.remove("pop"); void chip.offsetWidth; chip.classList.add("pop");
+  toast(`+${got} seed pouches! You have ${seed.bag}.`);
+}
+
 // ---------- moving ----------
 async function moveTo(latlng, first = false) {
   me = latlng;
   if (!meMarker) meMarker = L.marker(me, { icon: L.divIcon({ className: "", html: '<div class="me"></div>', iconSize: [18, 18] }), interactive: false, zIndexOffset: 1000 }).addTo(map);
   else meMarker.setLatLng(me);
   if (first) map.setView(me, 17);
+  renderStashes();
   await refreshConditions();
   tendSpawns();
 }
@@ -108,13 +155,18 @@ function tapBird(s) {
     moveTo(target).then(() => setTimeout(() => { if (spawns.includes(s)) tapBird(s); }, 700));
     return;
   }
+  if (seed.bag <= 0) { toast("Your seed bag is empty. Walk to a seed stash on the map to fill it.", 3600); return; }
   $("#encName").textContent = s.bird.name;
   $("#encMeta").textContent = `${s.bird.rarity} · ${s.bird.sci}`;
   $("#encounter").hidden = false;
   activeToss = seedToss($("#tossHost"), s.bird, r => {
     activeToss = null; $("#encounter").hidden = true;
     if (r.caught) { removeSpawn(s); logCatch(s.bird); }
-    else { removeSpawn(s); toast(r.outOfPouches ? "Out of seed pouches. It flew off." : `The ${s.bird.name} flew away.`); tendSpawns(); }
+    else { removeSpawn(s); toast(r.outOfPouches && seed.bag <= 0 ? "Out of seed! Find a seed stash on the map." : `The ${s.bird.name} flew away.`); tendSpawns(); }
+  }, {
+    pouches: seed.bag,
+    onThrow: () => { Seed.spend(seed); updateSeed(); },
+    outMsg: seed.bag < (TOSS[s.bird.rarity] || TOSS.common).pouches ? "Your seed bag is empty. It flew off." : undefined,
   });
 }
 $("#encClose").onclick = () => { activeToss?.stop(); activeToss = null; $("#encounter").hidden = true; };
@@ -242,6 +294,6 @@ if (IN_APP) {
 (async function boot() {
   const res = await fetch("data/birds-brunswick-me.json");
   birds = (await res.json()).birds;
-  initMap(); updateCount();
-  setInterval(() => { if (me) refreshConditions().then(() => tendSpawns()); }, 60 * 1000);
+  initMap(); updateCount(); updateSeed();
+  setInterval(() => { if (me) { renderStashes(); refreshConditions().then(() => tendSpawns()); } }, 60 * 1000);
 })();
