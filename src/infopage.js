@@ -5,6 +5,7 @@
 // in the player's browser (freely licensed, credited on the page). Nothing is copied
 // from eBird; we only link to it.
 import { birdSVG } from "./seedtoss.js";
+import { stageSVG, stageOf, needed, nextStage, STAGE_LABEL, POINTS } from "./stages.js";
 
 const MONTHS = "JFMAMJJASOND".split("");
 const MONTH_NAMES = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -82,8 +83,24 @@ export async function fetchPhoto(bird) {
   return out;
 }
 
+// ---------- growing up panel ----------
+function growPanel(bird, entry, growth) {
+  const st = stageOf(entry), need = needed(entry), have = entry.growth || 0, next = nextStage(st);
+  const bag = growth?.bag ?? 0;
+  const bar = need ? `<div class="gp-bar" role="progressbar" aria-valuemin="0" aria-valuemax="${need}" aria-valuenow="${have}"><span style="width:${Math.min(100, have / need * 100)}%"></span></div>
+    <div class="small">${have} / ${need} growth to ${STAGE_LABEL[next]}</div>` : `<div class="small">Fully grown!</div>`;
+  const btn = next ? `<button class="gp-feed" type="button" id="ipFeed" ${bag > 0 ? "" : "disabled"}>Feed 1 seed pouch <span>+${POINTS.feed}</span></button>
+    <div class="small">${bag > 0 ? `${bag} pouches in your bag · catching another ${esc(bird.name.split(" ").pop())} gives +${POINTS.catch}` : "Your seed bag is empty. Find a seed stash on the map."}</div>` : "";
+  return `<div class="gp" id="ipGrow">
+    <div class="gp-art">${stageSVG(bird, st)}</div>
+    <div class="gp-main"><div class="gp-stage hand">Your ${STAGE_LABEL[st].toLowerCase()}</div>${bar}${btn}</div>
+    <div class="gp-msg hand" id="ipGrowMsg" hidden></div>
+  </div>`;
+}
+
 // ---------- the page ----------
-export function renderInfo(host, bird, info, entry, onClose) {
+// growth: { bag, onFeed } lets the page show the feeding panel for a logged bird.
+export function renderInfo(host, bird, info, entry, onClose, growth) {
   const L = links(bird, info), i = info || {};
   const stamp = `<span class="stamp ${bird.rarity}">${bird.rarity}</span>`;
   const bars = bird.months.map((v, k) => `<div class="mo" title="${MONTH_NAMES[k]}: ${ABUND[v]}"><div class="bar"><span class="a${v}"></span></div>${MONTHS[k]}</div>`).join("");
@@ -103,6 +120,7 @@ export function renderInfo(host, bird, info, entry, onClose) {
         <div><h2 class="hand">${esc(bird.name)}</h2><div class="small"><i>${esc(bird.sci)}</i> · ${esc(bird.group)}</div></div>
         ${stamp}
       </div>
+      ${entry ? growPanel(bird, entry, growth) : ""}
       <div class="ip-tabs" role="tablist">
         <button type="button" role="tab" data-tab="about" aria-selected="true">About</button>
         <button type="button" role="tab" data-tab="where" aria-selected="false">Where &amp; when</button>
@@ -141,6 +159,7 @@ export function renderInfo(host, bird, info, entry, onClose) {
 
   const $ = s => host.querySelector(s);
   $("#ipBack").onclick = onClose;
+  const feed = $("#ipFeed"); if (feed && growth?.onFeed) feed.onclick = growth.onFeed;
   host.querySelectorAll(".ip-tabs button").forEach(b => b.onclick = () => {
     host.querySelectorAll(".ip-tabs button").forEach(x => x.setAttribute("aria-selected", x === b));
     host.querySelectorAll(".ip-pane").forEach(p => p.hidden = p.dataset.pane !== b.dataset.tab);
