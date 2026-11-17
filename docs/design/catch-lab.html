@@ -302,7 +302,7 @@ function startToss(){
   const showLeft=()=>{$("#left").innerHTML=Array.from({length:left},()=>`<svg viewBox="0 0 64 64"><use href="#pouchArt" width="64" height="64"/></svg>`).join("")||"none";};showLeft();
   const rect=()=>scene.getBoundingClientRect();
   const setP=(x,y,sc=1,rot=0)=>{pouch.style.left=x+"px";pouch.style.top=y+"px";pouch.style.transform=`translate(-50%,-50%) scale(${sc}) rotate(${rot}deg)`};
-  const home=()=>{const R=rect();pouch.style.transition="";pouch.style.opacity=1;setP(R.width*.5,R.height*.86);phase="ready";};
+  const home=()=>{const R=rect();pouch.style.transition="";pouch.style.opacity=1;setP(R.width*.5,R.height*.86);phase="ready";q.textContent="";};
   home();
   pouch.onpointerdown=e=>{if(phase!=="ready")return;e.preventDefault();grabbed=true;samples=[];try{pouch.setPointerCapture(e.pointerId)}catch(_){}};
   pouch.onpointermove=e=>{if(!grabbed)return;const R=rect();const x=e.clientX-R.left,y=e.clientY-R.top;samples.push([performance.now(),x,y]);if(samples.length>12)samples.shift();setP(x,Math.max(y,R.height*.5));};
@@ -325,10 +325,10 @@ function startToss(){
   function land(x,y,rr){
     const R=rect(),B=tb.getBoundingClientRect();const bx=B.left-R.left+B.width/2,by=B.top-R.top+B.height/2;
     const hitR=B.width*.75*rr+B.width*.35;
-    if(Math.hypot(x-bx,y-by)>hitR){phase="miss";status.classList.add("bad");status.textContent="Missed!";
+    if(Math.hypot(x-bx,y-by)>hitR){phase="miss";status.classList.add("bad");const oops=Math.random()<.5?"Oy vey!":"Shucks!";status.textContent=oops;q.textContent=oops;
       pouch.style.transition="top .5s ease-in,opacity .5s";setP(x,R.height+40,.5);pouch.style.opacity=0;
       setTimeout(()=>{if(!document.body.contains(pouch))return;if(left<=0){flushed("Out of seed pouches.");return}home();},600);return;}
-    const label=rr<.45?"Perfect!":rr<.7?"Great!":"Good";q.textContent=label;
+    const label=rr<.45?"Tuffington!":"Tuff!";q.textContent=label;
     phase="wobble";tb.style.visibility="hidden";setP(bx,by+B.height*.25,.5,0);
     const chance=Math.min(.97,D.base+(1-rr)*.4);let n=0;status.classList.remove("bad");status.textContent="…";
     const wob=()=>{if(!document.body.contains(pouch))return;
