@@ -52,6 +52,12 @@ Decided together, round by round. Round 1 offers three directions: **A Field Jou
 
 Browser Geolocation (`watchPosition`) while the app is open; host on GitHub Pages (https is required for location). OpenStreetMap data for the map (restyled to the Field Journal look) and for nearby habitat (water, woods, fields, town).
 
+## Bird info pages (built 2026-11-17)
+
+Look **B, Field Guide Card** (chosen by RBZ from three options). Tap a bird you've logged in the Field Journal (or "See its info page" after a catch). Big photo on top, then tabs: **About** (fact, size, weight, diet, voice, nest, fun facts, Wikipedia intro), **Where & when** (month-by-month bar for Brunswick, habitats, active times, weather it likes), **My sightings**. Links to All About Birds, eBird and Wikipedia. Birds you haven't caught stay locked.
+
+The photo and Wikipedia intro load live from Wikipedia / Wikimedia Commons in the player's browser and show the photographer and license. Species details live in `data/bird-info.json` (hand-written, edit freely).
+
 ## Notebook ideas (from RBZ, 2026-11-17)
 
 RBZ's notebook page of ideas, in the order we plan to build them. Each one feeds the next.

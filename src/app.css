@@ -107,10 +107,51 @@ button:focus-visible{outline:3px solid var(--wash);outline-offset:2px}
 .stamp.common{border-color:#4F8A3C;color:#4F8A3C} .stamp.uncommon{border-color:#2F6FB0;color:#2F6FB0} .stamp.rare{border-color:var(--purple);color:var(--purple)}
 .journal{max-height:100%}
 .jlist{display:flex;flex-direction:column}
-.jrow{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:10px;align-items:center;padding:8px 0;border-bottom:1px dashed var(--rule)}
+.jrow{width:100%;text-align:left;background:none;border:0;border-bottom:1px dashed var(--rule);font:inherit;color:inherit;min-height:44px;display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:10px;align-items:center;padding:8px 0;border-bottom:1px dashed var(--rule)}
 .jrow svg{width:44px;height:44px}
 .jrow .n{font-family:var(--hand);font-size:22px;font-weight:700;line-height:1}
 .jrow.unseen{opacity:.45}
 .jrow.unseen svg{filter:brightness(0) opacity(.35)}
 .jrow .c{font-size:12px;color:var(--muted);text-align:right}
+/* info pages (look B: Field Guide Card) */
+.ipsheet{padding:0}
+.ipcard{padding:0;gap:0;width:min(480px,100%);height:100%;max-height:100%;border-radius:0;border-width:0 1.5px;background-image:none;display:block}
+@media (min-width:520px){.ipsheet{padding:16px}.ipcard{border-width:1.5px;border-radius:4px;height:auto}}
+.ip-photo{position:relative;height:300px;background:#C9D3CC;border-bottom:1.5px solid var(--ink);overflow:hidden}
+.ip-img{width:100%;height:100%;object-fit:cover;display:block}
+.ip-ph{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px}
+.ip-ph svg{width:84px;height:84px}
+.ip-back{position:absolute;left:12px;top:calc(env(safe-area-inset-top,0px) + 12px);width:44px;height:44px;font-size:18px}
+.ip-credit{position:absolute;right:6px;bottom:6px;max-width:calc(100% - 12px);font-size:10px;background:rgba(238,241,230,.88);padding:1px 6px;border-radius:2px}
+.ip-credit a{color:var(--ink);text-decoration:none}
+.ip-body{padding:14px 18px calc(env(safe-area-inset-bottom,0px) + 18px);display:flex;flex-direction:column;gap:12px}
+.ip-head{display:flex;justify-content:space-between;align-items:flex-end;gap:10px}
+.ip-head h2{margin:0;font-size:38px;line-height:.95}
+.ip-head .stamp{position:static;transform:none;flex:none}
+.ip-tabs{display:flex;border-bottom:1.5px solid var(--ink)}
+.ip-tabs button{flex:1 1 auto;min-height:44px;padding:0 6px;background:none;border:0;font-family:var(--hand);font-size:20px;font-weight:700;white-space:nowrap}
+.ip-tabs button[aria-selected=true]{background:var(--ink);color:var(--paper)}
+.ip-pane{display:flex;flex-direction:column;gap:12px}
+.ip-pane p{margin:0;font-size:14px;line-height:1.5}
+.ip-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border:1.5px solid var(--ink);background:var(--paper2);font-size:13px}
+.ip-grid>div{padding:8px 10px;border-bottom:1px dashed var(--rule)}
+.ip-grid>div:nth-child(odd):not(.wide){border-right:1px dashed var(--rule)}
+.ip-grid>div.wide{grid-column:1/-1;border-bottom:0}
+.ip-grid span,.ip-label{display:block;color:var(--muted);font-size:10.5px;text-transform:uppercase;letter-spacing:.08em}
+.ip-facts{font-size:21px;line-height:1.2;display:flex;flex-direction:column;gap:6px}
+.ip-wiki{border-top:1.5px solid var(--ink);padding-top:10px;display:flex;flex-direction:column;gap:6px}
+.ip-wiki p{font-size:13px;color:#3F4D45}
+.ip-wiki a{color:var(--ink)}
+.ip-months{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:2px;text-align:center;font-size:10.5px}
+.ip-months .bar{height:36px;display:flex;align-items:flex-end;background:rgba(185,193,169,.35)}
+.ip-months .bar span{display:block;width:100%}
+.a0{height:0}.a1{height:33%;background:#A9C79A}.a2{height:66%;background:#78A866}.a3{height:100%;background:#4F8A3C}
+.ip-key{display:flex;gap:12px}
+.ip-key i{display:inline-block;width:10px;height:10px;margin-right:4px;vertical-align:-1px}
+.ip-key i.a1,.ip-key i.a2,.ip-key i.a3{height:10px}
+.ip-pane p.big{font-size:30px}
+.ip-sight{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:8px;font-size:14px}
+.ip-links{display:flex;gap:8px}
+.ip-links a{flex:1;text-align:center;font-size:12.5px;font-weight:600;border:1.5px solid var(--ink);padding:12px 4px;text-decoration:none;color:var(--ink);background:var(--paper2)}
+.jrow .c{white-space:nowrap}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
