@@ -35,7 +35,7 @@ h2{font-size:12px;letter-spacing:.12em;text-transform:uppercase;margin:0 0 8px;c
 .tab[aria-selected="true"]{background:var(--paper2);border-color:var(--ink);color:var(--ink)}
 button:focus-visible,.bcard:focus-visible{outline:3px solid var(--wash);outline-offset:2px}
 
-.stage{background:var(--paper2);border:1.5px solid var(--ink);border-top:0;border-radius:0 0 4px 4px;padding:18px 16px 20px;display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;min-height:470px}
+.stage{background:var(--paper2);border:1.5px solid var(--ink);border-radius:4px;padding:18px 16px 20px;display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;min-height:470px}
 .how{font-size:14px;max-width:46ch;margin:0}
 .scene{position:relative;width:min(300px,100%);aspect-ratio:1/1}
 .scene>svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
@@ -124,9 +124,9 @@ button{touch-action:manipulation}
 
 <div class="wrap">
   <header>
-    <span class="eyebrow">BirdGo · Catching, round 1</span>
+    <span class="eyebrow">BirdGo · Catching</span>
     <h1>Catch Lab</h1>
-    <p>Three ways catching could work. Pick a bird, try each style a few times, and tell me which feels right for BirdGo. Rarer birds are harder in every style. These are real Brunswick birds with placeholder art.</p>
+    <p>BirdGo's catching mechanic: swipe a seed pouch at the bird. Pick a bird and try it. Rarer birds dodge more and slip out more often. These are real Brunswick birds with placeholder art.</p>
   </header>
 
   <section>
@@ -135,23 +135,14 @@ button{touch-action:manipulation}
   </section>
 
   <section>
-    <h2>2. Try a catching style</h2>
-    <div class="tabs" role="tablist" id="tabs">
-      <button class="tab" role="tab" id="tab-watch" aria-selected="true" data-mode="watch"><b>Quiet Watch</b><span>hold still, freeze when it looks up</span></button>
-      <button class="tab" role="tab" id="tab-sketch" aria-selected="false" data-mode="sketch"><b>Quick Sketch</b><span>trace the bird before it moves</span></button>
-      <button class="tab" role="tab" id="tab-toss" aria-selected="false" data-mode="toss"><b>Seed Toss</b><span>swipe to throw a seed pouch</span></button>
-      <button class="tab" role="tab" id="tab-focus" aria-selected="false" data-mode="focus"><b>Focus Lens</b><span>tap when the image is sharp</span></button>
-    </div>
-    <div class="stage" id="stage" role="tabpanel"></div>
+    <h2>2. Toss a seed pouch</h2>
+    <div class="stage" id="stage"></div>
   </section>
 
   <section class="notes">
-    <div><b>Quiet Watch</b><p>Calm and patient, like real birding. Hold to observe. When the bird glances around, let go or it gets nervous and flies.</p></div>
-    <div><b>Quick Sketch</b><p>Fits the journal look best. Drag your finger through the dots in order before time runs out. Your sketch becomes the journal entry.</p></div>
-    <div><svg viewBox="0 0 64 64" width="64" height="64" aria-label="Seed pouch design"><use href="#pouchArt" width="64" height="64"/></svg><b>Seed Toss</b><p>Swipe up to throw a linen seed pouch. Land it inside the ink ring around the bird; the smaller the ring when you throw, the better your odds. The pouch wobbles, then the bird is logged, or slips out.</p></div>
-    <div><b>Focus Lens</b><p>The most "gamey". Like focusing binoculars: tap when the needle is in the sharp zone. Three good taps and it's logged.</p></div>
+    <div><svg viewBox="0 0 64 64" width="64" height="64" aria-label="Seed pouch design"><use href="#pouchArt" width="64" height="64"/></svg><b>Seed Toss</b><p>Swipe up to throw a linen seed pouch. Land it inside the ink ring around the bird; the smaller the ring when you throw, the better your odds. A small-ring throw is "Tuffington!", a regular one is "Tuff!", and a miss gets an "Oy vey!" or "Shucks!". The pouch wobbles up to three times, then the bird is logged, or slips out.</p></div>
   </section>
-  <p class="ask"><b>Tell me:</b> which style you like, or a mix (for example "Watch to approach, then Sketch to log it"), and whether it's too easy or too hard.</p>
+  <p class="ask"><b>Tell me:</b> whether it feels too easy or too hard, and anything you'd change about the pouch, the bird, or the throw.</p>
 </div>
 
 <script>
@@ -163,7 +154,7 @@ const BIRDS=[
 const DIFF={common:{alertEvery:[1.8,3.4],focusRate:.45,nerveRate:.9,sketchTime:9,points:7,speed:.7,zone:.24},
             uncommon:{alertEvery:[1.4,2.8],focusRate:.34,nerveRate:1.2,sketchTime:7.5,points:9,speed:1.0,zone:.17},
             rare:{alertEvery:[1.1,2.2],focusRate:.26,nerveRate:1.6,sketchTime:6.5,points:11,speed:1.35,zone:.12}};
-let bird=BIRDS[0], mode="watch", stopLoop=null;
+let bird=BIRDS[0], stopLoop=null;
 const $=s=>document.querySelector(s);
 const birdStyle=b=>Object.entries(b.c).map(([k,v])=>`--${k}:${v}`).join(";")+(b.c.tail?"":`;--tail:${b.c.body}`);
 const birdSVG=(b,cls="",extra="")=>`<svg class="${cls}" viewBox="0 0 64 64" style="${birdStyle(b)}" ${extra}><use href="#bird" width="64" height="64"/></svg>`;
@@ -173,7 +164,6 @@ function renderPicker(){
 }
 $("#picker").addEventListener("click",e=>{const t=e.target.closest(".bcard");if(!t)return;bird=BIRDS.find(b=>b.id===t.dataset.id);document.addEventListener("contextmenu",e=>{if(e.target.closest(".big,.scene,.toss"))e.preventDefault()});
 renderPicker();start();});
-$("#tabs").addEventListener("click",e=>{const t=e.target.closest(".tab");if(!t)return;mode=t.dataset.mode;document.querySelectorAll(".tab").forEach(x=>x.setAttribute("aria-selected",x===t));start();});
 
 function loop(fn){let last=performance.now(),on=true;function f(t){if(!on)return;const dt=Math.min(.05,(t-last)/1000);last=t;fn(dt);requestAnimationFrame(f)}requestAnimationFrame(f);return()=>on=false}
 const rand=(a,b)=>a+Math.random()*(b-a);
@@ -192,94 +182,6 @@ function flushed(msg){
   const b=$("#theBird"); if(b)b.classList.add("flyaway");
   $("#status").textContent=msg; $("#status").classList.add("bad");
   const btn=$("#mainBtn"); if(btn){btn.classList.remove("down");btn.textContent="Try again";btn.onclick=start;btn.onpointerdown=null;btn.onpointerup=null;btn.onpointerleave=null;btn.onpointercancel=null;btn.onkeydown=null;btn.onkeyup=null;}
-}
-
-/* ---------- Quiet Watch ---------- */
-function startWatch(){
-  const D=DIFF[bird.rarity];
-  $("#stage").innerHTML=`<p class="how">Press and hold <b>Watch</b> to observe. When the bird looks up (<b style="color:var(--red)">!</b>), let go until it settles.</p>
-   <div class="scene"><svg viewBox="0 0 200 200"><path d="M10 170 Q100 150 190 172" stroke="var(--ink)" stroke-width="2" fill="none"/>
-   <g id="theBird" style="transform-origin:100px 120px"><g id="birdBody" transform="translate(40 50) scale(1.9)" style="${birdStyle(bird)}"><use href="#bird" width="64" height="64"/></g></g>
-   <text id="alert" class="alertmark" x="150" y="50" opacity="0">!</text></svg></div>
-   <div class="meters"><div class="meter">Observed<div class="bar"><i id="focus"></i></div></div><div class="meter">Nerves<div class="bar nerve"><i id="nerve"></i></div></div></div>
-   <div class="status" id="status"></div>
-   <button class="big" type="button" id="mainBtn">Watch</button>`;
-  let holding=false,focus=0,nerve=0,state="calm",t=rand(...D.alertEvery);
-  const btn=$("#mainBtn");
-  btn.onpointerdown=e=>{e.preventDefault();holding=true;btn.classList.add("down")};
-  const up=()=>{holding=false;btn.classList.remove("down")};
-  btn.onpointerup=up;btn.onpointerleave=up;btn.onpointercancel=up;
-  btn.onkeydown=e=>{if(e.key===" "||e.key==="Enter"){e.preventDefault();holding=true;btn.classList.add("down")}};
-  btn.onkeyup=up;
-  const body=$("#birdBody"),alertEl=$("#alert"),status=$("#status");
-  stopLoop=loop(dt=>{
-    t-=dt;
-    if(t<=0){
-      if(state==="calm"){state="warn";t=.7}
-      else if(state==="warn"){state="alert";t=rand(.8,1.3)}
-      else {state="calm";t=rand(...D.alertEvery)}
-    }
-    alertEl.setAttribute("opacity",state==="alert"?1:state==="warn"?.35:0);
-    body.setAttribute("transform",`translate(40 ${state==="alert"?42:50}) scale(1.9)`);
-    if(holding&&state==="alert"){nerve+=D.nerveRate*dt;status.textContent="It sees you…";}
-    else if(holding){focus+=D.focusRate*dt;nerve=Math.max(0,nerve-.15*dt);status.textContent="Watching…";}
-    else {nerve=Math.max(0,nerve-.35*dt);status.textContent=state==="alert"?"Good, stay still.":"";}
-    $("#focus").style.width=Math.min(100,focus*100)+"%";$("#nerve").style.width=Math.min(100,nerve*100)+"%";
-    if(nerve>=1)flushed("It flew off. Too much movement.");
-    else if(focus>=1)journal("Quiet Watch");
-  });
-}
-
-/* ---------- Quick Sketch ---------- */
-function startSketch(){
-  const D=DIFF[bird.rarity];
-  // checkpoints around the bird outline (viewBox 0..200), traced in order
-  const outline=[[26,164],[46,140],[75,106],[104,92],[134,52],[150,80],[174,105],[150,124],[146,146],[120,168],[82,171],[54,160]];
-  const step=(outline.length-1)/(D.points-1);
-  const pts=Array.from({length:D.points},(_,i)=>outline[Math.round(i*step)]);
-  $("#stage").innerHTML=`<p class="how">Drag through the dots in order, starting at the <b style="color:var(--red)">red</b> one, before time runs out. Lift your finger and you can pick up where you left off.</p>
-   <div class="scene" id="sketchScene" style="touch-action:none"><svg viewBox="0 0 200 200" id="sk">
-   <g id="theBird" opacity=".5" class="outlined"><g transform="translate(20 40) scale(2.5)" style="${birdStyle(bird)}"><use href="#bird" width="64" height="64"/></g></g>
-   <path id="trail" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d=""/>
-   ${pts.map((p,i)=>`<circle class="cp" id="cp${i}" cx="${p[0]}" cy="${p[1]}" r="8"/>`).join("")}</svg></div>
-   <div class="meters"><div class="meter">Time<div class="bar nerve"><i id="timeBar"></i></div></div></div>
-   <div class="status" id="status"></div><button class="ghost" type="button" id="mainBtn">Restart</button>`;
-  $("#mainBtn").onclick=start;
-  let next=0,time=D.sketchTime,started=false,down=false;const strokes=[];
-  const mark=()=>pts.forEach((_,i)=>{const c=$("#cp"+i);c.classList.toggle("done",i<next);c.classList.toggle("next",i===next)});mark();
-  const svg=$("#sk");
-  const toSvg=e=>{const r=svg.getBoundingClientRect();return[(e.clientX-r.left)/r.width*200,(e.clientY-r.top)/r.height*200]};
-  const move=e=>{if(!down)return;const [x,y]=toSvg(e);strokes[strokes.length-1].push(x.toFixed(1)+" "+y.toFixed(1));$("#trail").setAttribute("d",strokes.filter(s=>s.length).map(s=>"M"+s.join(" L")).join(" "));
-    const p=pts[next];if(p&&Math.hypot(p[0]-x,p[1]-y)<14){if(next===0)started=true;next++;mark();if(next===pts.length)journal("Quick Sketch");}};
-  svg.onpointerdown=e=>{e.preventDefault();down=true;strokes.push([]);try{svg.setPointerCapture(e.pointerId)}catch(_){}move(e)};
-  svg.onpointermove=move;svg.onpointerup=svg.onpointercancel=()=>{down=false};
-  stopLoop=loop(dt=>{if(started)time-=dt;$("#timeBar").style.width=(100-Math.max(0,time)/D.sketchTime*100)+"%";
-    $("#status").textContent=started?`${next} of ${pts.length}`:"Start at the red dot";
-    if(time<=0){svg.onpointerdown=null;svg.onpointermove=null;flushed("Too slow. It hopped away.");}});
-}
-
-/* ---------- Focus Lens ---------- */
-function startFocus(){
-  const D=DIFF[bird.rarity];
-  $("#stage").innerHTML=`<p class="how">Tap <b>Focus</b> when the needle is inside the green zone. Three sharp shots logs the bird. Three misses and it flies.</p>
-   <div class="scene"><svg viewBox="0 0 200 200"><defs><filter id="blur"><feGaussianBlur id="blurAmt" stdDeviation="6"/></filter></defs>
-   <circle cx="100" cy="100" r="92" fill="none" stroke="var(--ink)" stroke-width="2"/><path d="M100 4 V20 M100 180 V196 M4 100 H20 M180 100 H196" stroke="var(--ink)" stroke-width="2"/>
-   <g id="theBird" filter="url(#blur)"><g transform="translate(36 40) scale(2)" style="${birdStyle(bird)}"><use href="#bird" width="64" height="64"/></g></g></svg></div>
-   <div class="gauge"><div class="zone" id="zone"></div><div class="needle" id="needle"></div></div>
-   <div class="dots" id="dots"></div>
-   <div class="status" id="status"></div>
-   <button class="big" type="button" id="mainBtn">Focus</button>`;
-  let pos=0,dir=1,hits=0,miss=0,zc=rand(.3,.7);const zone=$("#zone"),needle=$("#needle");
-  const place=()=>{zone.style.left=(zc-D.zone/2)*100+"%";zone.style.width=D.zone*100+"%"};place();
-  const dots=()=>{$("#dots").innerHTML=`<span class="l">Sharp</span>`+[0,1,2].map(i=>`<i class="${i<hits?"on":""}"></i>`).join("")+`<span class="l" style="margin-left:14px">Missed</span>`+[0,1,2].map(i=>`<i class="${i<miss?"x":""}"></i>`).join("")};dots();
-  $("#mainBtn").onclick=()=>{
-    if(Math.abs(pos-zc)<=D.zone/2){hits++;$("#status").classList.remove("bad");$("#status").textContent="Sharp!";zc=rand(.2,.8);place();}
-    else{miss++;$("#status").classList.add("bad");$("#status").textContent="Blurry…";}
-    dots();
-    if(hits>=3)journal("Focus Lens");else if(miss>=3)flushed("It noticed the clicking and flew.");
-  };
-  stopLoop=loop(dt=>{pos+=dir*D.speed*dt;if(pos>1){pos=1;dir=-1}if(pos<0){pos=0;dir=1}needle.style.left=pos*100+"%";
-    $("#blurAmt").setAttribute("stdDeviation",(Math.min(1,Math.abs(pos-zc)*3)*7).toFixed(2));});
 }
 
 /* ---------- Seed Toss ---------- */
@@ -345,6 +247,6 @@ function startToss(){
   });
 }
 
-function start(){stopLoop&&stopLoop();stopLoop=null;({watch:startWatch,sketch:startSketch,focus:startFocus,toss:startToss})[mode]();}
+function start(){stopLoop&&stopLoop();stopLoop=null;startToss();}
 renderPicker();start();
 </script>

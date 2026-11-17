@@ -40,7 +40,10 @@ Decided together, round by round. Round 1 offers three directions: **A Field Jou
 
 **Bird art:** simple placeholder avatars for now. Later, RBZ will upload hand-drawn bird designs, so the app keeps each species' picture as a separate swappable image file (one per species) rather than baking art into the code.
 
+## Catching (decided 2026-11-17)
+
+**Seed Toss.** Swipe a linen seed pouch (purple "S" on it) at the bird. A shrinking ink ring sets the odds; the pouch wobbles up to three times, then the bird is logged or slips out. Rarer birds hop more, slip out more and can fly away. Callouts: "Tuffington!" (small ring) or "Tuff!" on a hit, "Oy vey!" or "Shucks!" on a miss. Prototype: [Catch Lab](design/catch-lab.html).
+
 ## Open questions
 
-- Should catching be skill-based (timing tap), luck-based, or something calmer like "observe for a few seconds"?
-- Testing: will you play it near home first? (Affects which region's birds we tune first.)
+- Testing starts around Brunswick, Maine (answered).
