@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Name Plate Options</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Libre+Franklin:wght@400;500;600;800&family=Special+Elite&family=Cinzel:wght@600;700&display=swap">
+<style>
+body{margin:0;background:#E4E8D9;color:#25332C;font-family:"Libre Franklin",system-ui,sans-serif;padding:24px}
+h1{font-family:Caveat,cursive;font-size:44px;margin:0 0 14px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;max-width:720px}
+.opt{background:#EEF1E6;border:1.5px solid #25332C;padding:14px 14px 12px;display:flex;flex-direction:column;align-items:center;gap:12px}
+.opt .lbl{align-self:flex-start;font-family:Caveat,cursive;font-size:26px;font-weight:700;line-height:1}
+.stage{height:120px;display:flex;align-items:center;justify-content:center;width:100%}
+.sp{font-size:11px;letter-spacing:.06em;text-transform:uppercase}
+
+/* 1 brass plaque */
+.brass{position:relative;padding:12px 34px 10px;border-radius:6px;background:linear-gradient(160deg,#E9C877,#B88A2E 55%,#D9B45E);border:2px solid #7A5A1C;box-shadow:inset 0 1px 0 rgba(255,255,255,.6),inset 0 -2px 4px rgba(0,0,0,.25),0 3px 6px rgba(37,51,44,.3);text-align:center}
+.brass .n{font-family:Cinzel,serif;font-weight:700;font-size:26px;color:#4A3410;text-shadow:0 1px 0 rgba(255,240,200,.7)}
+.brass .sp{color:#5A4114}
+.brass i{position:absolute;top:50%;width:8px;height:8px;margin-top:-4px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#F4DE9E,#7A5A1C)}
+.brass i:first-child{left:10px}.brass i:last-of-type{right:10px}
+
+/* 2 wooden sign hanging from twine */
+.wood{position:relative;margin-top:18px;padding:10px 26px 8px;background:#A8743F;background-image:repeating-linear-gradient(176deg,rgba(0,0,0,.08) 0 2px,transparent 2px 9px);border:2px solid #25332C;border-radius:4px;transform:rotate(-2deg);text-align:center;color:#F6EBD5}
+.wood:before,.wood:after{content:"";position:absolute;top:-22px;width:2px;height:26px;background:#6B5638}
+.wood:before{left:22px;transform:rotate(22deg)}.wood:after{right:22px;transform:rotate(-22deg)}
+.wood .n{font-family:Caveat,cursive;font-weight:700;font-size:34px;line-height:1}
+.wood .sp{color:#F1DDB6}
+
+/* 3 bird leg band */
+.band{display:flex;align-items:center;gap:0;filter:drop-shadow(0 2px 3px rgba(37,51,44,.3))}
+.band .ring{width:22px;height:58px;border-radius:50%;background:linear-gradient(90deg,#8E979C,#E6EAEC 45%,#9AA3A8);border:1.5px solid #25332C}
+.band .strip{height:52px;padding:0 16px;display:flex;flex-direction:column;justify-content:center;background:linear-gradient(180deg,#F0F3F4,#C9D0D3 55%,#E7EBEC);border-top:1.5px solid #25332C;border-bottom:1.5px solid #25332C;margin:0 -11px}
+.band .n{font-family:"Libre Franklin";font-weight:800;font-size:22px;letter-spacing:.06em;color:#2B3236;line-height:1}
+.band .sp{font-size:9.5px;color:#4A5357}
+.band .ring:last-child{z-index:-1}
+
+/* 4 paper luggage tag */
+.tag{position:relative;display:flex;align-items:center;transform:rotate(3deg)}
+.tag .body{position:relative;background:#F3E6C4;border:1.5px solid #25332C;padding:10px 18px 10px 30px;clip-path:polygon(18px 0,100% 0,100% 100%,18px 100%,0 50%);text-align:left}
+.tag .hole{position:absolute;left:12px;top:50%;width:9px;height:9px;margin-top:-5px;border-radius:50%;border:1.5px solid #25332C;background:#EEF1E6;z-index:2}
+.tag .str{width:40px;height:2px;background:#B23A3A;margin-right:-6px;transform:rotate(-12deg)}
+.tag .n{font-family:"Special Elite",monospace;font-size:24px;line-height:1.1}
+.tag .sp{font-size:10px;color:#6B5A3A}
+
+/* 5 embroidered patch (matches the seed pouch) */
+.patch{padding:12px 26px;border-radius:40px;background:#DCCDA6;border:2px solid #25332C;box-shadow:inset 0 0 0 4px #DCCDA6,inset 0 0 0 6px #6B3FA0;text-align:center}
+.patch .n{font-family:Caveat,cursive;font-weight:700;font-size:34px;color:#6B3FA0;line-height:1}
+.patch .sp{color:#5A4A2A}
+
+/* 6 ink rubber stamp */
+.stamp{padding:8px 18px;border:3px double #A82A2E;color:#A82A2E;transform:rotate(-5deg);text-align:center;background:rgba(168,42,46,.04)}
+.stamp .n{font-family:"Libre Franklin";font-weight:800;font-size:26px;letter-spacing:.12em;text-transform:uppercase;line-height:1}
+.stamp .sp{font-size:10px;letter-spacing:.18em}
+</style>
+</head>
+<body>
+<h1>Name plates</h1>
+<div class="grid">
+  <div class="opt"><div class="lbl">1 · Brass plaque</div><div class="stage"><div class="brass"><i></i><div class="n">Sir Peeps</div><div class="sp">Black-capped Chickadee</div><i></i></div></div></div>
+  <div class="opt"><div class="lbl">2 · Wooden sign</div><div class="stage"><div class="wood"><div class="n">Sir Peeps</div><div class="sp">Black-capped Chickadee</div></div></div></div>
+  <div class="opt"><div class="lbl">3 · Leg band</div><div class="stage"><div class="band"><div class="ring"></div><div class="strip"><div class="n">SIR PEEPS</div><div class="sp">Black-capped Chickadee · No. 001</div></div><div class="ring"></div></div></div></div>
+  <div class="opt"><div class="lbl">4 · Luggage tag</div><div class="stage"><div class="tag"><div class="str"></div><span class="hole"></span><div class="body"><div class="n">Sir Peeps</div><div class="sp">Black-capped Chickadee</div></div></div></div></div>
+  <div class="opt"><div class="lbl">5 · Stitched patch</div><div class="stage"><div class="patch"><div class="n">Sir Peeps</div><div class="sp">Black-capped Chickadee</div></div></div></div>
+  <div class="opt"><div class="lbl">6 · Ink stamp</div><div class="stage"><div class="stamp"><div class="n">Sir Peeps</div><div class="sp">Black-capped Chickadee</div></div></div></div>
+</div>
+</body>
+</html>

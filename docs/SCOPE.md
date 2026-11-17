@@ -74,7 +74,7 @@ Placeholder art per stage is drawn from each bird's colors (`src/stages.js`, pre
 
 ## Naming your birds (built 2026-11-17)
 
-On a logged bird's info page you can give it a nickname (up to 16 letters) for **5 seed pouches**. Renaming costs the same. The nickname shows on the info page, the journal and the catch card, with the species name underneath. Rules in `src/naming.js`.
+On a logged bird's info page you can give it a nickname (up to 16 letters) for **5 seed pouches**. Renaming costs the same. The nickname shows on a **stitched linen name plate** (RBZ picked style 5 of 6 in `docs/design/nameplates.html`, matching the seed pouch) on the info page, the journal and the catch card. Rules in `src/naming.js`.
 
 ## Notebook ideas (from RBZ, 2026-11-17)
 

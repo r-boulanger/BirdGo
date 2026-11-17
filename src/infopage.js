@@ -135,7 +135,7 @@ export function renderInfo(host, bird, info, entry, onClose, growth) {
     </div>
     <div class="ip-body">
       <div class="ip-head">
-        <div>${entry?.nickname ? `<h2 class="hand">“${esc(entry.nickname)}”</h2><div class="ip-species">${esc(bird.name)}</div>` : `<h2 class="hand">${esc(bird.name)}</h2>`}<div class="small"><i>${esc(bird.sci)}</i> · ${esc(bird.group)}</div></div>
+        <div>${entry?.nickname ? `<h2 class="np big"><span class="np-n">${esc(entry.nickname)}</span><span class="np-s">${esc(bird.name)}</span></h2>` : `<h2 class="hand">${esc(bird.name)}</h2>`}<div class="small"><i>${esc(bird.sci)}</i> · ${esc(bird.group)}</div></div>
         ${stamp}
       </div>
       ${entry ? growPanel(bird, entry, growth) : ""}
