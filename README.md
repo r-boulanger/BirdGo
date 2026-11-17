@@ -8,6 +8,7 @@ The first version is a web app you open in your phone's browser (iPhone or Andro
 - [Style board, round 1](docs/design/style-board-round1.html): three visual directions (chose A, Field Journal)
 - [Catch Lab](docs/design/catch-lab.html): playable Seed Toss, the chosen catching mechanic
 - [Brunswick bird list](data/birds-brunswick-me.json): 55 starter species with season, habitat, time of day and rarity
+- **Play it:** https://r-boulanger.github.io/BirdGo/ (on your phone; demo mode works anywhere)
 - [Spawn Explorer](docs/design/spawn-explorer.html): see which birds spawn under any conditions
 
 ## Code
@@ -16,3 +17,5 @@ The first version is a web app you open in your phone's browser (iPhone or Andro
 - `src/weather.js`: live weather for the player's location (Open-Meteo, no key needed)
 - `npm test`: runs the spawn-rule tests
 - `npm run build:explorer`: rebuilds the Spawn Explorer page from the real rules and bird list
+- `index.html`, `src/app.js`: the game (map, GPS, spawns, Seed Toss, journal); `src/habitat.js` reads nearby habitat from OpenStreetMap; `src/journal.js` saves your journal on the phone
+- `vendor/leaflet`: map library (Leaflet 1.9.4, BSD-2 license)

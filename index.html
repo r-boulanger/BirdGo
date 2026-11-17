@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#E4E8D9">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>BirdGo</title>
+<link rel="stylesheet" href="vendor/leaflet/leaflet.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Libre+Franklin:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="src/app.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="bird" viewBox="0 0 64 64">
+    <path d="M10 40 L2 50 L16 46 Z" fill="var(--tail,currentColor)"/>
+    <ellipse cx="30" cy="38" rx="20" ry="13" fill="var(--body,currentColor)"/>
+    <circle cx="44" cy="24" r="10" fill="var(--head,currentColor)"/>
+    <path d="M40 15 L46 4 L50 16 Z" fill="var(--head,currentColor)"/>
+    <path d="M53 22 L62 26 L53 29 Z" fill="var(--beak,#F2A33A)"/>
+    <circle cx="47" cy="22" r="2" fill="var(--eye,#111)"/>
+    <path d="M18 34 Q30 26 40 38 Q30 44 18 34 Z" fill="var(--wing,rgba(0,0,0,.18))"/>
+    <path d="M26 50 L24 58 M34 50 L36 58" stroke="#555" stroke-width="2"/>
+  </symbol>
+  <symbol id="pouchArt" viewBox="0 0 64 64">
+    <path d="M24 14 Q32 6 40 14 L37 19 L27 19 Z" fill="#CBB98E" stroke="#25332C" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M22 9 L28 15 M42 9 L36 15" stroke="#25332C" stroke-width="1.6" stroke-linecap="round"/>
+    <circle cx="32" cy="38" r="21" fill="#DCCDA6" stroke="#25332C" stroke-width="1.8"/>
+    <circle cx="32" cy="38" r="17.5" fill="none" stroke="#25332C" stroke-width="1" stroke-dasharray="2.5 2.5" opacity=".6"/>
+    <rect x="26" y="18" width="12" height="4" rx="1.5" fill="#8A6A3A" stroke="#25332C" stroke-width="1.2"/>
+    <path d="M39 30.5 C37 28 34.5 27 32 27 C27.5 27 25 29.5 25 32.5 C25 36 28.5 37 32 38 C35.5 39 39 40 39 43.5 C39 46.5 36.5 49 32 49 C29.5 49 27 48 25 45.5" fill="none" stroke="#6B3FA0" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+</svg>
+
+<div id="map" aria-label="Map"></div>
+
+<header class="top">
+  <span class="chip" id="wx">Checking the weather…</span>
+  <span class="chip" id="hab" hidden></span>
+</header>
+<div class="toast" id="toast" role="status" hidden></div>
+<nav class="bottom">
+  <button class="nav" type="button" id="recenter">Me</button>
+  <button class="nav main" type="button" id="openJournal">Journal <span id="jcount">0</span></button>
+  <button class="nav" type="button" id="refresh">New birds</button>
+</nav>
+
+<section class="sheet" id="start">
+  <div class="card">
+    <h1>BirdGo</h1>
+    <p>Walk around, find the birds that really live near you, and toss a seed pouch to add them to your journal. Which birds show up depends on the season, the time of day, the weather and what's around you.</p>
+    <button class="btn" type="button" id="go">Start birding</button>
+    <p class="small">BirdGo will ask for your location. It's only used on your phone to place birds around you and look up the local weather.</p>
+    <button class="link" type="button" id="demo">Try demo mode in Brunswick instead</button>
+    <p class="small err" id="startErr" hidden></p>
+  </div>
+</section>
+
+<section class="sheet" id="encounter" hidden>
+  <div class="card enc">
+    <div class="enchead"><div><div class="hand big" id="encName"></div><div class="small" id="encMeta"></div></div><button class="x" type="button" id="encClose" aria-label="Leave this bird">✕</button></div>
+    <div id="tossHost"></div>
+  </div>
+</section>
+
+<section class="sheet" id="entry" hidden>
+  <div class="card"><div id="entryBody"></div><button class="btn" type="button" id="entryOk">Back to the map</button></div>
+</section>
+
+<section class="sheet" id="journal" hidden>
+  <div class="card journal">
+    <div class="enchead"><div><div class="hand big">Field Journal</div><div class="small" id="jsum"></div></div><button class="x" type="button" id="jClose" aria-label="Close journal">✕</button></div>
+    <div class="jlist" id="jlist"></div>
+  </div>
+</section>
+
+<script type="module" src="src/app.js"></script>
+<script src="vendor/leaflet/leaflet.js"></script>
+</body>
+</html>
