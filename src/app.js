@@ -170,10 +170,32 @@ function showStartError(msg) {
 }
 const IN_APP = /FBAN|FBAV|Instagram|Line\/|GSA\/|Snapchat|Twitter|LinkedInApp|; wv\)|Claude/i.test(navigator.userAgent)
   || (/iPhone|iPad/.test(navigator.userAgent) && !/Safari\//.test(navigator.userAgent));
-const IOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
-const HOW_TO_ALLOW = IOS
-  ? "On iPhone: open <b>Settings → Privacy &amp; Security → Location Services</b>, make sure it's on, then tap <b>Safari Websites</b> and choose <b>While Using the App</b>. Then reload this page."
-  : "In your browser, tap the icon left of the address bar, then <b>Permissions → Location → Allow</b>. Also check your phone's location is turned on. Then reload this page.";
+const UA = navigator.userAgent;
+const IOS = /iPhone|iPad|iPod/.test(UA);
+const ANDROID = /Android/.test(UA);
+const WINDOWS = /Windows/.test(UA);
+const MAC = /Macintosh/.test(UA) && !IOS;
+const BROWSER = /EdgiOS|EdgA|Edg\//.test(UA) ? "Edge" : /CriOS|Chrome\//.test(UA) ? "Chrome" : /FxiOS|Firefox\//.test(UA) ? "Firefox" : /Safari\//.test(UA) ? "Safari" : "your browser";
+// Step-by-step help for turning location on, for this phone/computer and browser.
+const HOW_TO_ALLOW = (() => {
+  if (IOS) {
+    const app = BROWSER === "Safari" ? "Safari Websites" : BROWSER === "your browser" ? "your browser" : BROWSER;
+    return `On iPhone: open <b>Settings → Privacy &amp; Security → Location Services</b>, make sure it's on, then tap <b>${app}</b> and choose <b>While Using the App</b>. Then reload this page.`;
+  }
+  if (ANDROID) {
+    return `On Android: make sure <b>Location</b> is on (swipe down from the top of the screen). Then open <b>Settings → Apps → ${BROWSER === "your browser" ? "your browser" : BROWSER} → Permissions → Location → Allow only while using the app</b>. `
+      + `In ${BROWSER}, tap the icon left of the web address, then <b>Permissions → Location → Allow</b>. Then reload this page.`;
+  }
+  if (WINDOWS) {
+    return `On Windows: open <b>Settings → Privacy &amp; security → Location</b> and turn on <b>Location services</b> and <b>Let desktop apps access your location</b>. `
+      + `Then in ${BROWSER}, click the lock icon left of the web address, set <b>Location</b> to <b>Allow</b>, and reload this page.`;
+  }
+  if (MAC) {
+    return `On a Mac: open <b>System Settings → Privacy &amp; Security → Location Services</b> and turn it on for <b>${BROWSER === "Edge" ? "Microsoft Edge" : BROWSER === "Chrome" ? "Google Chrome" : BROWSER}</b>. `
+      + `Then click the lock icon left of the web address, set <b>Location</b> to <b>Allow</b>, and reload this page.`;
+  }
+  return "Click the lock icon left of the web address, set <b>Location</b> to <b>Allow</b>, check your device's location is on, and reload this page.";
+})();
 
 function startTracking() {
   let first = true, watchdog;
@@ -193,7 +215,7 @@ function startTracking() {
   watchdog = setTimeout(() => {
     if (!first) return;
     showStartError(IN_APP
-      ? "It looks like BirdGo is open inside another app, which can't ask for location. Open <b>r-boulanger.github.io/BirdGo</b> in Safari or Chrome instead."
+      ? "It looks like BirdGo is open inside another app, which can't ask for location. Open <b>r-boulanger.github.io/BirdGo</b> in Safari, Chrome or Edge instead."
       : "No location yet. If you didn't see a prompt, location may be turned off for your browser. " + HOW_TO_ALLOW);
   }, 12000);
   navigator.geolocation.getCurrentPosition(onPos, onErr, { enableHighAccuracy: true, maximumAge: 30000, timeout: 15000 });
@@ -213,7 +235,7 @@ $("#go").onclick = async () => {
   startTracking();
 };
 if (IN_APP) {
-  $("#startErr").innerHTML = "Tip: for location to work, open BirdGo in Safari or Chrome rather than inside another app.";
+  $("#startErr").innerHTML = "Tip: for location to work, open BirdGo in Safari, Chrome or Edge rather than inside another app.";
   $("#startErr").hidden = false;
 }
 
