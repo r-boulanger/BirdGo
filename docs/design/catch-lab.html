@@ -81,6 +81,21 @@ button{touch-action:manipulation}
 .alertmark{font-family:var(--hand);font-weight:700;font-size:44px;fill:var(--red)}
 .outlined,.scene #birdBody{filter:drop-shadow(0 0 .6px var(--ink)) drop-shadow(0 0 .6px var(--ink))}
 .dots span.l{font-size:11px;color:var(--muted);align-self:center}
+.toss{position:relative;width:min(320px,100%);aspect-ratio:3/4;border:1.5px solid var(--ink);border-radius:3px;overflow:hidden;touch-action:none;user-select:none;-webkit-user-select:none;
+  background:linear-gradient(180deg,#DCE4E6 0%,var(--paper2) 55%,#DDE3CF 100%)}
+.toss .branch{position:absolute;inset:0;width:100%;height:100%}
+.tb{position:absolute;width:26%;aspect-ratio:1;transform:translate(-50%,-50%);transition:left .35s ease-in-out}
+.tb svg{width:100%;height:100%}
+.tb .ring{position:absolute;left:50%;top:50%;width:150%;aspect-ratio:1;border:2px dashed var(--ink);border-radius:50%;transform:translate(-50%,-50%) scale(1);pointer-events:none}
+.tb .ring.tight{border-color:var(--red);border-style:solid}
+.pouch{position:absolute;width:19%;aspect-ratio:1;transform:translate(-50%,-50%);cursor:grab;touch-action:none;-webkit-touch-callout:none}
+.pouch svg{width:100%;height:100%;display:block;pointer-events:none}
+.pouch.wobble{animation:wob .5s ease-in-out}
+@keyframes wob{25%{transform:translate(-50%,-50%) scale(.5) rotate(-18deg)}75%{transform:translate(-50%,-50%) scale(.5) rotate(18deg)}}
+.tossinfo{display:flex;gap:14px;align-items:center;justify-content:center;font-size:13px}
+.tossinfo .left{display:flex;gap:3px}
+.tossinfo .left svg{width:16px;height:16px}
+.quality{position:absolute;left:0;right:0;top:12%;font-family:var(--hand);font-size:30px;font-weight:700;color:var(--red);pointer-events:none}
 .cp{fill:var(--paper);stroke:var(--ink);stroke-width:2;stroke-dasharray:3 2}
 .cp.done{fill:var(--moss);stroke-dasharray:none}
 .cp.next{stroke:var(--red);stroke-width:3}
@@ -96,6 +111,16 @@ button{touch-action:manipulation}
     <circle cx="47" cy="22" r="2" fill="var(--eye,#111)"/>
     <path d="M18 34 Q30 26 40 38 Q30 44 18 34 Z" fill="var(--wing,rgba(0,0,0,.18))"/>
     <path d="M26 50 L24 58 M34 50 L36 58" stroke="#555" stroke-width="2"/>
+  </symbol>
+  <symbol id="pouchArt" viewBox="0 0 64 64">
+    <path d="M24 14 Q32 6 40 14 L37 19 L27 19 Z" fill="#CBB98E" stroke="#25332C" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M22 9 L28 15 M42 9 L36 15" stroke="#25332C" stroke-width="1.6" stroke-linecap="round"/>
+    <circle cx="32" cy="38" r="21" fill="#DCCDA6" stroke="#25332C" stroke-width="1.8"/>
+    <circle cx="32" cy="38" r="17.5" fill="none" stroke="#25332C" stroke-width="1" stroke-dasharray="2.5 2.5" opacity=".6"/>
+    <path d="M14 30 Q32 40 50 30 M14 46 Q32 36 50 46" stroke="#8A6A3A" stroke-width="2.2" fill="none"/>
+    <rect x="26" y="18" width="12" height="4" rx="1.5" fill="#8A6A3A" stroke="#25332C" stroke-width="1.2"/>
+    <circle cx="32" cy="38" r="7.5" fill="#EEF1E6" stroke="#A82A2E" stroke-width="1.8"/>
+    <path d="M29 42 Q31 35 36 33 Q35 38 29 42 Z M29 42 L28 44" fill="#A82A2E" stroke="#A82A2E" stroke-width="1" stroke-linecap="round"/>
   </symbol>
 </svg>
 
@@ -116,6 +141,7 @@ button{touch-action:manipulation}
     <div class="tabs" role="tablist" id="tabs">
       <button class="tab" role="tab" id="tab-watch" aria-selected="true" data-mode="watch"><b>Quiet Watch</b><span>hold still, freeze when it looks up</span></button>
       <button class="tab" role="tab" id="tab-sketch" aria-selected="false" data-mode="sketch"><b>Quick Sketch</b><span>trace the bird before it moves</span></button>
+      <button class="tab" role="tab" id="tab-toss" aria-selected="false" data-mode="toss"><b>Seed Toss</b><span>swipe to throw a seed pouch</span></button>
       <button class="tab" role="tab" id="tab-focus" aria-selected="false" data-mode="focus"><b>Focus Lens</b><span>tap when the image is sharp</span></button>
     </div>
     <div class="stage" id="stage" role="tabpanel"></div>
@@ -124,6 +150,7 @@ button{touch-action:manipulation}
   <section class="notes">
     <div><b>Quiet Watch</b><p>Calm and patient, like real birding. Hold to observe. When the bird glances around, let go or it gets nervous and flies.</p></div>
     <div><b>Quick Sketch</b><p>Fits the journal look best. Drag your finger through the dots in order before time runs out. Your sketch becomes the journal entry.</p></div>
+    <div><svg viewBox="0 0 64 64" width="64" height="64" aria-label="Seed pouch design"><use href="#pouchArt" width="64" height="64"/></svg><b>Seed Toss</b><p>Swipe up to throw a linen seed pouch. Land it inside the ink ring around the bird; the smaller the ring when you throw, the better your odds. The pouch wobbles, then the bird is logged, or slips out.</p></div>
     <div><b>Focus Lens</b><p>The most "gamey". Like focusing binoculars: tap when the needle is in the sharp zone. Three good taps and it's logged.</p></div>
   </section>
   <p class="ask"><b>Tell me:</b> which style you like, or a mix (for example "Watch to approach, then Sketch to log it"), and whether it's too easy or too hard.</p>
@@ -146,7 +173,7 @@ const birdSVG=(b,cls="",extra="")=>`<svg class="${cls}" viewBox="0 0 64 64" styl
 function renderPicker(){
   $("#picker").innerHTML=BIRDS.map(b=>`<button class="bcard" type="button" id="pick-${b.id}" data-id="${b.id}" aria-pressed="${b===bird}">${birdSVG(b)}<span><span class="n">${b.name}</span><br><span class="r">${b.rarity}</span></span></button>`).join("");
 }
-$("#picker").addEventListener("click",e=>{const t=e.target.closest(".bcard");if(!t)return;bird=BIRDS.find(b=>b.id===t.dataset.id);document.addEventListener("contextmenu",e=>{if(e.target.closest(".big,.scene"))e.preventDefault()});
+$("#picker").addEventListener("click",e=>{const t=e.target.closest(".bcard");if(!t)return;bird=BIRDS.find(b=>b.id===t.dataset.id);document.addEventListener("contextmenu",e=>{if(e.target.closest(".big,.scene,.toss"))e.preventDefault()});
 renderPicker();start();});
 $("#tabs").addEventListener("click",e=>{const t=e.target.closest(".tab");if(!t)return;mode=t.dataset.mode;document.querySelectorAll(".tab").forEach(x=>x.setAttribute("aria-selected",x===t));start();});
 
@@ -257,6 +284,69 @@ function startFocus(){
     $("#blurAmt").setAttribute("stdDeviation",(Math.min(1,Math.abs(pos-zc)*3)*7).toFixed(2));});
 }
 
-function start(){stopLoop&&stopLoop();stopLoop=null;({watch:startWatch,sketch:startSketch,focus:startFocus})[mode]();}
+/* ---------- Seed Toss ---------- */
+const TOSS={common:{base:.72,hop:[2.6,4.2],flee:.05},uncommon:{base:.5,hop:[1.7,3.0],flee:.15},rare:{base:.3,hop:[1.1,2.1],flee:.3}};
+function startToss(){
+  const D=TOSS[bird.rarity];
+  $("#stage").innerHTML=`<p class="how">Swipe the seed pouch <b>up toward the bird</b>. Throw when the ink ring is small for better odds.</p>
+   <div class="toss" id="toss">
+     <svg class="branch" viewBox="0 0 300 400" preserveAspectRatio="none" aria-hidden="true"><path d="M-10 150 Q120 128 310 142" stroke="#5A4632" stroke-width="7" fill="none" stroke-linecap="round"/><path d="M200 138 Q230 118 250 112" stroke="#5A4632" stroke-width="3" fill="none"/><g fill="#6E8B55" opacity=".7"><ellipse cx="252" cy="110" rx="9" ry="5"/><ellipse cx="60" cy="140" rx="8" ry="4"/></g></svg>
+     <div class="tb" id="tb" style="left:50%;top:28%"><div class="ring" id="ring"></div>${birdSVG(bird,"",'id="theBird"')}</div>
+     <div class="pouch" id="pouch" style="left:50%;top:86%"><svg viewBox="0 0 64 64"><use href="#pouchArt" width="64" height="64"/></svg></div>
+     <div class="quality" id="quality"></div>
+   </div>
+   <div class="tossinfo"><span>Pouches</span><span class="left" id="left"></span></div>
+   <div class="status" id="status"></div>
+   <button class="ghost" type="button" id="mainBtn">Restart</button>`;
+  $("#mainBtn").onclick=start;
+  const scene=$("#toss"),pouch=$("#pouch"),tb=$("#tb"),ring=$("#ring"),status=$("#status"),q=$("#quality");
+  let left=10,phase="ready",ringT=0,ringR=1,hopT=rand(...D.hop),samples=[],grabbed=false;
+  const showLeft=()=>{$("#left").innerHTML=Array.from({length:left},()=>`<svg viewBox="0 0 64 64"><use href="#pouchArt" width="64" height="64"/></svg>`).join("")||"none";};showLeft();
+  const rect=()=>scene.getBoundingClientRect();
+  const setP=(x,y,sc=1,rot=0)=>{pouch.style.left=x+"px";pouch.style.top=y+"px";pouch.style.transform=`translate(-50%,-50%) scale(${sc}) rotate(${rot}deg)`};
+  const home=()=>{const R=rect();pouch.style.transition="";pouch.style.opacity=1;setP(R.width*.5,R.height*.86);phase="ready";};
+  home();
+  pouch.onpointerdown=e=>{if(phase!=="ready")return;e.preventDefault();grabbed=true;samples=[];try{pouch.setPointerCapture(e.pointerId)}catch(_){}};
+  pouch.onpointermove=e=>{if(!grabbed)return;const R=rect();const x=e.clientX-R.left,y=e.clientY-R.top;samples.push([performance.now(),x,y]);if(samples.length>12)samples.shift();setP(x,Math.max(y,R.height*.5));};
+  const release=()=>{if(!grabbed)return;grabbed=false;const R=rect();
+    const now=performance.now();const rec=samples.filter(s=>now-s[0]<120);
+    if(rec.length<2){home();return}
+    const a=rec[0],b=rec[rec.length-1],dt=Math.max(.016,(b[0]-a[0])/1000);
+    const vx=(b[1]-a[1])/dt,vy=(b[2]-a[2])/dt;
+    if(vy>-R.height*1.2){status.classList.remove("bad");status.textContent="Swipe faster, upward.";home();return}
+    throwIt(b[1],Math.max(b[2],R.height*.5),vx,vy);};
+  pouch.onpointerup=release;pouch.onpointercancel=release;
+  function throwIt(sx,sy,vx,vy){
+    phase="flying";left--;showLeft();const R=rect();const rAtThrow=ringR;
+    const lx=Math.min(R.width*.95,Math.max(R.width*.05,sx+vx*.22)),ly=Math.max(R.height*.04,sy+vy*.22);
+    const t0=performance.now(),T=650;
+    (function fly(now){const t=Math.min(1,(now-t0)/T);
+      setP(sx+(lx-sx)*t,sy+(ly-sy)*t-Math.sin(Math.PI*t)*R.height*.18,1-.5*t,t*540);
+      if(t<1)return requestAnimationFrame(fly);land(lx,ly,rAtThrow);})(t0);
+  }
+  function land(x,y,rr){
+    const R=rect(),B=tb.getBoundingClientRect();const bx=B.left-R.left+B.width/2,by=B.top-R.top+B.height/2;
+    const hitR=B.width*.75*rr+B.width*.35;
+    if(Math.hypot(x-bx,y-by)>hitR){phase="miss";status.classList.add("bad");status.textContent="Missed!";
+      pouch.style.transition="top .5s ease-in,opacity .5s";setP(x,R.height+40,.5);pouch.style.opacity=0;
+      setTimeout(()=>{if(!document.body.contains(pouch))return;if(left<=0){flushed("Out of seed pouches.");return}home();},600);return;}
+    const label=rr<.45?"Perfect!":rr<.7?"Great!":"Good";q.textContent=label;
+    phase="wobble";tb.style.visibility="hidden";setP(bx,by+B.height*.25,.5,0);
+    const chance=Math.min(.97,D.base+(1-rr)*.4);let n=0;status.classList.remove("bad");status.textContent="…";
+    const wob=()=>{if(!document.body.contains(pouch))return;
+      if(Math.random()>Math.pow(chance,1/3)){q.textContent="";tb.style.visibility="visible";
+        if(Math.random()<D.flee||left<=0){flushed(left<=0?"Out of seed pouches.":"It slipped out and flew away!");return}
+        status.classList.add("bad");status.textContent="It slipped out!";home();return;}
+      n++;if(n>=3){journal("Seed Toss");return}
+      pouch.classList.remove("wobble");void pouch.offsetWidth;pouch.style.transform="translate(-50%,-50%) scale(.5)";pouch.classList.add("wobble");status.textContent="•".repeat(n);setTimeout(wob,650);};
+    setTimeout(wob,350);
+  }
+  stopLoop=loop(dt=>{
+    ringT+=dt;ringR=1-.65*((ringT%1.8)/1.8);ring.style.transform=`translate(-50%,-50%) scale(${ringR})`;ring.classList.toggle("tight",ringR<.45);
+    if(phase==="ready"||phase==="miss"){hopT-=dt;if(hopT<=0){hopT=rand(...D.hop);tb.style.left=rand(25,75)+"%";}}
+  });
+}
+
+function start(){stopLoop&&stopLoop();stopLoop=null;({watch:startWatch,sketch:startSketch,focus:startFocus,toss:startToss})[mode]();}
 renderPicker();start();
 </script>
