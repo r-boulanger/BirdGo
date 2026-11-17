@@ -169,6 +169,13 @@ button:focus-visible{outline:3px solid var(--wash);outline-offset:2px}
 .gp-feed span{font-family:var(--body);font-size:12px;background:var(--paper);color:var(--ink);border-radius:9px;padding:1px 7px;margin-left:4px;vertical-align:middle}
 .gp-feed:disabled{opacity:.4}
 .gp.ready{border-color:var(--purple);box-shadow:0 0 0 3px rgba(107,63,160,.18)}
+.gp-name{grid-column:1/-1;display:flex;flex-direction:column;gap:4px;border-top:1px dashed var(--rule);padding-top:8px}
+.gp-namerow{display:flex;gap:8px}
+.gp-namerow input{flex:1;min-width:0;min-height:44px;font-family:var(--hand);font-size:22px;font-weight:700;border:1.5px solid var(--ink);border-radius:4px;background:var(--paper);color:var(--ink);padding:2px 10px}
+.gp-namebtn{flex:none;min-height:44px;background:var(--purple);color:#fff;border:0;border-radius:4px;padding:4px 12px;font-family:var(--hand);font-size:20px;font-weight:700}
+.gp-namebtn span{font-family:var(--body);font-size:11px;background:#fff;color:var(--purple);border-radius:9px;padding:1px 6px;margin-left:3px;vertical-align:middle}
+.gp-namebtn:disabled{opacity:.45}
+.ip-species{font-family:var(--hand);font-size:22px;font-weight:700;line-height:1;margin-top:2px}
 .gp-msg{grid-column:1/-1;text-align:center;font-size:22px;color:var(--moss)}
 .gp-msg.grew{color:var(--purple);font-size:28px}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}

@@ -7,6 +7,7 @@ import * as Journal from "./journal.js";
 import * as Seed from "./seed.js";
 import { renderInfo } from "./infopage.js";
 import { stageSVG, stageOf, requirement, evolve, STAGE_LABEL } from "./stages.js";
+import { setName, nameProblem } from "./naming.js";
 
 const BRUNSWICK = [43.9145, -69.9653];        // Brunswick, Maine town center (demo mode start)
 const CATCH_RANGE_M = 70;                      // how close you must be to toss
@@ -189,7 +190,7 @@ function logCatch(bird) {
   const date = now.toLocaleDateString("en-US", { month: "short", day: "numeric" });
   const time = now.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" });
   $("#entryBody").innerHTML = `<div class="hand big" style="text-align:center">${e.count === 1 ? "New for your journal! A new infant to raise." : justReady ? `Ready to evolve into an ${STAGE_LABEL[req.next].toLowerCase()}! Costs ${req.seed} seed pouches.` : req && !req.ready ? `Logged again · ${req.catches - e.count} more to evolve` : `Logged again (${e.count}×)`}</div>
-    <div class="entry"><span class="stamp ${bird.rarity}">${bird.rarity}</span>${stageSVG(bird, stageOf(e))}<div><div class="n">${bird.name}</div><div class="s">${bird.sci}</div><p>${bird.fact}</p></div>
+    <div class="entry"><span class="stamp ${bird.rarity}">${bird.rarity}</span>${stageSVG(bird, stageOf(e))}<div><div class="n">${e.nickname ? `“${escHTML(e.nickname)}”` : bird.name}</div><div class="s">${e.nickname ? `${bird.name} · ` : ""}${bird.sci}</div><p>${bird.fact}</p></div>
     <div class="meta"><span>${date} · ${time}</span><span>${WEATHER_LABEL[cond?.weather] || ""}</span><span>${details.place}</span></div></div>`;
   $("#entry").hidden = false;
   tendSpawns();
@@ -203,10 +204,24 @@ function openInfo(bird, keepScroll = false) {
   renderInfo(host, bird, info[bird.id], journal[bird.id], () => { $("#info").hidden = true; if (!$("#journal").hidden) openJournal(); }, {
     bag: seed.bag,
     onFeed: () => feedBird(bird),
+    onName: name => nameBird(bird, name),
   });
   host.scrollTop = keepScroll ? y : 0;
   $("#info").hidden = false;
 }
+function nameBird(bird, name) {
+  const e = journal[bird.id];
+  const problem = nameProblem(e, name, seed.bag);
+  if (problem) return problem;
+  const done = setName(e, name, seed.bag);
+  Seed.spend(seed, done.cost); updateSeed();
+  Journal.save(journal);
+  openInfo(bird, true);
+  const msg = $("#ipGrowMsg");
+  msg.textContent = `Say hi to ${done.name}!`; msg.classList.add("grew"); msg.hidden = false;
+  return "";
+}
+const escHTML = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 function feedBird(bird) {
   const e = journal[bird.id];
   const done = e && evolve(bird, e, seed.bag);
@@ -225,7 +240,7 @@ function updateCount() { $("#jcount").textContent = Object.keys(journal).length;
 function openJournal() {
   const seen = birds.filter(b => journal[b.id]), unseen = birds.filter(b => !journal[b.id]);
   $("#jsum").textContent = `${seen.length} of ${birds.length} Brunswick birds found`;
-  const row = (b, e) => `<button type="button" class="jrow ${e ? "" : "unseen"}" data-id="${b.id}">${e ? stageSVG(b, stageOf(e)) : birdSVG(b)}<div><div class="n">${e ? b.name : "???"}</div><div class="small">${e ? STAGE_LABEL[stageOf(e)] : b.rarity}</div></div><div class="c">${e ? `${e.count}× · ${new Date(e.first.when).toLocaleDateString("en-US", { month: "short", day: "numeric" })} ›` : ""}</div></button>`;
+  const row = (b, e) => `<button type="button" class="jrow ${e ? "" : "unseen"}" data-id="${b.id}">${e ? stageSVG(b, stageOf(e)) : birdSVG(b)}<div><div class="n">${e ? (e.nickname ? `“${escHTML(e.nickname)}”` : b.name) : "???"}</div><div class="small">${e ? (e.nickname ? `${b.name} · ` : "") + STAGE_LABEL[stageOf(e)] : b.rarity}</div></div><div class="c">${e ? `${e.count}× · ${new Date(e.first.when).toLocaleDateString("en-US", { month: "short", day: "numeric" })} ›` : ""}</div></button>`;
   $("#jlist").innerHTML = seen.map(b => row(b, journal[b.id])).join("") + unseen.map(b => row(b)).join("");
   $("#jlist").querySelectorAll(".jrow").forEach(r => r.onclick = () => {
     const b = birds.find(x => x.id === r.dataset.id);
