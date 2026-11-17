@@ -3,26 +3,33 @@
 // hand-drawn art can replace it later (one image per species per stage).
 export const STAGES = ["infant", "adolescent", "adult"];
 export const STAGE_LABEL = { infant: "Infant", adolescent: "Adolescent", adult: "Adult" };
-// Growth points needed to reach the next stage.
-export const GROW = { infant: 10, adolescent: 25 };
-export const POINTS = { catch: 4, feed: 2 };
+// Evolving: catches make a bird READY, then seed pouches PAY to evolve it.
+// `catches` is the total number of times you've caught that species.
+// Rarer birds need fewer catches, since they're harder to find.
+export const EVOLVE = {
+  common:   { adolescent: { catches: 3, seed: 10 }, adult: { catches: 8, seed: 25 } },
+  uncommon: { adolescent: { catches: 2, seed: 10 }, adult: { catches: 5, seed: 25 } },
+  rare:     { adolescent: { catches: 2, seed: 10 }, adult: { catches: 3, seed: 25 } },
+};
 
-// ---------- growth rules ----------
 export function stageOf(e) { return e?.stage || "infant"; }
 export function nextStage(s) { return STAGES[STAGES.indexOf(s) + 1] || null; }
-export function needed(e) { return GROW[stageOf(e)] ?? null; }
 
-// Add growth points; returns the new stage if the bird grew up, else null.
-export function addGrowth(e, pts) {
-  if (!e.stage) e.stage = "infant";
-  if (e.stage === "adult") return null;
-  e.growth = (e.growth || 0) + pts;
-  const need = GROW[e.stage];
-  if (e.growth >= need) {
-    e.growth = 0; e.stage = nextStage(e.stage);
-    return e.stage;
-  }
-  return null;
+// What the next evolution needs: { next, catches, have, seed, ready } or null when fully grown.
+export function requirement(bird, e) {
+  const next = nextStage(stageOf(e));
+  if (!next) return null;
+  const r = (EVOLVE[bird.rarity] || EVOLVE.common)[next];
+  return { next, catches: r.catches, have: e?.count || 0, seed: r.seed, ready: (e?.count || 0) >= r.catches };
+}
+export function canEvolve(bird, e, bag) { const r = requirement(bird, e); return !!r && r.ready && bag >= r.seed; }
+
+// Pays for and applies the evolution. Returns { stage, cost } or null if not allowed.
+export function evolve(bird, e, bag) {
+  if (!canEvolve(bird, e, bag)) return null;
+  const r = requirement(bird, e);
+  e.stage = r.next;
+  return { stage: r.next, cost: r.seed };
 }
 
 // ---------- art ----------
