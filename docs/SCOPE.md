@@ -52,6 +52,23 @@ Decided together, round by round. Round 1 offers three directions: **A Field Jou
 
 Browser Geolocation (`watchPosition`) while the app is open; host on GitHub Pages (https is required for location). OpenStreetMap data for the map (restyled to the Field Journal look) and for nearby habitat (water, woods, fields, town).
 
+## Notebook ideas (from RBZ, 2026-11-17)
+
+RBZ's notebook page of ideas, in the order we plan to build them. Each one feeds the next.
+
+1. **Birdseed in the wild.** Seed stashes sit at fixed spots on the map. Walk to one to fill your seed bag; it refills after a while. Every Seed Toss uses a pouch from your bag (still at most 10 / 6 / 3 per common / uncommon / rare encounter). Later: bigger stashes at tree houses.
+2. **Bird info pages.** A page per species in the journal: more species-specific attributes, real info and fun facts, a real photo, and links out (All About Birds, eBird, Wikipedia). Photos: eBird / Macaulay Library media can't be copied into the game without permission, so use freely licensed (Creative Commons) photos from Wikimedia Commons with credit, and link to eBird rather than copying from it.
+3. **Habitats (tree houses?).** Where your caught birds live. Birds have to be fed with birdseed you collect. Habitat shows the better info pages. What habitats look like is to be designed together.
+4. **Bird XP.** Earned by catching new or rare species, feeding birds in your habitat, and (if we add it) mating.
+5. **Growing up (evolution).** Infant, adolescent, adult, driven by feeding and XP.
+6. **Seed pouch skins.** New pouch designs, unlocked through grown-up birds and bird XP. RBZ has skin ideas to share.
+7. **Sketches for birds.** RBZ's hand-drawn art replaces placeholders (one image per species).
+
+**Open questions (later):**
+- Can adult birds mate and produce offspring? How would that work in the habitat?
+- Bird arenas: what would birds do there (song contests, displays)? Tree houses as arenas?
+- Birdseed stashes at tree houses?
+
 ## Open questions
 
 - Testing starts around Brunswick, Maine (answered).
