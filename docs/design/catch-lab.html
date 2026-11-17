@@ -44,7 +44,8 @@ button:focus-visible,.bcard:focus-visible{outline:3px solid var(--wash);outline-
 .bar{height:12px;border:1.5px solid var(--ink);border-radius:2px;position:relative;overflow:hidden;background:var(--paper)}
 .bar i{position:absolute;inset:0 auto 0 0;width:0;background:var(--moss)}
 .bar.nerve i{background:var(--red)}
-.big{font-family:var(--hand);font-size:28px;font-weight:700;background:var(--ink);color:var(--paper);border:0;border-radius:4px;padding:6px 28px;cursor:pointer;touch-action:none;user-select:none;-webkit-user-select:none}
+button{touch-action:manipulation}
+.big{-webkit-touch-callout:none;font-family:var(--hand);font-size:28px;font-weight:700;background:var(--ink);color:var(--paper);border:0;border-radius:4px;padding:6px 28px;cursor:pointer;touch-action:none;user-select:none;-webkit-user-select:none}
 .big:active,.big.down{background:var(--moss)}
 .ghost{font:inherit;font-size:13px;background:transparent;border:1.5px solid var(--ink);border-radius:4px;padding:5px 12px;cursor:pointer;color:var(--ink)}
 .status{font-family:var(--hand);font-size:26px;min-height:1.2em;line-height:1.1}
@@ -78,6 +79,8 @@ button:focus-visible,.bcard:focus-visible{outline:3px solid var(--wash);outline-
 .flyaway{animation:fly .9s ease-in forwards}
 @keyframes fly{to{transform:translate(160px,-200px) rotate(-20deg);opacity:0}}
 .alertmark{font-family:var(--hand);font-weight:700;font-size:44px;fill:var(--red)}
+.outlined,.scene #birdBody{filter:drop-shadow(0 0 .6px var(--ink)) drop-shadow(0 0 .6px var(--ink))}
+.dots span.l{font-size:11px;color:var(--muted);align-self:center}
 .cp{fill:var(--paper);stroke:var(--ink);stroke-width:2;stroke-dasharray:3 2}
 .cp.done{fill:var(--moss);stroke-dasharray:none}
 .cp.next{stroke:var(--red);stroke-width:3}
@@ -132,18 +135,19 @@ const BIRDS=[
  {id:"loon",name:"Common Loon",sci:"Gavia immer",rarity:"uncommon",c:{body:"#1F2428",head:"#1A2A22",wing:"rgba(255,255,255,.35)",beak:"#222",eye:"#B32630"},fact:"Its haunting wail carries for miles across lakes on summer nights.",where:"Merrymeeting Bay"},
  {id:"snowy",name:"Snowy Owl",sci:"Bubo scandiacus",rarity:"rare",c:{body:"#F5F5F2",head:"#F5F5F2",wing:"rgba(0,0,0,.14)",beak:"#333",eye:"#C8962E"},fact:"Arctic visitor that hunts in daylight and turns up on beaches and airfields.",where:"Popham Beach"}
 ];
-const DIFF={common:{alertEvery:[1.6,3.2],focusRate:.42,nerveRate:1.4,sketchTime:9,points:7,speed:.7,zone:.24},
-            uncommon:{alertEvery:[1.1,2.4],focusRate:.32,nerveRate:1.9,sketchTime:7.5,points:9,speed:1.0,zone:.17},
-            rare:{alertEvery:[.8,1.8],focusRate:.24,nerveRate:2.6,sketchTime:6.5,points:11,speed:1.35,zone:.12}};
+const DIFF={common:{alertEvery:[1.8,3.4],focusRate:.45,nerveRate:.9,sketchTime:9,points:7,speed:.7,zone:.24},
+            uncommon:{alertEvery:[1.4,2.8],focusRate:.34,nerveRate:1.2,sketchTime:7.5,points:9,speed:1.0,zone:.17},
+            rare:{alertEvery:[1.1,2.2],focusRate:.26,nerveRate:1.6,sketchTime:6.5,points:11,speed:1.35,zone:.12}};
 let bird=BIRDS[0], mode="watch", stopLoop=null;
 const $=s=>document.querySelector(s);
 const birdStyle=b=>Object.entries(b.c).map(([k,v])=>`--${k}:${v}`).join(";")+(b.c.tail?"":`;--tail:${b.c.body}`);
-const birdSVG=(b,cls="",extra="")=>`<svg class="${cls}" viewBox="0 0 64 64" style="${birdStyle(b)}" ${extra}><use href="#bird"/></svg>`;
+const birdSVG=(b,cls="",extra="")=>`<svg class="${cls}" viewBox="0 0 64 64" style="${birdStyle(b)}" ${extra}><use href="#bird" width="64" height="64"/></svg>`;
 
 function renderPicker(){
   $("#picker").innerHTML=BIRDS.map(b=>`<button class="bcard" type="button" id="pick-${b.id}" data-id="${b.id}" aria-pressed="${b===bird}">${birdSVG(b)}<span><span class="n">${b.name}</span><br><span class="r">${b.rarity}</span></span></button>`).join("");
 }
-$("#picker").addEventListener("click",e=>{const t=e.target.closest(".bcard");if(!t)return;bird=BIRDS.find(b=>b.id===t.dataset.id);renderPicker();start();});
+$("#picker").addEventListener("click",e=>{const t=e.target.closest(".bcard");if(!t)return;bird=BIRDS.find(b=>b.id===t.dataset.id);document.addEventListener("contextmenu",e=>{if(e.target.closest(".big,.scene"))e.preventDefault()});
+renderPicker();start();});
 $("#tabs").addEventListener("click",e=>{const t=e.target.closest(".tab");if(!t)return;mode=t.dataset.mode;document.querySelectorAll(".tab").forEach(x=>x.setAttribute("aria-selected",x===t));start();});
 
 function loop(fn){let last=performance.now(),on=true;function f(t){if(!on)return;const dt=Math.min(.05,(t-last)/1000);last=t;fn(dt);requestAnimationFrame(f)}requestAnimationFrame(f);return()=>on=false}
@@ -162,7 +166,7 @@ function flushed(msg){
   stopLoop&&stopLoop();
   const b=$("#theBird"); if(b)b.classList.add("flyaway");
   $("#status").textContent=msg; $("#status").classList.add("bad");
-  const btn=$("#mainBtn"); if(btn){btn.textContent="Try again";btn.onclick=start;btn.onpointerdown=null;btn.onpointerup=null;btn.onpointerleave=null;}
+  const btn=$("#mainBtn"); if(btn){btn.classList.remove("down");btn.textContent="Try again";btn.onclick=start;btn.onpointerdown=null;btn.onpointerup=null;btn.onpointerleave=null;btn.onpointercancel=null;btn.onkeydown=null;btn.onkeyup=null;}
 }
 
 /* ---------- Quiet Watch ---------- */
@@ -170,7 +174,7 @@ function startWatch(){
   const D=DIFF[bird.rarity];
   $("#stage").innerHTML=`<p class="how">Press and hold <b>Watch</b> to observe. When the bird looks up (<b style="color:var(--red)">!</b>), let go until it settles.</p>
    <div class="scene"><svg viewBox="0 0 200 200"><path d="M10 170 Q100 150 190 172" stroke="var(--ink)" stroke-width="2" fill="none"/>
-   <g id="theBird" style="transform-origin:100px 120px"><g id="birdBody" transform="translate(40 50) scale(1.9)" style="${birdStyle(bird)}"><use href="#bird"/></g></g>
+   <g id="theBird" style="transform-origin:100px 120px"><g id="birdBody" transform="translate(40 50) scale(1.9)" style="${birdStyle(bird)}"><use href="#bird" width="64" height="64"/></g></g>
    <text id="alert" class="alertmark" x="150" y="50" opacity="0">!</text></svg></div>
    <div class="meters"><div class="meter">Observed<div class="bar"><i id="focus"></i></div></div><div class="meter">Nerves<div class="bar nerve"><i id="nerve"></i></div></div></div>
    <div class="status" id="status"></div>
@@ -186,7 +190,7 @@ function startWatch(){
   stopLoop=loop(dt=>{
     t-=dt;
     if(t<=0){
-      if(state==="calm"){state="warn";t=.45}
+      if(state==="calm"){state="warn";t=.7}
       else if(state==="warn"){state="alert";t=rand(.8,1.3)}
       else {state="calm";t=rand(...D.alertEvery)}
     }
@@ -205,25 +209,25 @@ function startWatch(){
 function startSketch(){
   const D=DIFF[bird.rarity];
   // checkpoints around the bird outline (viewBox 0..200), traced in order
-  const outline=[[30,140],[40,118],[70,100],[105,98],[118,72],[140,58],[160,70],[176,86],[160,100],[150,118],[128,140],[95,150],[60,148]];
+  const outline=[[26,164],[46,140],[75,106],[104,92],[134,52],[150,80],[174,105],[150,124],[146,146],[120,168],[82,171],[54,160]];
   const step=(outline.length-1)/(D.points-1);
   const pts=Array.from({length:D.points},(_,i)=>outline[Math.round(i*step)]);
   $("#stage").innerHTML=`<p class="how">Drag through the dots in order, starting at the <b style="color:var(--red)">red</b> one, before time runs out. Lift your finger and you can pick up where you left off.</p>
    <div class="scene" id="sketchScene" style="touch-action:none"><svg viewBox="0 0 200 200" id="sk">
-   <g id="theBird" opacity=".35"><g transform="translate(20 40) scale(2.5)" style="${birdStyle(bird)}"><use href="#bird"/></g></g>
-   <polyline id="trail" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" points=""/>
+   <g id="theBird" opacity=".5" class="outlined"><g transform="translate(20 40) scale(2.5)" style="${birdStyle(bird)}"><use href="#bird" width="64" height="64"/></g></g>
+   <path id="trail" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d=""/>
    ${pts.map((p,i)=>`<circle class="cp" id="cp${i}" cx="${p[0]}" cy="${p[1]}" r="8"/>`).join("")}</svg></div>
    <div class="meters"><div class="meter">Time<div class="bar nerve"><i id="timeBar"></i></div></div></div>
    <div class="status" id="status"></div><button class="ghost" type="button" id="mainBtn">Restart</button>`;
   $("#mainBtn").onclick=start;
-  let next=0,time=D.sketchTime,started=false,down=false;const trail=[];
+  let next=0,time=D.sketchTime,started=false,down=false;const strokes=[];
   const mark=()=>pts.forEach((_,i)=>{const c=$("#cp"+i);c.classList.toggle("done",i<next);c.classList.toggle("next",i===next)});mark();
   const svg=$("#sk");
   const toSvg=e=>{const r=svg.getBoundingClientRect();return[(e.clientX-r.left)/r.width*200,(e.clientY-r.top)/r.height*200]};
-  const move=e=>{if(!down)return;const [x,y]=toSvg(e);trail.push(x.toFixed(1)+","+y.toFixed(1));if(trail.length>400)trail.shift();$("#trail").setAttribute("points",trail.join(" "));
+  const move=e=>{if(!down)return;const [x,y]=toSvg(e);strokes[strokes.length-1].push(x.toFixed(1)+" "+y.toFixed(1));$("#trail").setAttribute("d",strokes.filter(s=>s.length).map(s=>"M"+s.join(" L")).join(" "));
     const p=pts[next];if(p&&Math.hypot(p[0]-x,p[1]-y)<14){if(next===0)started=true;next++;mark();if(next===pts.length)journal("Quick Sketch");}};
-  svg.onpointerdown=e=>{down=true;svg.setPointerCapture(e.pointerId);move(e)};
-  svg.onpointermove=move;svg.onpointerup=()=>{down=false;trail.push("")};
+  svg.onpointerdown=e=>{e.preventDefault();down=true;strokes.push([]);try{svg.setPointerCapture(e.pointerId)}catch(_){}move(e)};
+  svg.onpointermove=move;svg.onpointerup=svg.onpointercancel=()=>{down=false};
   stopLoop=loop(dt=>{if(started)time-=dt;$("#timeBar").style.width=(100-Math.max(0,time)/D.sketchTime*100)+"%";
     $("#status").textContent=started?`${next} of ${pts.length}`:"Start at the red dot";
     if(time<=0){svg.onpointerdown=null;svg.onpointermove=null;flushed("Too slow. It hopped away.");}});
@@ -235,14 +239,14 @@ function startFocus(){
   $("#stage").innerHTML=`<p class="how">Tap <b>Focus</b> when the needle is inside the green zone. Three sharp shots logs the bird. Three misses and it flies.</p>
    <div class="scene"><svg viewBox="0 0 200 200"><defs><filter id="blur"><feGaussianBlur id="blurAmt" stdDeviation="6"/></filter></defs>
    <circle cx="100" cy="100" r="92" fill="none" stroke="var(--ink)" stroke-width="2"/><path d="M100 4 V20 M100 180 V196 M4 100 H20 M180 100 H196" stroke="var(--ink)" stroke-width="2"/>
-   <g id="theBird" filter="url(#blur)"><g transform="translate(36 40) scale(2)" style="${birdStyle(bird)}"><use href="#bird"/></g></g></svg></div>
+   <g id="theBird" filter="url(#blur)"><g transform="translate(36 40) scale(2)" style="${birdStyle(bird)}"><use href="#bird" width="64" height="64"/></g></g></svg></div>
    <div class="gauge"><div class="zone" id="zone"></div><div class="needle" id="needle"></div></div>
    <div class="dots" id="dots"></div>
    <div class="status" id="status"></div>
    <button class="big" type="button" id="mainBtn">Focus</button>`;
   let pos=0,dir=1,hits=0,miss=0,zc=rand(.3,.7);const zone=$("#zone"),needle=$("#needle");
   const place=()=>{zone.style.left=(zc-D.zone/2)*100+"%";zone.style.width=D.zone*100+"%"};place();
-  const dots=()=>{$("#dots").innerHTML=[0,1,2].map(i=>`<i class="${i<hits?"on":""}"></i>`).join("")+`<span style="width:12px"></span>`+[0,1,2].map(i=>`<i class="${i<miss?"x":""}"></i>`).join("")};dots();
+  const dots=()=>{$("#dots").innerHTML=`<span class="l">Sharp</span>`+[0,1,2].map(i=>`<i class="${i<hits?"on":""}"></i>`).join("")+`<span class="l" style="margin-left:14px">Missed</span>`+[0,1,2].map(i=>`<i class="${i<miss?"x":""}"></i>`).join("")};dots();
   $("#mainBtn").onclick=()=>{
     if(Math.abs(pos-zc)<=D.zone/2){hits++;$("#status").classList.remove("bad");$("#status").textContent="Sharp!";zc=rand(.2,.8);place();}
     else{miss++;$("#status").classList.add("bad");$("#status").textContent="Blurry…";}
