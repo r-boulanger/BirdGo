@@ -93,6 +93,18 @@ RBZ's notebook page of ideas, in the order we plan to build them. Each one feeds
 - Bird arenas: what would birds do there (song contests, displays)? Tree houses as arenas?
 - Birdseed stashes at tree houses?
 
+## Tree house (built 2026-11-17)
+
+From RBZ's notebook: your tree house is your home base on the map.
+
+- **Placing:** the first time is free, right where you stand. Moving it later costs **15 seed pouches** from your backpack.
+- **Your birds live there**, one per cubby, six per floor (more floors as you catch more).
+- **Feeding:** at the tree house, 1 pouch from the stash fills 1 heart. Birds have 3 hearts, and one empties every 8 hours.
+- **Evolving only happens there:** the bird needs its catches, full hearts, and the evolve cost paid from the tree house stash.
+- **Seed:** your backpack holds 20 pouches on a trip. Extra seed is stashed at the tree house; fill or empty your backpack when you're within 50 m.
+- **Look:** "Cubby cutaway" (look B in `docs/design/treehouse-looks.html`, detailed in `docs/design/treehouse-b.html`), roof sign style 4 "Nailed-up boards" (`docs/design/treehouse-signs.html`). "Birdhouse Inn" is a placeholder name.
+- Rules in `src/treehouse.js` (tested), art in `src/treehouse-art.js`.
+
 ## Open questions
 
 - Testing starts around Brunswick, Maine (answered).

@@ -49,13 +49,14 @@
 <header class="top">
   <span class="chip" id="wx">Checking the weather…</span>
   <span class="chip" id="hab" hidden></span>
-  <span class="chip seedchip" id="seedChip" title="Seed pouches in your bag"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#pouchArt" width="64" height="64"/></svg><span id="seedCount">0</span></span>
+  <span class="chip seedchip" id="seedChip" title="Seed pouches in your backpack"><svg viewBox="0 0 64 64" aria-hidden="true"><use href="#pouchArt" width="64" height="64"/></svg><span id="seedCount">0</span></span>
 </header>
 <div class="toast" id="toast" role="status" hidden></div>
 <nav class="bottom">
   <button class="nav" type="button" id="recenter">Me</button>
   <button class="nav main" type="button" id="openJournal">Journal <span id="jcount">0</span></button>
   <button class="nav" type="button" id="refresh">New birds</button>
+  <button class="nav" type="button" id="openTH">Tree house</button>
 </nav>
 
 <section class="sheet" id="start">
@@ -85,6 +86,10 @@
     <div class="enchead"><div><div class="hand big">Field Journal</div><div class="small" id="jsum"></div></div><button class="x" type="button" id="jClose" aria-label="Close journal">✕</button></div>
     <div class="jlist" id="jlist"></div>
   </div>
+</section>
+
+<section class="sheet thsheet" id="th" hidden>
+  <div class="card thcard" id="thHost"></div>
 </section>
 
 <section class="sheet ipsheet" id="info" hidden>
