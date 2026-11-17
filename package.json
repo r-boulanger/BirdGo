@@ -1,0 +1,9 @@
+{
+  "name": "birdgo",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test",
+    "build:explorer": "node tools/build-spawn-explorer.js"
+  }
+}

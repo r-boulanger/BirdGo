@@ -44,6 +44,14 @@ Decided together, round by round. Round 1 offers three directions: **A Field Jou
 
 **Seed Toss.** Swipe a linen seed pouch (purple "S" on it) at the bird. A shrinking ink ring sets the odds; the pouch wobbles up to three times, then the bird is logged or slips out. Rarer birds hop more, slip out more and can fly away. Callouts: "Tuffington!" (small ring) or "Tuff!" on a hit, "Oy vey!" or "Shucks!" on a miss. Prototype: [Catch Lab](design/catch-lab.html).
 
+## Spawn rules (built 2026-11-17)
+
+`src/spawn.js` weights each bird by monthly abundance, rarity, habitat match, time of day (dawn chorus boost, sleeping birds at night), species weather likes/dislikes, and general weather rules (rain quiets songbirds, storms push seabirds to shore). Live weather comes from Open-Meteo via `src/weather.js`. Try it in the [Spawn Explorer](design/spawn-explorer.html).
+
+## GPS plan
+
+Browser Geolocation (`watchPosition`) while the app is open; host on GitHub Pages (https is required for location). OpenStreetMap data for the map (restyled to the Field Journal look) and for nearby habitat (water, woods, fields, town).
+
 ## Open questions
 
 - Testing starts around Brunswick, Maine (answered).
