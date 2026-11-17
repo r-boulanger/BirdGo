@@ -30,13 +30,15 @@
 - Items, levels, quests, events
 - Real bird photos or sound recognition
 - Installable app store version (iPhone/Android)
-- Custom-drawn art for every species (the prototype uses simple placeholder art)
+- RBZ's hand-drawn art for every species (the prototype uses simple placeholder avatars, built to be swapped out)
 
 ## Look and feel
 
 Decided together, round by round. Round 1 offers three directions: **A Field Journal**, **B Daybreak**, **C Night Radar** (see the [style board](design/style-board-round1.html)).
 
-**Chosen direction:** _pending_
+**Chosen direction:** **A, Field Journal** (chosen 2026-11-17). Inked trail map on notebook paper, handwritten labels, catching feels like logging a sighting in a journal.
+
+**Bird art:** simple placeholder avatars for now. Later, RBZ will upload hand-drawn bird designs, so the app keeps each species' picture as a separate swappable image file (one per species) rather than baking art into the code.
 
 ## Open questions
 
