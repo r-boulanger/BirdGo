@@ -5,6 +5,7 @@ import { nearbyHabitats } from "./habitat.js";
 import { seedToss, birdSVG, TOSS } from "./seedtoss.js";
 import * as Journal from "./journal.js";
 import * as Seed from "./seed.js";
+import { renderInfo } from "./infopage.js";
 
 const BRUNSWICK = [43.9145, -69.9653];        // Brunswick, Maine town center (demo mode start)
 const CATCH_RANGE_M = 70;                      // how close you must be to toss
@@ -16,7 +17,7 @@ const HAB_LABEL = { town: "Town", forest: "Woods", field: "Fields", marsh: "Mars
 const $ = s => document.querySelector(s);
 let birds = [], map, meMarker, me = null, demo = false, cond = null, condAt = null, habitats = ["town"], habAt = null;
 let spawns = [], journal = Journal.load(), activeToss = null, watchId = null;
-let seed = Seed.load(), stashMarkers = new Map();
+let seed = Seed.load(), stashMarkers = new Map(), info = {}, lastLogged = null;
 
 // ---------- helpers ----------
 const toRad = d => d * Math.PI / 180;
@@ -179,6 +180,7 @@ function logCatch(bird) {
     place: demo ? "Brunswick, ME (demo)" : `${me[0].toFixed(3)}, ${me[1].toFixed(3)}`,
   };
   const e = Journal.log(journal, bird, details);
+  lastLogged = bird;
   updateCount();
   const date = now.toLocaleDateString("en-US", { month: "short", day: "numeric" });
   const time = now.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" });
@@ -189,14 +191,27 @@ function logCatch(bird) {
   tendSpawns();
 }
 $("#entryOk").onclick = () => ($("#entry").hidden = true);
+$("#entryInfo").onclick = () => { $("#entry").hidden = true; if (lastLogged) openInfo(lastLogged); };
+
+// ---------- info pages ----------
+function openInfo(bird) {
+  const host = $("#infoHost");
+  renderInfo(host, bird, info[bird.id], journal[bird.id], () => { $("#info").hidden = true; });
+  host.scrollTop = 0;
+  $("#info").hidden = false;
+}
 
 // ---------- journal ----------
 function updateCount() { $("#jcount").textContent = Object.keys(journal).length; }
 function openJournal() {
   const seen = birds.filter(b => journal[b.id]), unseen = birds.filter(b => !journal[b.id]);
   $("#jsum").textContent = `${seen.length} of ${birds.length} Brunswick birds found`;
-  const row = (b, e) => `<div class="jrow ${e ? "" : "unseen"}">${birdSVG(b)}<div><div class="n">${e ? b.name : "???"}</div><div class="small">${e ? b.sci : b.rarity}</div></div><div class="c">${e ? `${e.count}× · ${new Date(e.first.when).toLocaleDateString("en-US", { month: "short", day: "numeric" })}` : ""}</div></div>`;
+  const row = (b, e) => `<button type="button" class="jrow ${e ? "" : "unseen"}" data-id="${b.id}">${birdSVG(b)}<div><div class="n">${e ? b.name : "???"}</div><div class="small">${e ? b.sci : b.rarity}</div></div><div class="c">${e ? `${e.count}× · ${new Date(e.first.when).toLocaleDateString("en-US", { month: "short", day: "numeric" })} ›` : ""}</div></button>`;
   $("#jlist").innerHTML = seen.map(b => row(b, journal[b.id])).join("") + unseen.map(b => row(b)).join("");
+  $("#jlist").querySelectorAll(".jrow").forEach(r => r.onclick = () => {
+    const b = birds.find(x => x.id === r.dataset.id);
+    if (journal[b.id]) openInfo(b); else toast("Catch this bird to unlock its page.");
+  });
   $("#journal").hidden = false;
 }
 $("#openJournal").onclick = openJournal;
@@ -294,6 +309,7 @@ if (IN_APP) {
 (async function boot() {
   const res = await fetch("data/birds-brunswick-me.json");
   birds = (await res.json()).birds;
+  try { info = (await (await fetch("data/bird-info.json")).json()).info; } catch { /* pages show without extra info */ }
   initMap(); updateCount(); updateSeed();
   setInterval(() => { if (me) { renderStashes(); refreshConditions().then(() => tendSpawns()); } }, 60 * 1000);
 })();
