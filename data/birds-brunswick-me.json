@@ -1,0 +1,2309 @@
+{
+ "region": "Brunswick, Maine (mid-coast)",
+ "center": {
+  "lat": 43.91,
+  "lon": -69.96
+ },
+ "note": "Hand-curated starter list from general knowledge of mid-coast Maine birds. Abundance per month: 0 absent, 1 scarce, 2 fair, 3 common. To be checked against eBird bar charts for Cumberland/Sagadahoc County.",
+ "habitats": [
+  "town",
+  "forest",
+  "field",
+  "marsh",
+  "freshwater",
+  "coast"
+ ],
+ "birds": [
+  {
+   "id": "black-capped-chickadee",
+   "name": "Black-capped Chickadee",
+   "sci": "Poecile atricapillus",
+   "group": "songbird",
+   "rarity": "common",
+   "months": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3
+   ],
+   "habitats": [
+    "forest",
+    "town"
+   ],
+   "active": [
+    "dawn",
+    "day",
+    "dusk"
+   ],
+   "likes": [
+    "cold",
+    "snow"
+   ],
+   "dislikes": [],
+   "colors": {
+    "body": "#C9C4B8",
+    "head": "#1E1E1E",
+    "wing": "rgba(0,0,0,.2)",
+    "beak": "#222",
+    "tail": "#C9C4B8"
+   },
+   "fact": "Maine's state bird. Hides thousands of seeds each fall and remembers where they are.",
+   "art": "art/birds/black-capped-chickadee.png"
+  },
+  {
+   "id": "blue-jay",
+   "name": "Blue Jay",
+   "sci": "Cyanocitta cristata",
+   "group": "songbird",
+   "rarity": "common",
+   "months": [
+    2,
+    2,
+    2,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    2,
+    2
+   ],
+   "habitats": [
+    "forest",
+    "town"
+   ],
+   "active": [
+    "dawn",
+    "day",
+    "dusk"
+   ],
+   "likes": [],
+   "dislikes": [],
+   "colors": {
+    "body": "#3C7FD6",
+    "head": "#3C7FD6",
+    "wing": "rgba(255,255,255,.4)",
+    "beak": "#333",
+    "tail": "#2A5EA8"
+   },
+   "fact": "Can imitate the scream of a Red-tailed Hawk.",
+   "art": "art/birds/blue-jay.png"
+  },
+  {
+   "id": "american-crow",
+   "name": "American Crow",
+   "sci": "Corvus brachyrhynchos",
+   "group": "songbird",
+   "rarity": "common",
+   "months": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3
+   ],
+   "habitats": [
+    "town",
+    "field"
+   ],
+   "active": [
+    "dawn",
+    "day",
+    "dusk"
+   ],
+   "likes": [
+    "cold"
+   ],
+   "dislikes": [],
+   "colors": {
+    "body": "#1C1C22",
+    "head": "#1C1C22",
+    "wing": "rgba(0,0,0,.2)",
+    "beak": "#111",
+    "tail": "#1C1C22"
+   },
+   "fact": "Crows recognize individual human faces and remember them for years.",
+   "art": "art/birds/american-crow.png"
+  },
+  {
+   "id": "northern-cardinal",
+   "name": "Northern Cardinal",
+   "sci": "Cardinalis cardinalis",
+   "group": "songbird",
+   "rarity": "common",
+   "months": [
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2
+   ],
+   "habitats": [
+    "town",
+    "forest"
+   ],
+   "active": [
+    "dawn",
+    "dusk",
+    "day"
+   ],
+   "likes": [
+    "snow"
+   ],
+   "dislikes": [],
+   "colors": {
+    "body": "#B32630",
+    "head": "#B32630",
+    "wing": "rgba(0,0,0,.2)",
+    "beak": "#E8833A",
+    "tail": "#7E1F22"
+   },
+   "fact": "Only arrived in Maine in the mid-1900s, following backyard feeders north.",
+   "art": "art/birds/northern-cardinal.png"
+  },
+  {
+   "id": "tufted-titmouse",
+   "name": "Tufted Titmouse",
+   "sci": "Baeolophus bicolor",
+   "group": "songbird",
+   "rarity": "common",
+   "months": [
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2
+   ],
+   "habitats": [
+    "town",
+    "forest"
+   ],
+   "active": [
+    "dawn",
+    "day",
+    "dusk"
+   ],
+   "likes": [],
+   "dislikes": [],
+   "colors": {
+    "body": "#9AA2AE",
+    "head": "#9AA2AE",
+    "wing": "rgba(0,0,0,.2)",
+    "beak": "#333",
+    "tail": "#9AA2AE"
+   },
+   "fact": "Plucks hair from sleeping animals to line its nest.",
+   "art": "art/birds/tufted-titmouse.png"
+  },
+  {
+   "id": "white-breasted-nuthatch",
+   "name": "White-breasted Nuthatch",
+   "sci": "Sitta carolinensis",
+   "group": "songbird",
+   "rarity": "common",
+   "months": [
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2
+   ],
+   "habitats": [
+    "forest",
+    "town"
+   ],
+   "active": [
+    "dawn",
+    "day"
+   ],
+   "likes": [],
+   "dislikes": [],
+   "colors": {
+    "body": "#7C93AD",
+    "head": "#2B2B2B",
+    "wing": "rgba(0,0,0,.2)",
+    "beak": "#444",
+    "tail": "#7C93AD"
+   },
+   "fact": "Walks headfirst down tree trunks, spotting insects other birds miss.",
+   "art": "art/birds/white-breasted-nuthatch.png"
+  },
+  {
+   "id": "red-breasted-nuthatch",
+   "name": "Red-breasted Nuthatch",
+   "sci": "Sitta canadensis",
+   "group": "songbird",
+   "rarity": "uncommon",
+   "months": [
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2
+   ],
+   "habitats": [
+    "forest"
+   ],
+   "active": [
+    "dawn",
+    "day"
+   ],
+   "likes": [],
+   "dislikes": [],
+   "colors": {
+    "body": "#C7865A",
+    "head": "#3A4A5C",
+    "wing": "rgba(0,0,0,.2)",
+    "beak": "#333",
+    "tail": "#C7865A"
+   },
+   "fact": "Smears sticky pine pitch around its nest hole to keep intruders out.",
+   "art": "art/birds/red-breasted-nuthatch.png"
+  },
+  {
+   "id": "downy-woodpecker",
+   "name": "Downy Woodpecker",
+   "sci": "Dryobates pubescens",
+   "group": "woodpecker",
+   "rarity": "common",
+   "months": [
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2
+   ],
+   "habitats": [
+    "forest",
+    "town"
+   ],
+   "active": [
+    "dawn",
+    "day"
+   ],
+   "likes": [],
+   "dislikes": [],
+   "colors": {
+    "body": "#EDEDED",
+    "head": "#1F1F1F",
+    "wing": "#1F1F1F",
+    "beak": "#333",
+    "tail": "#EDEDED"
+   },
+   "fact": "North America's smallest woodpecker.",
+   "art": "art/birds/downy-woodpecker.png"
+  },
+  {
+   "id": "hairy-woodpecker",
+   "name": "Hairy Woodpecker",
+   "sci": "Dryobates villosus",
+   "group": "woodpecker",
+   "rarity": "uncommon",
+   "months": [
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2
+   ],
+   "habitats": [
+    "forest"
+   ],
+   "active": [
+    "dawn",
+    "day"
+   ],
+   "likes": [],
+   "dislikes": [],
+   "colors": {
+    "body": "#E5E5E5",
+    "head": "#1F1F1F",
+    "wing": "#1F1F1F",
+    "beak": "#333",
+    "tail": "#E5E5E5"
+   },
+   "fact": "Looks like a Downy but with a beak almost as long as its head.",
+   "art": "art/birds/hairy-woodpecker.png"
+  },
+  {
+   "id": "pileated-woodpecker",
+   "name": "Pileated Woodpecker",
+   "sci": "Dryocopus pileatus",
+   "group": "woodpecker",
+   "rarity": "rare",
+   "months": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "habitats": [
+    "forest"
+   ],
+   "active": [
+    "dawn",
+    "day"
+   ],
+   "likes": [],
+   "dislikes": [],
+   "colors": {
+    "body": "#1D1D1D",
+    "head": "#D2302A",
+    "wing": "rgba(0,0,0,.2)",
+    "beak": "#555",
+    "tail": "#1D1D1D"
+   },
+   "fact": "Crow-sized, and leaves rectangular holes big enough to fit your hand.",
+   "art": "art/birds/pileated-woodpecker.png"
+  },
+  {
+   "id": "american-goldfinch",
+   "name": "American Goldfinch",
+   "sci": "Spinus tristis",
+   "group": "songbird",
+   "rarity": "common",
+   "months": [
+    2,
+    2,
+    2,
+    2,
+    3,
+    3,
+    3,
+    3,
+    3,
+    2,
+    2,
+    2
+   ],
+   "habitats": [
+    "field",
+    "town"
+   ],
+   "active": [
+    "dawn",
+    "day",
+    "dusk"
+   ],
+   "likes": [],
+   "dislikes": [],
+   "colors": {
+    "body": "#F2D02B",
+    "head": "#1E1E1E",
+    "wing": "#222",
+    "beak": "#E7A24A",
+    "tail": "#F2D02B"
+   },
+   "fact": "Turns from drab olive in winter to bright yellow each spring.",
+   "art": "art/birds/american-goldfinch.png"
+  },
+  {
+   "id": "mourning-dove",
+   "name": "Mourning Dove",
+   "sci": "Zenaida macroura",
+   "group": "town",
+   "rarity": "common",
+   "months": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3
+   ],
+   "habitats": [
+    "town",
+    "field"
+   ],
+   "active": [
+    "dawn",
+    "day",
+    "dusk"
+   ],
+   "likes": [],
+   "dislikes": [],
+   "colors": {
+    "body": "#B8A898",
+    "head": "#B8A898",
+    "wing": "rgba(0,0,0,.2)",
+    "beak": "#333",
+    "tail": "#B8A898"
+   },
+   "fact": "Its wings whistle on takeoff, a built-in alarm for the flock.",
+   "art": "art/birds/mourning-dove.png"
+  },
+  {
+   "id": "european-starling",
+   "name": "European Starling",
+   "sci": "Sturnus vulgaris",
+   "group": "town",
+   "rarity": "common",
+   "months": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3
+   ],
+   "habitats": [
+    "town",
+    "field"
+   ],
+   "active": [
+    "dawn",
+    "day",
+    "dusk"
+   ],
+   "likes": [],
+   "dislikes": [],
+   "colors": {
+    "body": "#2A2A3A",
+    "head": "#2A2A3A",
+    "wing": "rgba(180,160,255,.25)",
+    "beak": "#E2C044",
+    "tail": "#2A2A3A"
+   },
+   "fact": "All North American starlings descend from about 100 birds released in New York in 1890.",
+   "art": "art/birds/european-starling.png"
+  },
+  {
+   "id": "rock-pigeon",
+   "name": "Rock Pigeon",
+   "sci": "Columba livia",
+   "group": "town",
+   "rarity": "common",
+   "months": [
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2
+   ],
+   "habitats": [
+    "town"
+   ],
+   "active": [
+    "dawn",
+    "day",
+    "dusk"
+   ],
+   "likes": [],
+   "dislikes": [],
+   "colors": {
+    "body": "#8E95A3",
+    "head": "#5A6A7A",
+    "wing": "rgba(0,0,0,.2)",
+    "beak": "#555",
+    "tail": "#8E95A3"
+   },
+   "fact": "Can find its way home from hundreds of miles away.",
+   "art": "art/birds/rock-pigeon.png"
+  },
+  {
+   "id": "dark-eyed-junco",
+   "name": "Dark-eyed Junco",
+   "sci": "Junco hyemalis",
+   "group": "songbird",
+   "rarity": "common",
+   "months": [
+    3,
+    3,
+    3,
+    2,
+    1,
+    1,
+    1,
+    1,
+    1,
+    2,
+    3,
+    3
+   ],
+   "habitats": [
+    "forest",
+    "town",
+    "field"
+   ],
+   "active": [
+    "dawn",
+    "day"
+   ],
+   "likes": [
+    "snow",
+    "cold"
+   ],
+   "dislikes": [],
+   "colors": {
+    "body": "#5E6670",
+    "head": "#5E6670",
+    "wing": "rgba(0,0,0,.2)",
+    "beak": "#F1D3C4",
+    "tail": "#5E6670"
+   },
+   "fact": "Called the 'snowbird' because flocks show up as winter arrives.",
+   "art": "art/birds/dark-eyed-junco.png"
+  },
+  {
+   "id": "american-robin",
+   "name": "American Robin",
+   "sci": "Turdus migratorius",
+   "group": "songbird",
+   "rarity": "common",
+   "months": [
+    1,
+    1,
+    2,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    2,
+    1,
+    1
+   ],
+   "habitats": [
+    "town",
+    "field",
+    "forest"
+   ],
+   "active": [
+    "dawn",
+    "day",
+    "dusk"
+   ],
+   "likes": [
+    "rain"
+   ],
+   "dislikes": [],
+   "colors": {
+    "body": "#C9622E",
+    "head": "#333",
+    "wing": "rgba(0,0,0,.2)",
+    "beak": "#E8B12A",
+    "tail": "#444"
+   },
+   "fact": "Hunts worms by sight. Rain brings them to the surface, and robins to your lawn.",
+   "art": "art/birds/american-robin.png"
+  },
+  {
+   "id": "song-sparrow",
+   "name": "Song Sparrow",
+   "sci": "Melospiza melodia",
+   "group": "songbird",
+   "rarity": "common",
+   "months": [
+    1,
+    1,
+    2,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    2,
+    1
+   ],
+   "habitats": [
+    "marsh",
+    "field",
+    "town"
+   ],
+   "active": [
+    "dawn",
+    "day",
+    "dusk"
+   ],
+   "likes": [],
+   "dislikes": [],
+   "colors": {
+    "body": "#8A6A4A",
+    "head": "#8A6A4A",
+    "wing": "rgba(0,0,0,.2)",
+    "beak": "#666",
+    "tail": "#8A6A4A"
+   },
+   "fact": "Each male sings up to 20 different song patterns.",
+   "art": "art/birds/song-sparrow.png"
+  },
+  {
+   "id": "cedar-waxwing",
+   "name": "Cedar Waxwing",
+   "sci": "Bombycilla cedrorum",
+   "group": "songbird",
+   "rarity": "uncommon",
+   "months": [
+    1,
+    1,
+    1,
+    1,
+    2,
+    3,
+    3,
+    3,
+    3,
+    2,
+    1,
+    1
+   ],
+   "habitats": [
+    "forest",
+    "town"
+   ],
+   "active": [
+    "dawn",
+    "day"
+   ],
+   "likes": [],
+   "dislikes": [],
+   "colors": {
+    "body": "#B39A73",
+    "head": "#B39A73",
+    "wing": "rgba(0,0,0,.2)",
+    "beak": "#222",
+    "tail": "#6D6D6D"
+   },
+   "fact": "Sometimes gets tipsy from eating fermented berries.",
+   "art": "art/birds/cedar-waxwing.png"
+  },
+  {
+   "id": "bald-eagle",
+   "name": "Bald Eagle",
+   "sci": "Haliaeetus leucocephalus",
+   "group": "raptor",
+   "rarity": "uncommon",
+   "months": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "habitats": [
+    "coast",
+    "freshwater"
+   ],
+   "active": [
+    "dawn",
+    "day"
+   ],
+   "likes": [],
+   "dislikes": [],
+   "colors": {
+    "body": "#4A3426",
+    "head": "#F4F4F2",
+    "wing": "rgba(0,0,0,.2)",
+    "beak": "#E8B12A",
+    "tail": "#F4F4F2"
+   },
+   "fact": "Maine has more nesting pairs than any other northeastern state.",
+   "art": "art/birds/bald-eagle.png"
+  },
+  {
+   "id": "red-tailed-hawk",
+   "name": "Red-tailed Hawk",
+   "sci": "Buteo jamaicensis",
+   "group": "raptor",
+   "rarity": "common",
+   "months": [
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2
+   ],
+   "habitats": [
+    "field",
+    "town"
+   ],
+   "active": [
+    "day"
+   ],
+   "likes": [],
+   "dislikes": [
+    "rain",
+    "fog"
+   ],
+   "colors": {
+    "body": "#8B5A3C",
+    "head": "#6E4A30",
+    "wing": "rgba(0,0,0,.2)",
+    "beak": "#333",
+    "tail": "#B5502A"
+   },
+   "fact": "Its scream is the 'eagle sound' used in most movies.",
+   "art": "art/birds/red-tailed-hawk.png"
+  },
+  {
+   "id": "osprey",
+   "name": "Osprey",
+   "sci": "Pandion haliaetus",
+   "group": "raptor",
+   "rarity": "common",
+   "months": [
+    0,
+    0,
+    0,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    1,
+    0,
+    0
+   ],
+   "habitats": [
+    "coast",
+    "freshwater"
+   ],
+   "active": [
+    "day"
+   ],
+   "likes": [],
+   "dislikes": [
+    "fog",
+    "storm"
+   ],
+   "colors": {
+    "body": "#E8E2D6",
+    "head": "#F2F2F2",
+    "wing": "#4A3A2E",
+    "beak": "#222",
+    "tail": "#E8E2D6"
+   },
+   "fact": "Dives feet-first into the water to catch fish.",
+   "art": "art/birds/osprey.png"
+  },
+  {
+   "id": "great-horned-owl",
+   "name": "Great Horned Owl",
+   "sci": "Bubo virginianus",
+   "group": "owl",
+   "rarity": "uncommon",
+   "months": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "habitats": [
+    "forest",
+    "field"
+   ],
+   "active": [
+    "night",
+    "dusk"
+   ],
+   "likes": [
+    "cold",
+    "clear"
+   ],
+   "dislikes": [],
+   "colors": {
+    "body": "#8B7355",
+    "head": "#6B5640",
+    "wing": "rgba(0,0,0,.2)",
+    "beak": "#333",
+    "tail": "#8B7355"
+   },
+   "fact": "Nests in January, often while snow covers the eggs.",
+   "art": "art/birds/great-horned-owl.png"
+  },
+  {
+   "id": "barred-owl",
+   "name": "Barred Owl",
+   "sci": "Strix varia",
+   "group": "owl",
+   "rarity": "uncommon",
+   "months": [
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2
+   ],
+   "habitats": [
+    "forest",
+    "marsh"
+   ],
+   "active": [
+    "night",
+    "dusk"
+   ],
+   "likes": [
+    "fog"
+   ],
+   "dislikes": [],
+   "colors": {
+    "body": "#A08E78",
+    "head": "#A08E78",
+    "wing": "rgba(0,0,0,.2)",
+    "beak": "#E8D27A",
+    "tail": "#A08E78"
+   },
+   "fact": "Calls 'Who cooks for you? Who cooks for you-all?'",
+   "art": "art/birds/barred-owl.png"
+  },
+  {
+   "id": "snowy-owl",
+   "name": "Snowy Owl",
+   "sci": "Bubo scandiacus",
+   "group": "owl",
+   "rarity": "rare",
+   "months": [
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1
+   ],
+   "habitats": [
+    "coast",
+    "field"
+   ],
+   "active": [
+    "day",
+    "dusk",
+    "dawn"
+   ],
+   "likes": [
+    "snow",
+    "cold"
+   ],
+   "dislikes": [],
+   "colors": {
+    "body": "#F5F5F2",
+    "head": "#F5F5F2",
+    "wing": "rgba(0,0,0,.12)",
+    "beak": "#333",
+    "tail": "#F5F5F2"
+   },
+   "fact": "Arctic visitor that hunts in daylight and turns up on beaches and airfields.",
+   "art": "art/birds/snowy-owl.png"
+  },
+  {
+   "id": "red-winged-blackbird",
+   "name": "Red-winged Blackbird",
+   "sci": "Agelaius phoeniceus",
+   "group": "songbird",
+   "rarity": "common",
+   "months": [
+    0,
+    0,
+    1,
+    3,
+    3,
+    3,
+    3,
+    3,
+    2,
+    2,
+    0,
+    0
+   ],
+   "habitats": [
+    "marsh",
+    "field"
+   ],
+   "active": [
+    "dawn",
+    "day",
+    "dusk"
+   ],
+   "likes": [],
+   "dislikes": [],
+   "colors": {
+    "body": "#141414",
+    "head": "#141414",
+    "wing": "#D33A2C",
+    "beak": "#222",
+    "tail": "#141414"
+   },
+   "fact": "Males flash red shoulder patches to claim cattail territory.",
+   "art": "art/birds/red-winged-blackbird.png"
+  },
+  {
+   "id": "common-yellowthroat",
+   "name": "Common Yellowthroat",
+   "sci": "Geothlypis trichas",
+   "group": "warbler",
+   "rarity": "common",
+   "months": [
+    0,
+    0,
+    0,
+    0,
+    3,
+    3,
+    3,
+    3,
+    3,
+    0,
+    0,
+    0
+   ],
+   "habitats": [
+    "marsh",
+    "field"
+   ],
+   "active": [
+    "dawn",
+    "day"
+   ],
+   "likes": [],
+   "dislikes": [],
+   "colors": {
+    "body": "#E9D23A",
+    "head": "#2A2A2A",
+    "wing": "rgba(0,0,0,.2)",
+    "beak": "#333",
+    "tail": "#8A8A3A"
+   },
+   "fact": "Wears a black bandit mask and sings 'witchety-witchety'.",
+   "art": "art/birds/common-yellowthroat.png"
+  },
+  {
+   "id": "yellow-warbler",
+   "name": "Yellow Warbler",
+   "sci": "Setophaga petechia",
+   "group": "warbler",
+   "rarity": "common",
+   "months": [
+    0,
+    0,
+    0,
+    0,
+    2,
+    2,
+    2,
+    2,
+    0,
+    0,
+    0,
+    0
+   ],
+   "habitats": [
+    "marsh",
+    "town"
+   ],
+   "active": [
+    "dawn",
+    "day"
+   ],
+   "likes": [],
+   "dislikes": [],
+   "colors": {
+    "body": "#F3D93A",
+    "head": "#F3D93A",
+    "wing": "rgba(0,0,0,.2)",
+    "beak": "#555",
+    "tail": "#F3D93A"
+   },
+   "fact": "Buries cowbird eggs laid in its nest under a new nest floor.",
+   "art": "art/birds/yellow-warbler.png"
+  },
+  {
+   "id": "black-throated-green-warbler",
+   "name": "Black-throated Green Warbler",
+   "sci": "Setophaga virens",
+   "group": "warbler",
+   "rarity": "common",
+   "months": [
+    0,
+    0,
+    0,
+    0,
+    2,
+    2,
+    2,
+    2,
+    2,
+    0,
+    0,
+    0
+   ],
+   "habitats": [
+    "forest"
+   ],
+   "active": [
+    "dawn",
+    "day"
+   ],
+   "likes": [],
+   "dislikes": [],
+   "colors": {
+    "body": "#9BB53A",
+    "head": "#C6C93A",
+    "wing": "rgba(0,0,0,.2)",
+    "beak": "#333",
+    "tail": "#9BB53A"
+   },
+   "fact": "Sings a buzzy 'zee-zee-zoo-zee' from the tops of pines and hemlocks.",
+   "art": "art/birds/black-throated-green-warbler.png"
+  },
+  {
+   "id": "red-eyed-vireo",
+   "name": "Red-eyed Vireo",
+   "sci": "Vireo olivaceus",
+   "group": "songbird",
+   "rarity": "common",
+   "months": [
+    0,
+    0,
+    0,
+    0,
+    3,
+    3,
+    3,
+    3,
+    3,
+    0,
+    0,
+    0
+   ],
+   "habitats": [
+    "forest"
+   ],
+   "active": [
+    "dawn",
+    "day"
+   ],
+   "likes": [],
+   "dislikes": [],
+   "colors": {
+    "body": "#8F9A5C",
+    "head": "#6E7A8A",
+    "wing": "rgba(0,0,0,.2)",
+    "beak": "#555",
+    "tail": "#8F9A5C"
+   },
+   "fact": "Can sing more than 20,000 songs in a single day.",
+   "art": "art/birds/red-eyed-vireo.png"
+  },
+  {
+   "id": "gray-catbird",
+   "name": "Gray Catbird",
+   "sci": "Dumetella carolinensis",
+   "group": "songbird",
+   "rarity": "common",
+   "months": [
+    0,
+    0,
+    0,
+    0,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    0,
+    0
+   ],
+   "habitats": [
+    "town",
+    "marsh"
+   ],
+   "active": [
+    "dawn",
+    "day",
+    "dusk"
+   ],
+   "likes": [],
+   "dislikes": [],
+   "colors": {
+    "body": "#6F737A",
+    "head": "#222",
+    "wing": "rgba(0,0,0,.2)",
+    "beak": "#222",
+    "tail": "#6F737A"
+   },
+   "fact": "Its call sounds just like a meowing cat.",
+   "art": "art/birds/gray-catbird.png"
+  },
+  {
+   "id": "ruby-throated-hummingbird",
+   "name": "Ruby-throated Hummingbird",
+   "sci": "Archilochus colubris",
+   "group": "songbird",
+   "rarity": "uncommon",
+   "months": [
+    0,
+    0,
+    0,
+    0,
+    2,
+    2,
+    2,
+    2,
+    2,
+    0,
+    0,
+    0
+   ],
+   "habitats": [
+    "town",
+    "forest"
+   ],
+   "active": [
+    "day"
+   ],
+   "likes": [],
+   "dislikes": [
+    "rain",
+    "cold",
+    "storm"
+   ],
+   "colors": {
+    "body": "#4E9A5E",
+    "head": "#4E9A5E",
+    "wing": "rgba(255,255,255,.3)",
+    "beak": "#222",
+    "tail": "#4E9A5E"
+   },
+   "fact": "Weighs less than a nickel and flies non-stop across the Gulf of Mexico.",
+   "art": "art/birds/ruby-throated-hummingbird.png"
+  },
+  {
+   "id": "tree-swallow",
+   "name": "Tree Swallow",
+   "sci": "Tachycineta bicolor",
+   "group": "songbird",
+   "rarity": "common",
+   "months": [
+    0,
+    0,
+    0,
+    3,
+    3,
+    3,
+    3,
+    3,
+    1,
+    0,
+    0,
+    0
+   ],
+   "habitats": [
+    "freshwater",
+    "marsh",
+    "field"
+   ],
+   "active": [
+    "day"
+   ],
+   "likes": [],
+   "dislikes": [
+    "rain",
+    "cold",
+    "storm"
+   ],
+   "colors": {
+    "body": "#2B6FA8",
+    "head": "#2B6FA8",
+    "wing": "rgba(0,0,0,.2)",
+    "beak": "#222",
+    "tail": "#2B6FA8"
+   },
+   "fact": "Catches insects in mid-air, swooping low over water.",
+   "art": "art/birds/tree-swallow.png"
+  },
+  {
+   "id": "great-blue-heron",
+   "name": "Great Blue Heron",
+   "sci": "Ardea herodias",
+   "group": "waterbird",
+   "rarity": "common",
+   "months": [
+    0,
+    0,
+    0,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    0,
+    0
+   ],
+   "habitats": [
+    "marsh",
+    "freshwater",
+    "coast"
+   ],
+   "active": [
+    "dawn",
+    "day",
+    "dusk"
+   ],
+   "likes": [],
+   "dislikes": [],
+   "colors": {
+    "body": "#7D8FA5",
+    "head": "#E8E8E8",
+    "wing": "rgba(0,0,0,.2)",
+    "beak": "#E3A23A",
+    "tail": "#7D8FA5"
+   },
+   "fact": "Stands motionless for minutes, then spears fish faster than you can blink.",
+   "art": "art/birds/great-blue-heron.png"
+  },
+  {
+   "id": "double-crested-cormorant",
+   "name": "Double-crested Cormorant",
+   "sci": "Nannopterum auritum",
+   "group": "seabird",
+   "rarity": "common",
+   "months": [
+    0,
+    0,
+    0,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    0,
+    0
+   ],
+   "habitats": [
+    "coast",
+    "freshwater"
+   ],
+   "active": [
+    "day"
+   ],
+   "likes": [],
+   "dislikes": [],
+   "colors": {
+    "body": "#1F2422",
+    "head": "#1F2422",
+    "wing": "rgba(0,0,0,.2)",
+    "beak": "#E3A23A",
+    "tail": "#1F2422"
+   },
+   "fact": "Spreads its wings to dry them because its feathers aren't fully waterproof.",
+   "art": "art/birds/double-crested-cormorant.png"
+  },
+  {
+   "id": "eastern-phoebe",
+   "name": "Eastern Phoebe",
+   "sci": "Sayornis phoebe",
+   "group": "songbird",
+   "rarity": "common",
+   "months": [
+    0,
+    0,
+    0,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    0,
+    0
+   ],
+   "habitats": [
+    "town",
+    "forest"
+   ],
+   "active": [
+    "dawn",
+    "day"
+   ],
+   "likes": [],
+   "dislikes": [],
+   "colors": {
+    "body": "#7A7468",
+    "head": "#4A4640",
+    "wing": "rgba(0,0,0,.2)",
+    "beak": "#222",
+    "tail": "#7A7468"
+   },
+   "fact": "Says its own name: 'fee-bee!' and loves nesting under porches and bridges.",
+   "art": "art/birds/eastern-phoebe.png"
+  },
+  {
+   "id": "bobolink",
+   "name": "Bobolink",
+   "sci": "Dolichonyx oryzivorus",
+   "group": "songbird",
+   "rarity": "uncommon",
+   "months": [
+    0,
+    0,
+    0,
+    0,
+    2,
+    2,
+    2,
+    2,
+    0,
+    0,
+    0,
+    0
+   ],
+   "habitats": [
+    "field"
+   ],
+   "active": [
+    "dawn",
+    "day"
+   ],
+   "likes": [],
+   "dislikes": [],
+   "colors": {
+    "body": "#1A1A1A",
+    "head": "#F1E6A6",
+    "wing": "#EDEDED",
+    "beak": "#333",
+    "tail": "#1A1A1A"
+   },
+   "fact": "Migrates about 12,000 miles round trip to Argentina each year.",
+   "art": "art/birds/bobolink.png"
+  },
+  {
+   "id": "american-woodcock",
+   "name": "American Woodcock",
+   "sci": "Scolopax minor",
+   "group": "shorebird",
+   "rarity": "uncommon",
+   "months": [
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0
+   ],
+   "habitats": [
+    "field",
+    "forest"
+   ],
+   "active": [
+    "dusk",
+    "dawn"
+   ],
+   "likes": [
+    "rain"
+   ],
+   "dislikes": [],
+   "colors": {
+    "body": "#A5835A",
+    "head": "#A5835A",
+    "wing": "rgba(0,0,0,.2)",
+    "beak": "#8A6A4A",
+    "tail": "#A5835A"
+   },
+   "fact": "Its spring 'sky dance' at dusk spirals hundreds of feet up, then tumbles back down.",
+   "art": "art/birds/american-woodcock.png"
+  },
+  {
+   "id": "killdeer",
+   "name": "Killdeer",
+   "sci": "Charadrius vociferus",
+   "group": "shorebird",
+   "rarity": "common",
+   "months": [
+    0,
+    0,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    0,
+    0
+   ],
+   "habitats": [
+    "field"
+   ],
+   "active": [
+    "dawn",
+    "day",
+    "dusk"
+   ],
+   "likes": [],
+   "dislikes": [],
+   "colors": {
+    "body": "#B39675",
+    "head": "#F2F2F2",
+    "wing": "rgba(0,0,0,.2)",
+    "beak": "#222",
+    "tail": "#B39675"
+   },
+   "fact": "Fakes a broken wing to lead predators away from its nest.",
+   "art": "art/birds/killdeer.png"
+  },
+  {
+   "id": "baltimore-oriole",
+   "name": "Baltimore Oriole",
+   "sci": "Icterus galbula",
+   "group": "songbird",
+   "rarity": "uncommon",
+   "months": [
+    0,
+    0,
+    0,
+    0,
+    2,
+    2,
+    2,
+    2,
+    0,
+    0,
+    0,
+    0
+   ],
+   "habitats": [
+    "town",
+    "forest"
+   ],
+   "active": [
+    "dawn",
+    "day"
+   ],
+   "likes": [],
+   "dislikes": [],
+   "colors": {
+    "body": "#F08A24",
+    "head": "#1C1C1C",
+    "wing": "#1C1C1C",
+    "beak": "#666",
+    "tail": "#F08A24"
+   },
+   "fact": "Weaves a hanging sock-shaped nest at the tip of a branch.",
+   "art": "art/birds/baltimore-oriole.png"
+  },
+  {
+   "id": "scarlet-tanager",
+   "name": "Scarlet Tanager",
+   "sci": "Piranga olivacea",
+   "group": "songbird",
+   "rarity": "rare",
+   "months": [
+    0,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    0
+   ],
+   "habitats": [
+    "forest"
+   ],
+   "active": [
+    "dawn",
+    "day"
+   ],
+   "likes": [],
+   "dislikes": [],
+   "colors": {
+    "body": "#E1262E",
+    "head": "#E1262E",
+    "wing": "#141414",
+    "beak": "#D9C49A",
+    "tail": "#141414"
+   },
+   "fact": "Brilliant red, yet hard to spot in the high forest canopy.",
+   "art": "art/birds/scarlet-tanager.png"
+  },
+  {
+   "id": "herring-gull",
+   "name": "Herring Gull",
+   "sci": "Larus argentatus",
+   "group": "seabird",
+   "rarity": "common",
+   "months": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3
+   ],
+   "habitats": [
+    "coast",
+    "town"
+   ],
+   "active": [
+    "dawn",
+    "day",
+    "dusk"
+   ],
+   "likes": [
+    "storm",
+    "fog",
+    "rain"
+   ],
+   "dislikes": [],
+   "colors": {
+    "body": "#F2F2F2",
+    "head": "#F2F2F2",
+    "wing": "#A9B4BD",
+    "beak": "#E8C13A",
+    "tail": "#F2F2F2"
+   },
+   "fact": "Will drop clams on rocks and parking lots to crack them open.",
+   "art": "art/birds/herring-gull.png"
+  },
+  {
+   "id": "great-black-backed-gull",
+   "name": "Great Black-backed Gull",
+   "sci": "Larus marinus",
+   "group": "seabird",
+   "rarity": "common",
+   "months": [
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2
+   ],
+   "habitats": [
+    "coast"
+   ],
+   "active": [
+    "dawn",
+    "day",
+    "dusk"
+   ],
+   "likes": [
+    "storm"
+   ],
+   "dislikes": [],
+   "colors": {
+    "body": "#F2F2F2",
+    "head": "#F2F2F2",
+    "wing": "#2A2A30",
+    "beak": "#E8C13A",
+    "tail": "#F2F2F2"
+   },
+   "fact": "The largest gull in the world.",
+   "art": "art/birds/great-black-backed-gull.png"
+  },
+  {
+   "id": "common-eider",
+   "name": "Common Eider",
+   "sci": "Somateria mollissima",
+   "group": "seabird",
+   "rarity": "common",
+   "months": [
+    3,
+    3,
+    3,
+    3,
+    2,
+    2,
+    2,
+    2,
+    2,
+    3,
+    3,
+    3
+   ],
+   "habitats": [
+    "coast"
+   ],
+   "active": [
+    "dawn",
+    "day",
+    "dusk"
+   ],
+   "likes": [
+    "storm",
+    "cold"
+   ],
+   "dislikes": [],
+   "colors": {
+    "body": "#F2F2F0",
+    "head": "#1E1E1E",
+    "wing": "#1E1E1E",
+    "beak": "#9FB07A",
+    "tail": "#F2F2F0"
+   },
+   "fact": "Its down feathers are among the warmest natural insulation on Earth.",
+   "art": "art/birds/common-eider.png"
+  },
+  {
+   "id": "mallard",
+   "name": "Mallard",
+   "sci": "Anas platyrhynchos",
+   "group": "waterbird",
+   "rarity": "common",
+   "months": [
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2
+   ],
+   "habitats": [
+    "freshwater",
+    "marsh",
+    "town"
+   ],
+   "active": [
+    "dawn",
+    "day",
+    "dusk"
+   ],
+   "likes": [
+    "rain"
+   ],
+   "dislikes": [],
+   "colors": {
+    "body": "#B6A58C",
+    "head": "#2D6B3F",
+    "wing": "rgba(0,0,0,.2)",
+    "beak": "#E8C13A",
+    "tail": "#B6A58C"
+   },
+   "fact": "Nearly every domestic duck breed descends from the Mallard.",
+   "art": "art/birds/mallard.png"
+  },
+  {
+   "id": "american-black-duck",
+   "name": "American Black Duck",
+   "sci": "Anas rubripes",
+   "group": "waterbird",
+   "rarity": "common",
+   "months": [
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2
+   ],
+   "habitats": [
+    "marsh",
+    "coast",
+    "freshwater"
+   ],
+   "active": [
+    "dawn",
+    "day",
+    "dusk"
+   ],
+   "likes": [
+    "rain",
+    "cold"
+   ],
+   "dislikes": [],
+   "colors": {
+    "body": "#4A3A2C",
+    "head": "#7A6A58",
+    "wing": "rgba(0,0,0,.2)",
+    "beak": "#B9B33A",
+    "tail": "#4A3A2C"
+   },
+   "fact": "Winters along Maine's salt marshes in large rafts.",
+   "art": "art/birds/american-black-duck.png"
+  },
+  {
+   "id": "common-loon",
+   "name": "Common Loon",
+   "sci": "Gavia immer",
+   "group": "waterbird",
+   "rarity": "uncommon",
+   "months": [
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2
+   ],
+   "habitats": [
+    "freshwater",
+    "coast"
+   ],
+   "active": [
+    "dawn",
+    "day",
+    "dusk",
+    "night"
+   ],
+   "likes": [
+    "fog"
+   ],
+   "dislikes": [],
+   "colors": {
+    "body": "#1F2428",
+    "head": "#1A2A22",
+    "wing": "rgba(255,255,255,.35)",
+    "beak": "#222",
+    "tail": "#1F2428"
+   },
+   "fact": "Its haunting wail carries for miles across lakes on summer nights.",
+   "art": "art/birds/common-loon.png"
+  },
+  {
+   "id": "snow-bunting",
+   "name": "Snow Bunting",
+   "sci": "Plectrophenax nivalis",
+   "group": "songbird",
+   "rarity": "uncommon",
+   "months": [
+    2,
+    2,
+    2,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    2,
+    2
+   ],
+   "habitats": [
+    "coast",
+    "field"
+   ],
+   "active": [
+    "dawn",
+    "day"
+   ],
+   "likes": [
+    "snow",
+    "cold",
+    "wind"
+   ],
+   "dislikes": [],
+   "colors": {
+    "body": "#F2EEE6",
+    "head": "#C9A57A",
+    "wing": "#3A2E26",
+    "beak": "#C9A57A",
+    "tail": "#F2EEE6"
+   },
+   "fact": "Arctic breeder that roams winter beaches and fields in swirling flocks.",
+   "art": "art/birds/snow-bunting.png"
+  },
+  {
+   "id": "bufflehead",
+   "name": "Bufflehead",
+   "sci": "Bucephala albeola",
+   "group": "waterbird",
+   "rarity": "common",
+   "months": [
+    3,
+    3,
+    3,
+    2,
+    0,
+    0,
+    0,
+    0,
+    0,
+    2,
+    3,
+    3
+   ],
+   "habitats": [
+    "coast",
+    "freshwater"
+   ],
+   "active": [
+    "dawn",
+    "day",
+    "dusk"
+   ],
+   "likes": [
+    "cold"
+   ],
+   "dislikes": [],
+   "colors": {
+    "body": "#F2F2F2",
+    "head": "#3A2E5A",
+    "wing": "#1E1E1E",
+    "beak": "#777",
+    "tail": "#F2F2F2"
+   },
+   "fact": "Small enough to nest in old Northern Flicker holes.",
+   "art": "art/birds/bufflehead.png"
+  },
+  {
+   "id": "long-tailed-duck",
+   "name": "Long-tailed Duck",
+   "sci": "Clangula hyemalis",
+   "group": "seabird",
+   "rarity": "uncommon",
+   "months": [
+    2,
+    2,
+    2,
+    2,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    2,
+    2
+   ],
+   "habitats": [
+    "coast"
+   ],
+   "active": [
+    "dawn",
+    "day",
+    "dusk"
+   ],
+   "likes": [
+    "storm",
+    "wind",
+    "cold"
+   ],
+   "dislikes": [],
+   "colors": {
+    "body": "#E9E4DA",
+    "head": "#F2F2F2",
+    "wing": "#2A2420",
+    "beak": "#E39AA0",
+    "tail": "#E9E4DA"
+   },
+   "fact": "Dives over 200 feet deep, one of the deepest-diving ducks.",
+   "art": "art/birds/long-tailed-duck.png"
+  },
+  {
+   "id": "common-goldeneye",
+   "name": "Common Goldeneye",
+   "sci": "Bucephala clangula",
+   "group": "waterbird",
+   "rarity": "common",
+   "months": [
+    2,
+    2,
+    2,
+    2,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    2,
+    2
+   ],
+   "habitats": [
+    "coast",
+    "freshwater"
+   ],
+   "active": [
+    "dawn",
+    "day",
+    "dusk"
+   ],
+   "likes": [
+    "cold"
+   ],
+   "dislikes": [],
+   "colors": {
+    "body": "#F2F2F2",
+    "head": "#1E3A30",
+    "wing": "#1E1E1E",
+    "beak": "#222",
+    "tail": "#F2F2F2"
+   },
+   "fact": "Its wings whistle so loudly it's nicknamed the 'whistler'.",
+   "art": "art/birds/common-goldeneye.png"
+  },
+  {
+   "id": "purple-sandpiper",
+   "name": "Purple Sandpiper",
+   "sci": "Calidris maritima",
+   "group": "shorebird",
+   "rarity": "rare",
+   "months": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    1
+   ],
+   "habitats": [
+    "coast"
+   ],
+   "active": [
+    "dawn",
+    "day",
+    "dusk"
+   ],
+   "likes": [
+    "storm",
+    "wind",
+    "cold"
+   ],
+   "dislikes": [],
+   "colors": {
+    "body": "#5E5A66",
+    "head": "#5E5A66",
+    "wing": "rgba(0,0,0,.2)",
+    "beak": "#D4A23A",
+    "tail": "#5E5A66"
+   },
+   "fact": "Spends winter on wave-battered rocks where few other birds can stand.",
+   "art": "art/birds/purple-sandpiper.png"
+  },
+  {
+   "id": "pine-siskin",
+   "name": "Pine Siskin",
+   "sci": "Spinus pinus",
+   "group": "songbird",
+   "rarity": "uncommon",
+   "months": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1
+   ],
+   "habitats": [
+    "forest",
+    "town"
+   ],
+   "active": [
+    "dawn",
+    "day"
+   ],
+   "likes": [
+    "snow",
+    "cold"
+   ],
+   "dislikes": [],
+   "colors": {
+    "body": "#9A8C6A",
+    "head": "#9A8C6A",
+    "wing": "#C9B43A",
+    "beak": "#666",
+    "tail": "#9A8C6A"
+   },
+   "fact": "Shows up in big numbers some winters and is almost absent in others.",
+   "art": "art/birds/pine-siskin.png"
+  },
+  {
+   "id": "evening-grosbeak",
+   "name": "Evening Grosbeak",
+   "sci": "Coccothraustes vespertinus",
+   "group": "songbird",
+   "rarity": "rare",
+   "months": [
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    1
+   ],
+   "habitats": [
+    "forest",
+    "town"
+   ],
+   "active": [
+    "dawn",
+    "day"
+   ],
+   "likes": [
+    "snow",
+    "cold"
+   ],
+   "dislikes": [],
+   "colors": {
+    "body": "#D4B230",
+    "head": "#5A4A2A",
+    "wing": "#1E1E1E",
+    "beak": "#C8D49A",
+    "tail": "#D4B230"
+   },
+   "fact": "A loud, chunky finch whose winter visits are unpredictable.",
+   "art": "art/birds/evening-grosbeak.png"
+  },
+  {
+   "id": "semipalmated-sandpiper",
+   "name": "Semipalmated Sandpiper",
+   "sci": "Calidris pusilla",
+   "group": "shorebird",
+   "rarity": "uncommon",
+   "months": [
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    2,
+    2,
+    2,
+    0,
+    0,
+    0
+   ],
+   "habitats": [
+    "coast",
+    "marsh"
+   ],
+   "active": [
+    "dawn",
+    "day",
+    "dusk"
+   ],
+   "likes": [],
+   "dislikes": [],
+   "colors": {
+    "body": "#9A8E80",
+    "head": "#9A8E80",
+    "wing": "rgba(0,0,0,.2)",
+    "beak": "#222",
+    "tail": "#9A8E80"
+   },
+   "fact": "Fattens up on Maine mudflats before flying non-stop to South America.",
+   "art": "art/birds/semipalmated-sandpiper.png"
+  },
+  {
+   "id": "black-bellied-plover",
+   "name": "Black-bellied Plover",
+   "sci": "Pluvialis squatarola",
+   "group": "shorebird",
+   "rarity": "uncommon",
+   "months": [
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    2,
+    2,
+    2,
+    0,
+    0
+   ],
+   "habitats": [
+    "coast"
+   ],
+   "active": [
+    "dawn",
+    "day",
+    "dusk"
+   ],
+   "likes": [],
+   "dislikes": [],
+   "colors": {
+    "body": "#C9C9C2",
+    "head": "#2A2A2A",
+    "wing": "rgba(0,0,0,.2)",
+    "beak": "#222",
+    "tail": "#C9C9C2"
+   },
+   "fact": "Often the first to sound the alarm on a mudflat, warning the whole flock.",
+   "art": "art/birds/black-bellied-plover.png"
+  }
+ ]
+}
